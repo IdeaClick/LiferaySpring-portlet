@@ -5,10 +5,10 @@
 <!DOCTYPE html PUBLIC>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <%--<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-      <script src="/IdeaClicksMVP/docroot/WEB-INF/js/aui-min.js"></script>
-      <link href="/IdeaClicksMVP/docroot/WEB-INF/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
+      <link href="${pageContext.request.contextPath}/bootstrap.min.css" rel="stylesheet"></link> --%>
 </head>
 <body>
 <div id="myCarousel">

@@ -1,11 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
-<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
-<%@page import="com.liferay.portal.kernel.captcha.CaptchaTextException"%>
-<%@page import="com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException"%>
-<liferay-theme:defineObjects />
 <portlet:defineObjects/>
 
 <portlet:actionURL var="forgetpassAction">

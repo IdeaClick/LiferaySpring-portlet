@@ -20,11 +20,14 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
+import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.ideaclicks.liferay.spring.util.LiferaySessionUtil;
+import com.ideaclicks.liferay.spring.util.VerifyRecaptcha;
 
 @Controller("loginController")
 @RequestMapping("VIEW")
@@ -38,10 +41,30 @@ public class LoginController extends MVCPortlet  {
 	@Autowired
 	private IdeaManagementService ideamgmtService;
 	
-	@RenderMapping
-	public String login(Map<String, Object> map) {
-		map.put("login", new OrganizationRegistration());
+	@RenderMapping 
+	public String login(RenderRequest request, RenderResponse response, Model model,Map<String, Object> map) throws IOException,
+	PortletException {
+		
+		try{
+			
+			Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("sessionValue", request);
+			String currentSessionvalue = sessionvalue.toString();
+			
+			PortletSession portletSession=request.getPortletSession();
+			portletSession.removeAttribute(currentSessionvalue);
+			
+		}catch (Exception e) {
+			
+			LOG.debug("check for the exception here" + e.getMessage());
+		}
+			
 		return "login";
+	}
+	
+	@RenderMapping(params = "action=loginForm")
+	public ModelAndView renderOneMethod(RenderRequest request, RenderResponse response, Model model, @ModelAttribute("login") OrganizationRegistration registration, BindingResult result) throws IOException,
+			PortletException,MinervaException {
+				return new ModelAndView("login");
 	}
 	
 	@RenderMapping(params = "action=login") 
@@ -49,23 +72,35 @@ public class LoginController extends MVCPortlet  {
 	PortletException,SecurityException{ 
 		boolean value = true;
 		try {
+
+			// get reCAPTCHA request param
+	        String gRecaptchaResponse = renderRequest.getParameter("g-recaptcha-response");
+	        System.out.println(gRecaptchaResponse);
+	        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
+	        System.out.println("Captcha Resopnse"+verify);
+	     if(verify){
+	    	 
 			String emailId = ParamUtil.getString(renderRequest,"email");
 			String password = ParamUtil.getString(renderRequest,"pswd");
+			String orgcode =  ParamUtil.getString(renderRequest,"orgCode");
 			System.out.println("Email Id:"+emailId);
 			
-			//value = ideamgmtService.authenticateUser(emailId, password);
+			value = ideamgmtService.authenticateUser(emailId, password ,orgcode);
 			
 			if(value){
 				System.out.println("Pass:"+password);
-				LiferaySessionUtil.setGlobalSessionAttribute("orgCode","tcs@123", renderRequest);
-					/*PortletSession session = renderRequest.getPortletSession();
-					session.setAttribute("orgCode","tcs@123", PortletSession.APPLICATION_SCOPE);*/
+				LiferaySessionUtil.setGlobalSessionAttribute("sessionValue",orgcode, renderRequest);
+				SessionMessages.add(renderRequest, "success");
 				return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 			}
 			else{
 					SessionErrors.add(renderRequest, "error");
-				return new ModelAndView("login");
-			}
+					return new ModelAndView("login");
+				}
+	     }else{
+	    	 System.out.println("Captcha Resopnse"+verify);
+    		  SessionErrors.add(renderRequest, "captcha");
+	     }
 			
 			}catch(SecurityException se) {
 				LOG.error("SecurityException " + se.getMessage());

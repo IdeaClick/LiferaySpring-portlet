@@ -26,7 +26,7 @@ public interface IdeaManagementService {
 	 * @throws SecurityException
 	 * 
 	 */
-	public boolean authenticateUser(String email, String password)
+	public boolean authenticateUser(String email, String password,String orgcode)
 			throws SecurityException;
 	
 	/**
@@ -54,7 +54,7 @@ public interface IdeaManagementService {
      * @return List of Organization objects
      *  @throws AdminException
      */
-    public List<OrganizationRegistration> getOrganizationList()throws AdminException;
+    public List<OrganizationRegistration> getOrganizationNameList()throws AdminException;
     /**
 	 * Forget password .
 	 * 

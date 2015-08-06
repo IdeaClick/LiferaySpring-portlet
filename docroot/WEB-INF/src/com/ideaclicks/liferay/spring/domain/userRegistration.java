@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="X_USER")
+@Table(name="X_USERS")
 public class userRegistration implements Serializable{
 
 	
@@ -23,11 +23,11 @@ public class userRegistration implements Serializable{
 	@GeneratedValue
 	private int id;
 	
+	@Column(name="ORGANIZATION_CODE")
+	private String orgCode;
+	
 	@Column(name="USER_NAME")
 	private String userName;
-	
-	@Column(name="ORGANIZATION_NAME")
-	private String orgName;
 	
 	@Column(name="USER_EMAIL")
 	private String email;
@@ -40,9 +40,7 @@ public class userRegistration implements Serializable{
 
 	@Column(name="STATUS")
 	private String status;
-
 	
-
 	/**
 	 * @return the id
 	 */
@@ -86,20 +84,6 @@ public class userRegistration implements Serializable{
 	}
 
 	/**
-	 * @return the orgName
-	 */
-	public String getOrgName() {
-		return orgName;
-	}
-
-	/**
-	 * @param orgName the orgName to set
-	 */
-	public void setOrgName(String orgName) {
-		this.orgName = orgName;
-	}
-
-	/**
 	 * @return the email
 	 */
 	public String getEmail() {
@@ -129,13 +113,14 @@ public class userRegistration implements Serializable{
 		this.status = status;
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "userRegistration [id=" + id + ", userName=" + userName
-				+ ", orgName=" + orgName + ", email=" + email + ", contact="
+				+ ", orgName=" + ", email=" + email + ", contact="
 				+ contact + ", status=" + status + "]";
 	}
 
@@ -145,6 +130,14 @@ public class userRegistration implements Serializable{
 
 	public void setPswd(String pswd) {
 		this.pswd = pswd;
+	}
+
+	public String getOrgCode() {
+		return orgCode;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
 
 	

@@ -1,18 +1,13 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
-<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
-<%@page import="com.liferay.portal.kernel.captcha.CaptchaTextException"%>
-<%@page import="com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException"%>
-<liferay-theme:defineObjects />
 <portlet:defineObjects/>
 
 <portlet:renderURL var="loginURL">
 <portlet:param name="action" value="login"></portlet:param>
 </portlet:renderURL>
-
+<liferay-ui:success key="success" message="Sucessfully Login" />
 <liferay-ui:error key="error" message="Invalid User Name or Password" />
+<liferay-ui:error key="captcha" message="Captcha not verified" />
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -41,27 +36,32 @@
       
       		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>   
      		 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   
+     		 
+     		 <script src='https://www.google.com/recaptcha/api.js'></script>
      		    		    
  </head>
- <body onload="document.login.username.focus();">
+ <body onload="document.login.email.focus();">
 <form:form name="login" modelAttribute="login" method="post" action="${loginURL}" >
 <div id="main">
 	<div class="box" style="margin-left: 108px">Email Id:<br>
-		<input type="text" name="<portlet:namespace />email" placeholder="Enter Your Email" id="email" style="height: 30px; width: 260px">
+		<input type="text" name="<portlet:namespace />email" placeholder="Enter Your Email" id="email" style="height: 30px; width: 300px">
 	</div><!-- end of box -->
 	
-	<div class="box" style="margin-left: 108px">Password:
-	<b style="margin-left: 70px"><a href="<portlet:renderURL>
+	<div class="box" style="margin-left: 108px">Password:&nbsp;&nbsp;
+	<b><a href="<portlet:renderURL>
 					<portlet:param name="action" value="forgetPassword"/>
-				</portlet:renderURL>">Forget Password?
+				</portlet:renderURL>">(Forget Password?)
 	</a></b><br>
-		<input type="password" name="<portlet:namespace />pswd" placeholder="Enter Your Password" id="password" style="height: 30px; width: 260px" >
+		<input type="password" name="<portlet:namespace />pswd" placeholder="Enter Your Password" id="password" style="height: 30px; width: 300px" >
 	</div><!-- end of box -->
 
 	<div class="box" style="margin-left: 108px">Organization Name:<br>
-		<input name="<portlet:namespace />orgName" id="orgName" type="text" style="height: 30px; width: 260px">
+		<input name="<portlet:namespace />orgCode" id="orgName" type="text" style="height: 30px; width: 300px">
 	</div><!-- end of box -->
-								
+		
+	<div style="margin-left: 108px" class="g-recaptcha" data-sitekey="6LdX4goTAAAAAExl9KqVXKjpmyPodHDrJGOeYo7s">
+	</div><!-- end of box -->
+										
 	<div class="box" style="margin-left: 108px">
 		<label class="checkbox">
                     <input type="checkbox" value="remember-me" id="remember_me"> Remember me

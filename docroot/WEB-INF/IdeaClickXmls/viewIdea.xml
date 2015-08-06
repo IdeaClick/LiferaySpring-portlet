@@ -17,7 +17,25 @@
 	<bean id="parameterMappingInterceptor"
 		class="org.springframework.web.portlet.handler.ParameterMappingInterceptor" />
 
-	
+	<bean id="portletModeParameterHandlerMapping"
+		class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="parameterMappingInterceptor" />
+			</list>
+		</property>
+		<property name="portletModeParameterMap">
+			<map>
+				<entry key="view">
+					<map>
+						<entry key="viewSubmitIdeaPage">
+							<ref bean="submitIdeaController" />
+						</entry>
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
 
 	<bean id="portletModeHandlerMapping"
 		class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">

@@ -1,12 +1,9 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
-<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
-<%@page import="com.liferay.portal.kernel.captcha.CaptchaTextException"%>
-<%@page import="com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException"%>
-<liferay-theme:defineObjects />
 <portlet:defineObjects/>
+
 <portlet:renderURL var="submitIdeaURL">
 	<portlet:param name="action" value="submitIdea" />
 </portlet:renderURL>
@@ -14,13 +11,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	  <script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
       <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
-<title>Submit Ideas</title>
-
 </head>
 <body>
+<h4>Submit Your Ideas</h4>
 <hr>
 <div id="main">
 <form:form id="myform" name="submit_idea" modelAttribute="submit_idea" method="post" action="${submitIdeaURL}">	

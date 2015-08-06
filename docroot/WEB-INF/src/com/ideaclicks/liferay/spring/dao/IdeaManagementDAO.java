@@ -18,7 +18,7 @@ public interface IdeaManagementDAO {
 	 * @return boolean value true or false
 	 * @throws DataAccessException
 	 * */
-	public boolean authenticateUser(String username, String password)
+	public boolean authenticateUser(String username, String password ,String orgcode)
 			throws DataAccessException;
 	
 	public List<OrganizationRegistration> getuserByemail(String username)
@@ -37,6 +37,13 @@ public interface IdeaManagementDAO {
 	public void newUserRegistration(userRegistration registration)
 			throws DataAccessException;
 	
+	/**
+     * This method returns the collection of Organization
+     * 
+     * @return List Of Organization
+     * @throws DataAccessException
+     */
+    public List<OrganizationRegistration> getOrganizationNameList()throws DataAccessException;
     
     /**
      * This method returns the collection of Organization
@@ -44,7 +51,7 @@ public interface IdeaManagementDAO {
      * @return List Of Organization
      * @throws DataAccessException
      */
-    public List<OrganizationRegistration> getOrganizationList()throws DataAccessException;
+    public List<OrganizationRegistration> getOrganizationCodeList()throws DataAccessException;
     
     /**
      * This method returns the collection of Ideas
@@ -70,7 +77,7 @@ public interface IdeaManagementDAO {
      */
     
     
-    public List<userRegistration> getUserList()throws DataAccessException;
+    public List<userRegistration> getUserEmailList()throws DataAccessException;
     
     /**
      * This method returns the list Of registered organization email List for forget password  
@@ -78,7 +85,7 @@ public interface IdeaManagementDAO {
      * @return List Of registered organization email List 
      * @throws DataAccessException
      */
-    public List<OrganizationRegistration> getOrgRegEmailList() throws DataAccessException;
+    public List<OrganizationRegistration> getOrganizationEmailList() throws DataAccessException;
 	/**
 	 * Forget password.
      * @param String email

@@ -19,6 +19,7 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import com.ideaclicks.liferay.spring.domain.Ideas;
+import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.LiferaySessionUtil;
@@ -46,6 +47,11 @@ public class SubmitIdeaController {
 		return "submitIdea";
 	}
 	
+	@RenderMapping(params = "action=viewSubmitIdeaPage")
+	public ModelAndView renderOneMethod(RenderRequest request, RenderResponse response, Model model, @ModelAttribute("submit_idea") Ideas idea, BindingResult result) throws IOException,
+			PortletException,MinervaException {
+			return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
+	}
 	
 	@RenderMapping(params = "action=submitIdea")
 	public ModelAndView submitIdeas(RenderRequest renderRequest,RenderResponse renderResponse, Model model,@ModelAttribute("submit_idea") Ideas idea, BindingResult result) throws IOException,
@@ -53,7 +59,7 @@ public class SubmitIdeaController {
 		boolean value = false;
 		try{
 						
-			Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("orgCode", renderRequest);
+			Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("sessionValue", renderRequest);
 			
 			System.out.println("Session value:"+ sessionvalue);
 			String currentSessionvalue = sessionvalue.toString();
@@ -61,13 +67,14 @@ public class SubmitIdeaController {
 			idea.setOrgCode(currentSessionvalue);
 		
 				value=ideamgmtService.SubmitIdea(idea);
-				System.out.println("Valllllllllll"+value);
+				
 				if(value){
-					System.out.println("1");
+								SessionErrors.add(renderRequest, "success");
 						return new ModelAndView("viewIdeas","IdeasList",ideamgmtService.getIdeaList(currentSessionvalue));
 					}
 				else{
 						SessionErrors.add(renderRequest, "error");
+						return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 					}
 			}catch (MinervaException me) {
 			
@@ -78,6 +85,4 @@ public class SubmitIdeaController {
 				}
 		return new ModelAndView("viewIdeas");
 	}
-
-
 }

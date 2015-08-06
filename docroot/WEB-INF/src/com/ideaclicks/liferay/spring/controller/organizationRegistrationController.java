@@ -2,16 +2,12 @@ package com.ideaclicks.liferay.spring.controller;
 
 import java.io.IOException;
 import java.util.Map;
-
 import javax.crypto.Cipher;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +19,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.RandomPasswordGenerator;
+import com.ideaclicks.liferay.spring.util.VerifyRecaptcha;
 import com.ideaclicks.liferay.spring.util.SendEmail;
 import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 
@@ -79,15 +73,23 @@ public class organizationRegistrationController    {
 		boolean res = false;
 		try {
 			
+			 // get reCAPTCHA request param
+	        String gRecaptchaResponse = actionRequest.getParameter("g-recaptcha-response");
+	        System.out.println(gRecaptchaResponse);
+	        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
+	        System.out.println("Captcha Resopnse"+verify);
+	     if(verify)
+	        {
 				pswd = RandomPasswordGenerator.generatePswd();
 		        password = pswd.toString();
+		   		System.out.println("passwor"+pswd);
 		   		
 				registration.setPswd(password);
 				registration.setStatus("DEACTIVATE");
-				
-				CaptchaUtil.check(actionRequest);
+		
+				System.out.println("sss");
 				res = ideamgmtService.organizationRegistration(registration);
-				
+				System.out.println("valueeeeeeeeee"+res);
 				if(res){
 							LOG.info("Registration Complete");
 							//snd.getDetails(registration.getEmail(),password);
@@ -97,6 +99,12 @@ public class organizationRegistrationController    {
 							LOG.info("Organization already registered");
 							SessionErrors.add(actionRequest, "error");
 							}
+	        }
+	     	else
+	     	{
+	     		  System.out.println("Captcha Resopnse"+verify);
+	     		  SessionErrors.add(actionRequest, "captcha");
+	     	}
 			
 				}  catch (MinervaException e) {
 					ObjectError error = new ObjectError("Organization Registered",e.getMessage());
@@ -106,32 +114,7 @@ public class organizationRegistrationController    {
 	        }catch(Exception e){
 	            LOG.error("Exception " + e.getMessage());
 
-				if (e instanceof CaptchaTextException || e instanceof CaptchaMaxChallengesException ){
-					SessionErrors.add(actionRequest, e.getClass(), e);
-					ObjectError errorMessage = new ObjectError("Captcha Error ",e.getMessage());
-					result.addError(errorMessage);
-				}else{
-						System.out.println("Captcha verification success::");
-				}
 	        }		
-	}
-	
-	 /**
-     * The below code is responsible for rendering the CAPTCHA image
-     */
-	
-	@ResourceMapping(value = "captchaURL") 
-	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse)
-		throws  IOException, PortletException {
-
-		try {
-			System.out.println("rrrrrrrrrr");
-			CaptchaUtil.serveImage(resourceRequest, resourceResponse);
-		}
-		catch (Exception e) {
-			LOG.error(e);
-		}
 	}
 	
 }

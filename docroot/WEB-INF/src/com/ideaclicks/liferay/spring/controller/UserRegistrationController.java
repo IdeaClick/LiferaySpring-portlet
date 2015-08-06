@@ -9,8 +9,6 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ideaclicks.liferay.spring.domain.userRegistration;
@@ -31,9 +28,9 @@ import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.RandomPasswordGenerator;
 import com.ideaclicks.liferay.spring.util.SendEmail;
+import com.ideaclicks.liferay.spring.util.VerifyRecaptcha;
 import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 
@@ -72,26 +69,36 @@ public class UserRegistrationController {
 			PortletException,MinervaException  {
 		boolean res = false;
 		try {
-			pswd = RandomPasswordGenerator.generatePswd();
-	        password = pswd.toString();
+			
+			 // get reCAPTCHA request param
+	        String gRecaptchaResponse = actionRequest.getParameter("g-recaptcha-response");
+	        System.out.println(gRecaptchaResponse);
+	        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
+	        System.out.println("Captcha Resopnse"+verify);
+	    
+	        if(verify) {
 		
-			uRegistration.setPswd(password);
-			uRegistration.setStatus("DEACTIVATE");	
+	        		pswd = RandomPasswordGenerator.generatePswd();
+	        		password = pswd.toString();
+		
+	        		uRegistration.setPswd(password);
+	        		uRegistration.setStatus("DEACTIVATE");	
 			
-			CaptchaUtil.check(actionRequest);
-			res =ideamgmtService.newUserRegistration(uRegistration);
+	        		res =ideamgmtService.newUserRegistration(uRegistration);
 			
-			if(res)
-			{
-					LOG.info("Registration Complete");
-					//snd.getDetails(uRegistration.getEmail(),password);
-					SessionMessages.add(actionRequest, "success");
-			}
-			else
-			{
-					LOG.info("Already registered");
-				SessionErrors.add(actionRequest, "error");	
-			}
+	        		if(res){
+	        			LOG.info("Registration Complete");
+	        			//snd.getDetails(uRegistration.getEmail(),password);
+	        			SessionMessages.add(actionRequest, "success");
+	        		}
+	        		else{
+	        			LOG.info("Already registered");
+	        			SessionErrors.add(actionRequest, "error");	
+	        		}
+	        }else{
+	        	 System.out.println("Captcha Resopnse"+verify);
+	     		  SessionErrors.add(actionRequest, "captcha");
+	        }
 			
 		}  catch (MinervaException e) {
 				ObjectError error = new ObjectError("User Registered",e.getMessage());
@@ -100,29 +107,6 @@ public class UserRegistrationController {
 				
         }catch(Exception e){
             LOG.error("Exception " + e.getMessage());
-
-			if (e instanceof CaptchaTextException || e instanceof CaptchaMaxChallengesException ){
-				SessionErrors.add(actionRequest, e.getClass(), e);
-				ObjectError errorMessage = new ObjectError("Captcha Error ",e.getMessage());
-				result.addError(errorMessage);
-		}else{
-				System.out.println("Captcha verification success::");
-			}
         }	
-	}
-	 /**
-     * The below code is responsible for rendering the CAPTCHA image
-     */
-	@ResourceMapping(value = "captchaURL") 
-	public void serveResource(ResourceRequest resourceRequest,
-			ResourceResponse resourceResponse)
-		throws  IOException, PortletException {
-
-		try {
-			CaptchaUtil.serveImage(resourceRequest, resourceResponse);
-		}
-		catch (Exception e) {
-			LOG.error(e);
-		}
 	}
 }

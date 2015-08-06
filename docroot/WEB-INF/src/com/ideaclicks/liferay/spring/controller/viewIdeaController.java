@@ -23,16 +23,16 @@ public class viewIdeaController {
 	/**
      * This field holds the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLog(LoginController.class);
+    private static final Log LOG = LogFactory.getLog(viewIdeaController.class);
 
 	@Autowired
 	private IdeaManagementService ideamgmtService;
 	
 	@RenderMapping
-	public String home(RenderRequest request, RenderResponse response, Model model,Map<String, Object> map) throws IOException,
+	public String viewIdeas(RenderRequest request, RenderResponse response, Model model,Map<String, Object> map) throws IOException,
 				PortletException, MinervaException {
 	try{
-		Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("orgCode", request);
+		Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("sessionValue", request);
 		String currentSessionvalue = sessionvalue.toString();
 		map.put("IdeasList", ideamgmtService.getIdeaList(currentSessionvalue));
 	}catch(MinervaException e)

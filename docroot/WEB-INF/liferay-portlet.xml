@@ -34,6 +34,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	
 	</portlet>
+	
 	<role-mapper>
 	
 		<role-name>administrator</role-name>

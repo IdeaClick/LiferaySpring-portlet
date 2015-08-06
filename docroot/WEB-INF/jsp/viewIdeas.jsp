@@ -1,12 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 <%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
 <portlet:defineObjects/>
+
+<liferay-ui:success key="success" message="Idea Submitted Sucessfully " />
 
 <!DOCTYPE html>
 <html>
 <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	  <script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
       <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
 <title>View Ideas</title>
 
@@ -149,8 +153,15 @@
     		</div>
     	</div>
     	<br>
-    	</c:forEach>   	
-
+    	</c:forEach> 
+    	  	
+	<div id="box" align="right">
+		<a class="btn"
+			href="<portlet:renderURL>
+					<portlet:param name="action" value="viewSubmitIdeaPage"/>
+					</portlet:renderURL>">Back
+		</a>
+	</div>
     	<!-- <div class="idea-container">
     		<a class="idea-tile">
     			Liferay Framework

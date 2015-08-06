@@ -25,7 +25,7 @@ public class DisplayRegOrgController {
 	@RenderMapping
 	public String home(Map<String, Object> map)throws MinervaException{
 		try {
-			map.put("OrganizationList",ideamgmtService.getOrganizationList());
+			map.put("OrganizationList",ideamgmtService.getOrganizationNameList());
 		} catch (MinervaException me) {
             // redirected to error page
             LOG.debug("check for the exception here" + me.getMessage());

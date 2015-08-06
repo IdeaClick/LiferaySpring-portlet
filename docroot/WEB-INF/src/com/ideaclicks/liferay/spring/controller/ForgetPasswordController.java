@@ -75,16 +75,6 @@ public class ForgetPasswordController{
 		return new ModelAndView("forgetPassword");
 	}
 	
-	/*public static String decrypt(String encryptedText, SecretKey secretKey)
-			throws Exception {
-	
-		byte[] encryptedTextByte = Base64.decode(encryptedText);
-		cipher.init(Cipher.DECRYPT_MODE, secretKey);
-		byte[] decryptedByte = cipher.doFinal(encryptedTextByte);
-		String decryptedText = new String(decryptedByte);
-		System.out.println("Decrepted Text==============="+decryptedText);
-		return decryptedText;
-	}*/
 }
 	
 

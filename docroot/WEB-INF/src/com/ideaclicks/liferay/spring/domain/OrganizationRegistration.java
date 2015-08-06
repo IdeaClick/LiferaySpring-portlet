@@ -43,8 +43,7 @@ public class OrganizationRegistration implements Serializable{
 	@Column(name="STATUS")
 	private String status;
 	
-	
-	
+		
 	/**
 	 * @return the id
 	 */
@@ -65,8 +64,6 @@ public class OrganizationRegistration implements Serializable{
 	public void setStatus(String status) {
 		this.status = "DEACTIVATE";
 	}
-
-
 
 	/**
 	 * @param id the id to set
@@ -154,6 +151,14 @@ public class OrganizationRegistration implements Serializable{
 				+ ", orgType=" + orgType + ", email=" + email + ", pswd="
 				+ pswd + ", contactNo=" + contactNo + ", status=" + status
 				+ "]";
+	}
+
+	public String getOrgCode() {
+		return orgCode;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}	
 	
 }

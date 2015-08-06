@@ -28,13 +28,14 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 		    
-	public boolean authenticateUser(String username, String password) {
+	public boolean authenticateUser(String username, String password,String orgcode) {
 		LOG.info("In login authentication");
 		
-		String sql = "from OrganizationRegistration r " + "where r.email = ? and r.pswd = ?";
+		String sql = "from OrganizationRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
 		List list = sessionFactory.getCurrentSession().createQuery(sql)
 		.setParameter(0, username)
 		.setParameter(1, password)
+		.setParameter(2, orgcode)
 		.list();
 		
 		if(list.size() != 0){
@@ -65,7 +66,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	
 	@Override
 	public void organizationRegistration(OrganizationRegistration registration) {
-		
+		System.out.println("Dao..............");
 		sessionFactory.getCurrentSession().save(registration);
 	
 	}
@@ -77,7 +78,19 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<OrganizationRegistration> getOrganizationList() throws DataAccessException {
+	public List<OrganizationRegistration> getOrganizationCodeList() throws DataAccessException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.property("orgCode"), "orgCode");
+		criteria.setProjection(Projections.distinct(projList));
+		criteria.setResultTransformer(Transformers.aliasToBean(OrganizationRegistration.class));
+		List<OrganizationRegistration> orgList = criteria.list();
+		System.out.println("List"+orgList);
+		return orgList ;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<OrganizationRegistration> getOrganizationNameList() throws DataAccessException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
 		ProjectionList projList = Projections.projectionList();
 		projList.add(Projections.property("orgName"), "orgName");
@@ -86,6 +99,18 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		List<OrganizationRegistration> orgList = criteria.list();
 		System.out.println("List"+orgList);
 		return orgList ;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<OrganizationRegistration> getOrganizationEmailList() throws DataAccessException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.property("email"), "email");
+		criteria.setProjection(Projections.distinct(projList));
+		criteria.setResultTransformer(Transformers.aliasToBean(OrganizationRegistration.class));
+		List<OrganizationRegistration> emailList = criteria.list();
+		System.out.println("List"+emailList);
+		return emailList ;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -111,23 +136,11 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	return IdeaCategoryList ;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<OrganizationRegistration> getOrgRegEmailList() throws DataAccessException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
-		ProjectionList projList = Projections.projectionList();
-		projList.add(Projections.property("email"), "email");
-		criteria.setProjection(Projections.distinct(projList));
-		criteria.setResultTransformer(Transformers.aliasToBean(OrganizationRegistration.class));
-		List<OrganizationRegistration> emailList = criteria.list();
-		System.out.println("List"+emailList);
-		return emailList ;
-	}
-	
 	@SuppressWarnings("unchecked")	
-	public List<userRegistration> getUserList() throws DataAccessException {
+	public List<userRegistration> getUserEmailList() throws DataAccessException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(userRegistration.class);		
 		ProjectionList projList = Projections.projectionList();
-		projList.add(Projections.property("userName"), "userName");
+		projList.add(Projections.property("email"), "email");
 		criteria.setProjection(Projections.distinct(projList));
 		criteria.setResultTransformer(Transformers.aliasToBean(userRegistration.class));
 		List<userRegistration> userList = criteria.list();
