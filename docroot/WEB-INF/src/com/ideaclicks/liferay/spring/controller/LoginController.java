@@ -43,21 +43,7 @@ public class LoginController extends MVCPortlet  {
 	
 	@RenderMapping 
 	public String login(RenderRequest request, RenderResponse response, Model model,Map<String, Object> map) throws IOException,
-	PortletException {
-		
-		try{
-			
-			Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("sessionValue", request);
-			String currentSessionvalue = sessionvalue.toString();
-			
-			PortletSession portletSession=request.getPortletSession();
-			portletSession.removeAttribute(currentSessionvalue);
-			
-		}catch (Exception e) {
-			
-			LOG.debug("check for the exception here" + e.getMessage());
-		}
-			
+	PortletException {		
 		return "login";
 	}
 	
@@ -90,7 +76,9 @@ public class LoginController extends MVCPortlet  {
 			if(value){
 				System.out.println("Pass:"+password);
 				LiferaySessionUtil.setGlobalSessionAttribute("sessionValue",orgcode, renderRequest);
-				SessionMessages.add(renderRequest, "success");
+				PortletSession session = renderRequest.getPortletSession();
+				session.setAttribute("loginUserEmail",emailId, PortletSession.PORTLET_SCOPE);
+				SessionMessages.add(renderRequest, "loginsuccess");
 				return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 			}
 			else{

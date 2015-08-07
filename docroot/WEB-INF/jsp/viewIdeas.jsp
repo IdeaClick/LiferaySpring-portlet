@@ -5,7 +5,8 @@
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
 <portlet:defineObjects/>
 
-<liferay-ui:success key="success" message="Idea Submitted Sucessfully " />
+<liferay-ui:success key="success" message="Idea Submitted" />
+<liferay-ui:error key="error" message="Sorry,Idea not submitted" />
 
 <!DOCTYPE html>
 <html>
@@ -147,7 +148,7 @@
     			<br>
     			Submitted By:
     			<span class="submit-by">
-    				${Idea.author}
+    				${Idea.submittedBy}
     			</span>
 
     		</div>
@@ -155,13 +156,13 @@
     	<br>
     	</c:forEach> 
     	  	
-	<div id="box" align="right">
+	<%-- <div id="box" align="right">
 		<a class="btn"
 			href="<portlet:renderURL>
 					<portlet:param name="action" value="viewSubmitIdeaPage"/>
 					</portlet:renderURL>">Back
 		</a>
-	</div>
+	</div> --%>
     	<!-- <div class="idea-container">
     		<a class="idea-tile">
     			Liferay Framework

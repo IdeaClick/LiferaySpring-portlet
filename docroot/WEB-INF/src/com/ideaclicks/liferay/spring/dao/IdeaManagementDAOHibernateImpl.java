@@ -40,13 +40,11 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		
 		if(list.size() != 0){
 			LOG.debug("User Found");
-			//System.out.println("User found");
 			return true;
 		}
 		else
 		{
 			LOG.debug("User not Found");
-			//System.out.println("User Not found");
 			return false;
 		}
 	}
@@ -84,9 +82,9 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		projList.add(Projections.property("orgCode"), "orgCode");
 		criteria.setProjection(Projections.distinct(projList));
 		criteria.setResultTransformer(Transformers.aliasToBean(OrganizationRegistration.class));
-		List<OrganizationRegistration> orgList = criteria.list();
-		System.out.println("List"+orgList);
-		return orgList ;
+		List<OrganizationRegistration> orgCodeList = criteria.list();
+		System.out.println("List"+orgCodeList);
+		return orgCodeList ;
 	}
 	
 	@SuppressWarnings("unchecked")

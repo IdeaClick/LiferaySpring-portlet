@@ -82,11 +82,13 @@ public class organizationRegistrationController    {
 	        {
 				pswd = RandomPasswordGenerator.generatePswd();
 		        password = pswd.toString();
-		   		System.out.println("passwor"+pswd);
+		   		System.out.println("passwor"+password);
 		   		
 				registration.setPswd(password);
 				registration.setStatus("DEACTIVATE");
-		
+					
+				LOG.info("Organization Name:"+registration.getOrgName()+"Organization Code:"+registration.getOrgCode()+"Organization Type:"+registration.getOrgType()+
+						"Organization Email:"+registration.getEmail()+"Organization Contact:"+registration.getContactNo());
 				System.out.println("sss");
 				res = ideamgmtService.organizationRegistration(registration);
 				System.out.println("valueeeeeeeeee"+res);

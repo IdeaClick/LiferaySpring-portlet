@@ -7,6 +7,8 @@
 <portlet:renderURL var="submitIdeaURL">
 	<portlet:param name="action" value="submitIdea" />
 </portlet:renderURL>
+<liferay-ui:success key="loginsuccess" message="Login successfully" />
+<liferay-ui:success key="success" message="Idea Submitted" />
 <liferay-ui:error key="error" message="Sorry,Idea not submitted" />
 <!DOCTYPE html>
 <html>

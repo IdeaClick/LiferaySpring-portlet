@@ -64,14 +64,17 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 		boolean flag2 = true;
 		boolean value = false;
 		try{
+			System.out.println("we r in org ");
 			LOG.debug("ideamanagementDao============" + ideamanagementDAO);
 			
 		 	List<OrganizationRegistration> orgCodelist = ideamanagementDAO.getOrganizationCodeList();
 		 	List<OrganizationRegistration> orgEmaillist = ideamanagementDAO.getOrganizationEmailList();
 		 	
-		 	LOG.debug("got the list============" + orgCodelist);
+		 	LOG.debug("got Organization Code list============" + orgCodelist);
+		 	LOG.debug("got Organization Email list============" + orgEmaillist);
 		 	if (orgCodelist.isEmpty() && orgEmaillist.isEmpty()) {
-		 		LOG.debug("User Organization Email and code list empty============");	
+		 		LOG.debug("User Organization Email and code list empty============");
+		 		System.out.println("1");
 		 	}
 		 	else{
 		 		Iterator<OrganizationRegistration> iterator = orgCodelist.iterator();
@@ -80,14 +83,16 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 					if(reg.getOrgCode().equalsIgnoreCase(registration.getOrgCode())){
 						LOG.debug("Repeated Organization code============");	
 						flag1 = false;
+						System.out.println("2"+flag1);
 					}
 				}
 				Iterator<OrganizationRegistration> iterator1 = orgEmaillist.iterator();
 				while(iterator1.hasNext()) {
-					OrganizationRegistration reg = iterator.next();
+					OrganizationRegistration reg = iterator1.next();
 					if(reg.getEmail().equalsIgnoreCase(registration.getEmail())){
 						LOG.debug("Repeated Organization email============");	
 						flag2 = false;
+						System.out.println("3"+flag2);
 					}
 				}			
 		 	}	
@@ -97,9 +102,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 		 		ideamanagementDAO.organizationRegistration(registration);
 		 		value = true;
 			}
-		 	else{
-		 		value = false;
-		 	}
+		 	
 		}catch(DataIntegrityViolationException cve) {
             LOG.debug(" inside organization Registration service========>>"
                     + cve.getClass().getName());

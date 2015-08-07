@@ -34,7 +34,14 @@ public class viewIdeaController {
 	try{
 		Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("sessionValue", request);
 		String currentSessionvalue = sessionvalue.toString();
-		map.put("IdeasList", ideamgmtService.getIdeaList(currentSessionvalue));
+		System.out.println("Session Value"+currentSessionvalue);
+		if(!currentSessionvalue.isEmpty()){
+				map.put("IdeasList", ideamgmtService.getIdeaList(currentSessionvalue));
+		}
+		else
+		{
+			return "gotoLoginViewIdeas";
+		}
 	}catch(MinervaException e)
 	{
 		LOG.debug(e.getMessage());

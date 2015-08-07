@@ -142,19 +142,16 @@ public class OrganizationRegistration implements Serializable{
 		this.pswd = pswd;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	public String getOrgCode() {
+		return orgCode;
+	}
+
 	@Override
 	public String toString() {
 		return "OrganizationRegistration [id=" + id + ", orgName=" + orgName
-				+ ", orgType=" + orgType + ", email=" + email + ", pswd="
-				+ pswd + ", contactNo=" + contactNo + ", status=" + status
-				+ "]";
-	}
-
-	public String getOrgCode() {
-		return orgCode;
+				+ ", orgCode=" + orgCode + ", orgType=" + orgType + ", email="
+				+ email + ", pswd=" + pswd + ", contactNo=" + contactNo
+				+ ", status=" + status + "]";
 	}
 
 	public void setOrgCode(String orgCode) {

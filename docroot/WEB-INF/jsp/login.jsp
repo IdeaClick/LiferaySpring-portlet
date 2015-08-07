@@ -5,9 +5,11 @@
 <portlet:renderURL var="loginURL">
 <portlet:param name="action" value="login"></portlet:param>
 </portlet:renderURL>
+
 <liferay-ui:success key="success" message="Sucessfully Login" />
 <liferay-ui:error key="error" message="Invalid User Name or Password" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
+
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -25,7 +27,7 @@
 			color: white;
 		}
 </style>
-    		  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 			<link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css">
       		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
    			<script type='text/javascript'>
@@ -55,7 +57,7 @@
 		<input type="password" name="<portlet:namespace />pswd" placeholder="Enter Your Password" id="password" style="height: 30px; width: 300px" >
 	</div><!-- end of box -->
 
-	<div class="box" style="margin-left: 108px">Organization Name:<br>
+	<div class="box" style="margin-left: 108px">Organization Code:<br>
 		<input name="<portlet:namespace />orgCode" id="orgName" type="text" style="height: 30px; width: 300px">
 	</div><!-- end of box -->
 		

@@ -10,7 +10,7 @@
 	<portlet:param name="action" value="orgReg" />
 </portlet:actionURL>
 
-<liferay-ui:success key="success" message="Registration Sucessful" />
+<liferay-ui:success key="success" message="Registration Sucessful check your email" />
 <liferay-ui:error key="error" message="Sorry,Organization already registered" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
 

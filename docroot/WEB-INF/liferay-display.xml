@@ -9,6 +9,7 @@
 		<portlet id="Login" />
 		<portlet id="Submit_Idea" />
 		<portlet id="ViewIdeas" />
+		<portlet id="Logout" />
 		
 	</category>
 </display>

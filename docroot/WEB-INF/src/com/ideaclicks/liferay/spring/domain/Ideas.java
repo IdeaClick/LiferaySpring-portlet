@@ -31,8 +31,8 @@ private String desc;
 @Column(name="CATEGORY")
 private String category;
 
-@Column(name="AUTHOR")
-private String author;
+@Column(name="SUBMITTED_BY")
+private String submittedBy;
 
 
 /**
@@ -102,26 +102,26 @@ public void setCategory(String category) {
 	this.category = category;
 }
 
-/**
- * @return the author
- */
-public String getAuthor() {
-	return author;
+
+public String getSubmittedBy() {
+	return submittedBy;
 }
 
-/**
- * @param author the author to set
- */
-public void setAuthor(String author) {
-	this.author = author;
+
+public void setSubmittedBy(String submittedBy) {
+	this.submittedBy = submittedBy;
 }
+
 /* (non-Javadoc)
  * @see java.lang.Object#toString()
  */
 @Override
 public String toString() {
-	return "Ideas [id=" + id + ", title=" + title + ", desc=" + desc
-			+ ", category=" + category + ", author=" + author + "]";
+	return "Ideas [id=" + id + ", orgCode=" + orgCode + ", title=" + title
+			+ ", desc=" + desc + ", category=" + category + ", submittedBy="
+			+ submittedBy + "]";
 }
+
+
 
 }
