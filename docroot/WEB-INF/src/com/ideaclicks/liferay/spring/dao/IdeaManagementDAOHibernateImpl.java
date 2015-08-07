@@ -11,11 +11,11 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.ideaclicks.liferay.spring.domain.IdeasCategory;
+
 import com.ideaclicks.liferay.spring.base.DataAccessException;
 import com.ideaclicks.liferay.spring.domain.Ideas;
+import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
-import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.userRegistration;
 @Repository
 public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
@@ -40,12 +40,23 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		
 		if(list.size() != 0){
 			LOG.debug("User Found");
-			return true;
+			return true;			
 		}
-		else
-		{
-			LOG.debug("User not Found");
-			return false;
+		else{
+				String sql1 = "from userRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
+				List list1 = sessionFactory.getCurrentSession().createQuery(sql1)
+				.setParameter(0, username)
+				.setParameter(1, password)
+				.setParameter(2, orgcode)
+				.list();
+				if(list1.size() != 0){
+					LOG.debug("User Found");
+					return true;
+				}
+				else{
+					LOG.debug("User Not Found");
+					return false;
+				}
 		}
 	}
 		
