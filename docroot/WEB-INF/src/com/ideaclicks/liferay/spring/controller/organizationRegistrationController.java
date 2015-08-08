@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.util.PortalUtil;
 
 @Controller("registrationController")
 @RequestMapping("VIEW")
@@ -71,6 +72,7 @@ public class organizationRegistrationController    {
 	public void organizationRegistration(ActionRequest actionRequest, ActionResponse actionResponse, Model model, @ModelAttribute("reg") OrganizationRegistration registration, BindingResult result) throws IOException,
 			PortletException,MinervaException {
 		boolean res = false;
+		String message = "";
 		try {
 			
 			 // get reCAPTCHA request param
@@ -90,20 +92,29 @@ public class organizationRegistrationController    {
 				LOG.info("Organization Name:"+registration.getOrgName()+"Organization Code:"+registration.getOrgCode()+"Organization Type:"+registration.getOrgType()+
 						"Organization Email:"+registration.getEmail()+"Organization Contact:"+registration.getContactNo());
 				System.out.println("sss");
-				res = ideamgmtService.organizationRegistration(registration);
+				message = ideamgmtService.organizationRegistration(registration);
 				System.out.println("valueeeeeeeeee"+res);
-				if(res){
+				if(message.equalsIgnoreCase("registration successful")){
 							LOG.info("Registration Complete");
-							//snd.getDetails(registration.getEmail(),password);
+							snd.getDetails(registration.getEmail(),password,registration.getOrgCode());
 							SessionMessages.add(actionRequest, "success");
 						}
-						else{
-							LOG.info("Organization already registered");
+						else if(message.equalsIgnoreCase("organization code already registered")){
+							LOG.info("Organization already registered organization code");
 							SessionErrors.add(actionRequest, "error");
 							}
+						else if(message.equalsIgnoreCase("repeated organization email")){
+							
+							LOG.info("Organization already registered with repeated email id");
+							SessionErrors.add(actionRequest, "error1");
+							
+						}
 	        }
 	     	else
 	     	{
+	     		// Hide default error message
+				SessionErrors.add(actionRequest, "error-key");
+				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 	     		  System.out.println("Captcha Resopnse"+verify);
 	     		  SessionErrors.add(actionRequest, "captcha");
 	     	}

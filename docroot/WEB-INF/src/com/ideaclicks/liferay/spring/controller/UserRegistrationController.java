@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.util.PortalUtil;
 
 @Controller("userregistrationController")
 @RequestMapping("VIEW")
@@ -67,7 +68,7 @@ public class UserRegistrationController {
 	@ActionMapping(params = "action=userReg")
 	public void userReg(ActionRequest actionRequest, ActionResponse actionResponse, Model model, @ModelAttribute("user_reg") userRegistration uRegistration, BindingResult result) throws IOException,
 			PortletException,MinervaException  {
-		boolean res = false;
+		String message = null;
 		try {
 			
 			 // get reCAPTCHA request param
@@ -84,16 +85,29 @@ public class UserRegistrationController {
 	        		uRegistration.setPswd(password);
 	        		uRegistration.setStatus("DEACTIVATE");	
 			
-	        		res =ideamgmtService.newUserRegistration(uRegistration);
+	        		message =ideamgmtService.newUserRegistration(uRegistration);
 			
-	        		if(res){
+	        		if(message.equalsIgnoreCase("user registration successful")){
 	        			LOG.info("Registration Complete");
-	        			//snd.getDetails(uRegistration.getEmail(),password);
+	        			snd.getDetails(uRegistration.getEmail(),password,uRegistration.getOrgCode());
 	        			SessionMessages.add(actionRequest, "success");
+	        			
 	        		}
-	        		else{
+	        		else if(message.equalsIgnoreCase("user already registered")){
+	        			// Hide default error message
+	    				SessionErrors.add(actionRequest, "error-key");
+	    				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+	    	     		
 	        			LOG.info("Already registered");
 	        			SessionErrors.add(actionRequest, "error");	
+	        		}
+	        		else if(message.equalsIgnoreCase("your organization not registered")){
+	        			// Hide default error message
+	    				SessionErrors.add(actionRequest, "error-key");
+	    				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+	    	     		
+	        			LOG.info("organization not registered");
+	        			SessionErrors.add(actionRequest, "error1");	
 	        		}
 	        }else{
 	        	 System.out.println("Captcha Resopnse"+verify);

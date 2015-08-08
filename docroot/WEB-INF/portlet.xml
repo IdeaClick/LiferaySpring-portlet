@@ -11,6 +11,10 @@
 			<name>contextConfigLocation</name>
 			<value>/WEB-INF/IdeaClickXmls/carouselSlideshow.xml</value>
 		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -41,6 +45,10 @@
 		<init-param>
 			<name>contextConfigLocation</name>
 			<value>/WEB-INF/IdeaClickXmls/Home.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -73,6 +81,10 @@
 			<name>contextConfigLocation</name>
 			<value>/WEB-INF/IdeaClickXmls/DisplayRegOrg.xml</value>
 		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -103,6 +115,10 @@
 		<init-param>
 			<name>contextConfigLocation</name>
 			<value>/WEB-INF/IdeaClickXmls/LiferaySpringLogin.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -136,6 +152,10 @@
 			<name>contextConfigLocation</name>
 			<value>/WEB-INF/IdeaClickXmls/LiferaySpringIdea-portlet.xml</value>
 		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -167,6 +187,10 @@
 			<name>contextConfigLocation</name>
 			<value>/WEB-INF/IdeaClickXmls/viewIdea.xml</value>
 		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -197,6 +221,10 @@
 		<init-param>
 			<name>contextConfigLocation</name>
 			<value>/WEB-INF/IdeaClickXmls/Logout.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>

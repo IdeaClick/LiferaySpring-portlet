@@ -25,6 +25,7 @@ import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.LiferaySessionUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.util.PortalUtil;
 
 @Controller("submitIdeaController")
 @RequestMapping("VIEW")
@@ -90,6 +91,10 @@ public class SubmitIdeaController {
 						return new ModelAndView("viewIdeas","IdeasList",ideamgmtService.getIdeaList(currentSessionvalue));
 					}
 				else{
+						// Hide default error message
+						SessionErrors.add(renderRequest, "error-key");
+						SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+						//display error message
 						SessionErrors.add(renderRequest, "error");
 						return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 					}

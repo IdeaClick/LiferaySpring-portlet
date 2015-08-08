@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	  <script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
+	 <%--  <script src="${pageContext.request.contextPath}/js/aui-min.js"></script> --%>
       <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
 </head>
 <body>

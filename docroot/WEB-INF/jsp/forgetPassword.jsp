@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css">
+<%-- <link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css"> --%>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
 <script type='text/javascript'>
 		<script src="${pageContext.request.contextPath}/js/aui-min.js">	

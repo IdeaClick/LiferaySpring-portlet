@@ -25,6 +25,7 @@ import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.ideaclicks.liferay.spring.util.LiferaySessionUtil;
 import com.ideaclicks.liferay.spring.util.VerifyRecaptcha;
@@ -82,6 +83,10 @@ public class LoginController extends MVCPortlet  {
 				return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 			}
 			else{
+					// Hide default error message
+					SessionErrors.add(renderRequest, "error-key");
+					SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					//display error message
 					SessionErrors.add(renderRequest, "error");
 					return new ModelAndView("login");
 				}

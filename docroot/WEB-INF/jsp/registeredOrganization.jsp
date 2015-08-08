@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
+		<%-- <script src="${pageContext.request.contextPath}/js/aui-min.js"></script> --%>
      	 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
 
 </head>
@@ -15,10 +15,12 @@
  <div class="sidebar_container">      
         <div class="sidebar">
           <div class="sidebar_item" style="height:100%; overflow-y: scroll;">
+          	<p><marquee direction="up" behavior="scroll" scrollamount="4" >
               <c:forEach items="${OrganizationList}" var="Registration">
-    					 <p><marquee direction="up" behavior="scroll" scrollamount="2" ><ul><li>${Registration.orgName}</li></ul></marquee></p>
+    					 <ul><li>${Registration.orgName}</li></ul>
     			</c:forEach>
-            </div><!--close sidebar_item-->
+    		</marquee></p>
+           </div><!--close sidebar_item-->
         </div><!--close sidebar-->            
              
        </div><!--close sidebar_container-->  

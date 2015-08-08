@@ -36,7 +36,7 @@ public interface IdeaManagementService {
 	 * @return success/failure of the addition
 	 * @throws AdminException
 	 */
-	public boolean organizationRegistration(OrganizationRegistration registration)
+	public String organizationRegistration(OrganizationRegistration registration)
 			throws AdminException;
 	
 	/**
@@ -46,7 +46,7 @@ public interface IdeaManagementService {
 	 * @return success/failure of the addition
 	 * @throws UserException
 	 */
-	public boolean newUserRegistration(userRegistration uRegistration)
+	public String newUserRegistration(userRegistration uRegistration)
 			throws UserException;
 	
 	/***

@@ -24,12 +24,12 @@ import javax.swing.JOptionPane;
 import com.liferay.util.bridges.mvc.MVCPortlet;
  
 public class SendEmail extends MVCPortlet{
-	String Username = "";
-	String Password = "";
-	String fromEmailAddress = "";
+	String Username = "amolshirude001@gmail.com";
+	String Password = "HappyTime";
+	String fromEmailAddress = "amolshirude001@gmail.com";
 	String toEmailAddress;
 	String subject = "IdeaClicks : Organization Registration details";
-	String textMessage = "Welcome ! Organization registered successfully! ";
+	String textMessage = "Welcome ! \n\r\n\rOrganization registered successfully ! ";
 	int noOfCAPSAlpha = 1;
     int noOfDigits = 1;
     int noOfSplChars = 1;
@@ -39,16 +39,21 @@ public class SendEmail extends MVCPortlet{
     public static String tmessage;
     String password;
     
-    public void getDetails(String toEmailAdd,String pass)throws IOException, PortletException 
+    public void getDetails(String toEmailAdd,String pass,String orgcode)throws IOException, PortletException 
     {
     	try{
     	System.out.println("Emaillllll"+toEmailAdd+"passsssssss"+pass);
     	password = pass;
     	toEmailAddress=toEmailAdd;
-    	textMessage=textMessage.concat("\nYour UserName is : ");
+    	textMessage=textMessage.concat("\n\nYour UserName is : ");
     	textMessage=textMessage.concat(toEmailAdd);
-    	textMessage=textMessage.concat("\nYour Password is : "); 
-    	tmessage = textMessage.concat(password);
+    	textMessage=textMessage.concat("\n\nYour Password is : "); 
+    	textMessage = textMessage.concat(password);
+    	tmessage=textMessage.concat("\n\nPlease make your users visit :\n\r"+
+    		"http://ideaclicks.in and to register themselves as NewUser using organization code as:   "+orgcode+
+    			"\n Happy innovation !\n"+
+    			"Team\n"+
+    			"IdeaClicks.");
     	start();
     	}catch(Exception e)
     	{

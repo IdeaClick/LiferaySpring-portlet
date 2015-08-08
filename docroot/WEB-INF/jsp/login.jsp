@@ -27,17 +27,17 @@
 			color: white;
 		}
 </style>
-    		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-			<link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css">
+    		 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+			<%--<link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css">
       		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
    			<script type='text/javascript'>
 					<script src="${pageContext.request.contextPath}/js/aui-min.js">
-			</script>
-            <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">  
+			</script> --%>
+          <!--   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">  
       		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">  
       
       		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>   
-     		 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   
+     		 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>    -->
      		 
      		 <script src='https://www.google.com/recaptcha/api.js'></script>
      		    		    
@@ -50,7 +50,7 @@
 	</div><!-- end of box -->
 	
 	<div class="box" style="margin-left: 108px">Password:&nbsp;&nbsp;
-	<b><a href="<portlet:renderURL>
+	<b><a href="<portlet:renderURL windowState="EXCLUSIVE">
 					<portlet:param name="action" value="forgetPassword"/>
 				</portlet:renderURL>">(Forget Password?)
 	</a></b><br>

@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
       <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
 <title>View Ideas</title>
 
@@ -42,7 +42,7 @@
     }
 	.idea-container .idea-description {
 		font-size: 18px;
-		color: #0094BC;
+		color: #1182FA;
 		margin-top: 10px;
 	    height: 60px;
 	    overflow: hidden;
@@ -96,7 +96,7 @@
 	}
 	.show-idea-container .show-idea-description {
 	    font-size: 18px;
-	    color: #0094bc;
+	    color: #1182FA;
 	    margin-top: 10px;
 	    height: auto;
 	}
