@@ -265,10 +265,10 @@
 <aui:script  use="event, node">
 
 AUI().ready(
-		  'aui-aria',
+		 /*  'aui-aria', */
 		  'aui-dialog',
 		  'aui-overlay-manager',
-		  'dd-constrain',
+		  /* 'dd-constrain', */
 		  function(A) {
 		    A.all('.idea-tile').each(function() {
 		      this.on('click', function(event){
