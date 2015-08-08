@@ -55,7 +55,7 @@
 	
 			<div style="margin-left: 108px" class="g-recaptcha" data-sitekey="6LdX4goTAAAAAExl9KqVXKjpmyPodHDrJGOeYo7s">
 			</div><!-- end of box -->
-xt
+
 			<div id="box" style="margin-left: 108px">
 				<input type="submit" style="width:150px" name="submit" class="btn btn-warning"  value="Register Organization"/>
 			</div><!-- end of box -->

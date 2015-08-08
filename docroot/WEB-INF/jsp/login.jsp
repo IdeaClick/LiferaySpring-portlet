@@ -28,9 +28,9 @@
 		}
 </style>
     		 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-			<%--<link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css">
+			<link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css">
       		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
-   			<script type='text/javascript'>
+   			<%--<script type='text/javascript'>
 					<script src="${pageContext.request.contextPath}/js/aui-min.js">
 			</script> --%>
           <!--   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">  

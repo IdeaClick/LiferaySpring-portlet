@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
 <portlet:defineObjects/>
@@ -19,7 +17,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	  <script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<%--   <script src="${pageContext.request.contextPath}/js/aui-min.js"></script> --%>
     	 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
       <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
@@ -50,32 +49,5 @@
 				<input type="submit" style="width:100px" name="submit" class="btn btn-warning"  value="Register"/>
 			</div><!-- end of box -->
 </form:form>
-
-
-<script>
-YUI().use(
-		  'aui-char-counter',
-		  function(Y) {
-		    new Y.CharCounter(
-		      {
-		        input: '#myInput',
-		        maxLength: 10
-		      }
-		    );
-		  }
-		  
-		);
-YUI().use(
-          'aui-form-validator',
-          function(Y) {
-            new Y.FormValidator(
-              {
-                boundingBox: '#myForm'
-              }
-            );
-          }
-        );
-
-</script>
 </body>
 </html>

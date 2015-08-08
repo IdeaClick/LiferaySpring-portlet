@@ -12,10 +12,10 @@
 </head>
 <body>
 <div id="myCarousel">
-  <img src="<%=renderRequest.getContextPath()%>/images/header.jpg" style="width:1000px;height:250px">
-  <img src="<%=renderRequest.getContextPath()%>/images/yourgreatidea.jpg" style="width:1000px;height:250px">
-  <img src="<%=renderRequest.getContextPath()%>/images/share1.png" style="width:1000px;height:250px"> 
-  <img src="<%=renderRequest.getContextPath()%>/images/share.jpg" style="width:1000px;height:250px"> 
+  <img src="<%=renderRequest.getContextPath()%>/images/header.jpg" style="width:100%;height:250px">
+  <img src="<%=renderRequest.getContextPath()%>/images/yourgreatidea.jpg" style="width:100%;height:250px">
+  <img src="<%=renderRequest.getContextPath()%>/images/share1.png" style="width:100%;height:250px"> 
+  <img src="<%=renderRequest.getContextPath()%>/images/share.jpg" style="width:100%;height:250px"> 
 </div>
  
 <script>
@@ -26,7 +26,7 @@ YUI().use(
 		      {
 		        contentBox: '#myCarousel',
 		        height: 250,
-		        width: 1000
+		        width: 1320
 		      }
 		    ).render();
 		  }
