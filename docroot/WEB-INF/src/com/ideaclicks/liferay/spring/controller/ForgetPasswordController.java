@@ -59,7 +59,7 @@ public class ForgetPasswordController{
 				password=ideamgmtService.forgetPassword(registration.getEmail());
 					if(!(password == null)){
 							System.out.println("Password is:"+password);
-							//snd.getDetails(registration.getEmail(),decryptedText);
+							snd.sendEmail(registration.getEmail(),password);
 							return new ModelAndView("login");
 					}
 					else{

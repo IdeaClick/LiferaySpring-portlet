@@ -22,14 +22,12 @@
 </head>
 <body>
 
-	<c:set var="portletnamespace"
-		value="<%=renderResponse.getNamespace()%>" />
 	<form:form modelAttribute="forgetpassword" commandName="forget_password" method="post" action="<%=forgetpassAction%>">
 		<h5 align="center">Forget Password..</h5>
 		<div id="main">
 			<div class="box" align="center">
 				Email Id:&nbsp; &nbsp; &nbsp; 
-				<input type="email" name="<portlet:namespace />email" placeholder="Enter Your Email-Id" style="height: 30px;width: 250px" required>
+				<form:input name="<portlet:namespace />email" path="email" placeholder="Enter Your Email-Id" style="height: 30px;width: 250px" />
 			</div>
 			<!-- end of box -->
 			<%--  				Email Id: &nbsp; &nbsp;<input type="text" name="<portlet:namespace/>email" id="email" class="form-control" style="width:250px" required>
@@ -37,7 +35,7 @@
 			<br> <br>
 			<div id="box" align="center">
 				<p>
-					<button type="submit" class="btn btn-success">Submit</button>
+					<form:button type="submit" class="btn btn-success">Submit</form:button>
 				</p>
 			</div>
 			<%-- <a class="btn" href="<portlet:renderURL>

@@ -2,30 +2,23 @@ package com.ideaclicks.liferay.spring.util;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-import java.util.Scanner;
-import javax.mail.Address;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
-import javax.swing.JOptionPane;
 
 import com.liferay.util.bridges.mvc.MVCPortlet;
  
 public class SendEmail extends MVCPortlet{
 	String Username = "amolshirude001@gmail.com";
-	String Password = "HappyTime";
+	String Password = "BeautifulLife@123";
 	String fromEmailAddress = "amolshirude001@gmail.com";
 	String toEmailAddress;
 	String subject = "IdeaClicks : Organization Registration details";
@@ -39,9 +32,11 @@ public class SendEmail extends MVCPortlet{
     public static String tmessage;
     String password;
     
-    public void getDetails(String toEmailAdd,String pass,String orgcode)throws IOException, PortletException 
+    public void sendEmail(String toEmailAdd,String pass,String orgcode, String url)throws IOException, PortletException 
     {
     	try{
+    		
+    		
     	System.out.println("Emaillllll"+toEmailAdd+"passsssssss"+pass);
     	password = pass;
     	toEmailAddress=toEmailAdd;
@@ -49,32 +44,38 @@ public class SendEmail extends MVCPortlet{
     	textMessage=textMessage.concat(toEmailAdd);
     	textMessage=textMessage.concat("\n\nYour Password is : "); 
     	textMessage = textMessage.concat(password);
-    	tmessage=textMessage.concat("\n\nPlease make your users visit :\n\r"+
-    		"http://ideaclicks.in and to register themselves as NewUser using organization code as:   "+orgcode+
+    	tmessage=textMessage.concat("\n\nPlease make your users visit :\n\r"+ url +
+    		"   and to register themselves as NewUser using organization code as:   "+orgcode+
     			"\n Happy innovation !\n"+
     			"Team\n"+
     			"IdeaClicks.");
+    	System.out.println(" b4 start() ");
     	start();
+    	System.out.println(" after start() ");
     	}catch(Exception e)
     	{
     		System.out.println("Error"+e);
     	}
     }
-/*	
- @Override
-	public void processAction(ActionRequest actionRequest,
-			ActionResponse actionResponse) throws IOException, PortletException {
-		// TODO Auto-generated method stub
-	 
-         pswd = RandomPasswordGenerator.generatePswd(minLen, maxLen,noOfCAPSAlpha, noOfDigits, noOfSplChars);
-         System.out.println("Len = " + pswd.length + ", " + new String(pswd));
-         
-	    	ss=textMessage.concat(password);
-         System.out.println("Pass:"+ss);
-         SendEmail snd = new SendEmail();
-	     snd.start();
-		super.processAction(actionRequest, actionResponse);
-	}*/
+    
+    public void sendEmail(String toEmailAdd,String pass)throws IOException, PortletException 
+    {
+    	try{
+    	  		
+    	System.out.println("Emaillllll"+toEmailAdd+"passsssssss"+pass);
+    	password = pass;
+    	toEmailAddress=toEmailAdd;
+    	textMessage=textMessage.concat("\n\nYour UserName is : ");
+    	textMessage=textMessage.concat(toEmailAdd);
+    	textMessage=textMessage.concat("\n\nYour Password is : "); 
+    	textMessage = textMessage.concat(password);
+    	 	start();
+    	}catch(Exception e)
+    	{
+    		System.out.println("Error"+e);
+    	}
+    }
+ 
  
  private void start() {
  
@@ -92,10 +93,12 @@ public class SendEmail extends MVCPortlet{
    props.put("mail.smtp.auth", "true");
    props.put("mail.smtp.port", "465");
  
-  
+   System.out.println(" create session b4 ");
   // Create a Session object based on the properties and 
   // Authenticator object
   Session session = Session.getInstance(props,new LoginAuthenticator(Username,Password));
+  
+  System.out.println(" create session after ");
  
   try {
  
@@ -114,12 +117,15 @@ public class SendEmail extends MVCPortlet{
    // setting the text message which user wants to send to recipients
    message.setText(tmessage);
  
+   
+   System.out.println(" b4 message sent .send()");
+   
    // Using the Transport class send() method to send message 
    Transport.send(message);
- 
+   System.out.println(" after message sent .send()");
    System.out.println("\nYour Message delivered successfully ....");
    //JOptionPane.showMessageDialog(null,"Message sent");
- 
+   System.out.println(" message sent ");
   } catch (MessagingException e) {
  
    throw new RuntimeException(e);
@@ -128,7 +134,7 @@ public class SendEmail extends MVCPortlet{
  }
 }
  
-// Creating a class for Username and Password authentication
+// Creating a class for User name and Password authentication
 // provided by the user.
 class LoginAuthenticator extends Authenticator {
  PasswordAuthentication authentication = null;

@@ -13,5 +13,6 @@ public class HomeController {
 	@RenderMapping
 	public String home(Map<String, Object> map){
 		return "home";
+		
 	}
 }

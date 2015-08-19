@@ -5,14 +5,17 @@
 
 	<portlet>
 		<portlet-name>Home</portlet-name>
+			<private-session-attributes>false</private-session-attributes>
 			<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		</portlet>
+	</portlet>
 	<portlet>
 		<portlet-name>carousel</portlet-name>
+		<private-session-attributes>false</private-session-attributes>
 			<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
+		<private-session-attributes>false</private-session-attributes>
 			<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -33,7 +36,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>Logout</portlet-name>
-		<private-session-attributes>true</private-session-attributes>
+		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	
 	</portlet>

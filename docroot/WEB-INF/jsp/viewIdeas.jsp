@@ -12,7 +12,7 @@
 <html>
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/js/aui-min.js"></script> --%>
       <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
 <title>View Ideas</title>
 
@@ -128,7 +128,7 @@
 	    	Keywords : <input type="text" name="searchIdeas" class="search-idea"/> 
 	    	<button class="btn btn-info">Search</button>
     	</div>-->
-    	<h2>Ideas</h2>
+    	<h2><fmt:message key="label.ideas" /></h2>
     	<c:forEach items="${IdeasList}" var="Idea">
     					
     			
@@ -142,12 +142,12 @@
     		</div>
     		<br>
     		<div class="idea-details-container">
-    			Category : 
+    			<fmt:message key="label.category" /> 
     			<span class="category">
     				${Idea.category}
     			</span>
     			<br>
-    			Submitted By:
+    			<fmt:message key="label.submittedby" />
     			<span class="submit-by">
     				${Idea.submittedBy}
     			</span>

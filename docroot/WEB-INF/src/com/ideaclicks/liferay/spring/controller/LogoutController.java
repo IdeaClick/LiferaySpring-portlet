@@ -16,33 +16,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import com.ideaclicks.liferay.spring.util.LiferaySessionUtil;
+import com.ideaclicks.liferay.spring.util.SessionManager;
+//import com.ideaclicks.liferay.spring.util.SessionManager;
+import com.ideaclicks.liferay.spring.util.SessionInfo;
 
 @Controller("logoutController")
 @RequestMapping("VIEW")
 public class LogoutController {
-	
+
+	//SessionManager ownsessionobject = new SessionManager(); 
+
 	/**
-     * This field holds the logger for this class.
-     */
-    private static final Log LOG = LogFactory.getLog(LogoutController.class);
-	
+	 * This field holds the logger for this class.
+	 */
+	private static final Log LOG = LogFactory.getLog(LogoutController.class);
+
 	@RenderMapping 
 	public String logout(RenderRequest renderRequest, RenderResponse renderResponse, Model model,Map<String, Object> map) throws IOException,
 	PortletException {
-		
+
 		try{
-			
-			Object sessionvalue=  LiferaySessionUtil.getGlobalSessionAttribute("sessionValue", renderRequest);
-			String currentSessionvalue = sessionvalue.toString();
-			System.out.println("Current Session Value"+currentSessionvalue);
-			LiferaySessionUtil.setGlobalSessionAttribute("sessionValue","", renderRequest);
-			
-			
+			SessionManager ownsessionobject = SessionManager.getInstance();
+			PortletSession newSession = renderRequest.getPortletSession();
+	    	SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
+	    	LOG.info("LogoutController Session Info"+sessInfo);
+			if(sessInfo!=null){
+				ownsessionobject.logoutUser(renderRequest,sessInfo);
+			}
+			else{
+				LOG.info("Session is already null");
+			}
+						
 		}catch (Exception e) {
-			
-			LOG.debug("check for the exception here" + e.getMessage());
+			LOG.error("Exception " + e.getMessage());
+			LOG.info("Exception" + e.getStackTrace().toString());
 		}
-			
+
 		return "logout";
 	}
 

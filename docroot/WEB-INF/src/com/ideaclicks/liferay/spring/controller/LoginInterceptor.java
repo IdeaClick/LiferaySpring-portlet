@@ -12,7 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
-import com.ideaclicks.liferay.spring.util.Constants;
+import com.ideaclicks.liferay.spring.util.GlobalConstants;
 
 /**
  * This class is type of HandlerInterceptorAdapter for session management. This
@@ -22,7 +22,7 @@ import com.ideaclicks.liferay.spring.util.Constants;
  *            Such classes are considered as candidates for auto-detection when
  *            using annotation-based configuration and classpath scanning.
  * 
- * @author Rohit Jadhav
+ * @author Amol Shirude
  * 
  */
 @Component
@@ -51,9 +51,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         String getUrl = request.getServletPath();
 
         LOG.info("getUrl ===>" + getUrl);
-        if (getUrl.equals(Constants.LOGIN_URL1)
-                || getUrl.equals(Constants.LOGIN_URL2)
-                || getUrl.equals(Constants.LOGIN_URL3)) {
+        if (getUrl.equals(GlobalConstants.LOGIN_URL1)
+                || getUrl.equals(GlobalConstants.LOGIN_URL2)
+                || getUrl.equals(GlobalConstants.LOGIN_URL3)) {
             return true;
         } else {
             String userSession = (String) WebUtils.getSessionAttribute(request,
@@ -62,8 +62,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 return true;
             } else {
                 RedirectView view = new RedirectView("login.servlet", true);
-                LOG
-                        .info("Redirected to login.servlet Forwarding to controller");
+                LOG.info("Redirected to login.servlet Forwarding to controller");
                 ModelAndView modelAndView = new ModelAndView(view);
                 throw new ModelAndViewDefiningException(modelAndView);
             }

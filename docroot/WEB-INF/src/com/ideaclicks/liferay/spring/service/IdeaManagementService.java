@@ -1,14 +1,15 @@
 package com.ideaclicks.liferay.spring.service;
 
 import java.util.List;
-import com.ideaclicks.liferay.spring.exception.UserException;
-import com.ideaclicks.liferay.spring.exception.AdminException;
-import com.ideaclicks.liferay.spring.domain.Ideas;
-import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
-import com.ideaclicks.liferay.spring.domain.IdeasCategory;
-import com.ideaclicks.liferay.spring.domain.userRegistration;
 
+import com.ideaclicks.liferay.spring.domain.Ideas;
+import com.ideaclicks.liferay.spring.domain.IdeasCategory;
+import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
+import com.ideaclicks.liferay.spring.domain.UserRegistration;
+import com.ideaclicks.liferay.spring.exception.AdminException;
 import com.ideaclicks.liferay.spring.exception.SecurityException;
+import com.ideaclicks.liferay.spring.exception.UserException;
+import com.ideaclicks.liferay.spring.util.ServiceStatus;
 
 /**
  * IdeaManagementService defines methods that are used by the Web layer of the 
@@ -36,7 +37,7 @@ public interface IdeaManagementService {
 	 * @return success/failure of the addition
 	 * @throws AdminException
 	 */
-	public String organizationRegistration(OrganizationRegistration registration)
+	public ServiceStatus organizationRegistration(OrganizationRegistration registration)
 			throws AdminException;
 	
 	/**
@@ -46,7 +47,7 @@ public interface IdeaManagementService {
 	 * @return success/failure of the addition
 	 * @throws UserException
 	 */
-	public String newUserRegistration(userRegistration uRegistration)
+	public String newUserRegistration(UserRegistration uRegistration)
 			throws UserException;
 	
 	/***

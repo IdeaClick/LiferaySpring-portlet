@@ -5,67 +5,89 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.annotations.Cache;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.RegExp;
+
 @Entity
 @Table(name="X_USERS")
-public class userRegistration implements Serializable{
+public class UserRegistration implements Serializable{
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final Log LOG = LogFactory.getLog(UserRegistration.class);
 
-	@Id
-	@Column(name="USER_ID")
-	@GeneratedValue
-	private int id;
-	
 	@Column(name="ORGANIZATION_CODE")
+	@NotBlank
+	@Length(min=3 ,max=6)
+	@RegExp("[A-Za-z0-9]+") 
 	private String orgCode;
 	
 	@Column(name="USER_NAME")
+	@NotBlank
+	@RegExp("[A-Za-z\\s]+") 
 	private String userName;
 	
 	@Column(name="USER_EMAIL")
+	@NotBlank
+	@Email
 	private String email;
 	
 	@Column(name="PASSWORD")
+	@NotBlank
 	private String pswd;
 	
+	
 	@Column(name="USER_CONTACT")
-	private long contact;
+	@NotBlank
+	@RegExp("[0-9]+") 
+	private String contact;
 
 	@Column(name="STATUS")
+	@NotBlank
 	private String status;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)	
+	@Column(name="USER_ID")
+	private String id;
 	
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public String getId() {
+		LOG.debug("inside get id"+id);
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
+		LOG.debug("inside set id"+id);
 		this.id = id;
 	}
 
 	/**
 	 * @return the contact
 	 */
-	public long getContact() {
+	public String getContact() {
+		LOG.debug("inside get Contact"+contact);
 		return contact;
 	}
 
 	/**
 	 * @param contact the contact to set
 	 */
-	public void setContact(long contact) {
+	public void setContact(String contact) {
+		LOG.debug("inside set Contact"+contact);
 		this.contact = contact;
 	}
 
@@ -87,6 +109,7 @@ public class userRegistration implements Serializable{
 	 * @return the email
 	 */
 	public String getEmail() {
+		LOG.debug("inside get email"+email);
 		return email;
 	}
 
@@ -94,6 +117,7 @@ public class userRegistration implements Serializable{
 	 * @param email the email to set
 	 */
 	public void setEmail(String email) {
+		LOG.debug("inside get email"+email);
 		this.email = email;
 	}
 

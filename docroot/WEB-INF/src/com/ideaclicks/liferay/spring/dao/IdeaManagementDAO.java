@@ -6,7 +6,7 @@ import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 
 import com.ideaclicks.liferay.spring.domain.Ideas;
-import com.ideaclicks.liferay.spring.domain.userRegistration;
+import com.ideaclicks.liferay.spring.domain.UserRegistration;
 import com.ideaclicks.liferay.spring.exception.AdminException;
 import com.ideaclicks.liferay.spring.exception.UserException;
 import com.ideaclicks.liferay.spring.base.BusinessException;
@@ -34,7 +34,7 @@ public interface IdeaManagementDAO {
 	 * This method for the User Registration
 	 * @throws DataAccessException
 	 * */
-	public void newUserRegistration(userRegistration registration)
+	public void newUserRegistration(UserRegistration registration)
 			throws DataAccessException;
 	
 	/**
@@ -77,7 +77,7 @@ public interface IdeaManagementDAO {
      */
     
     
-    public List<userRegistration> getUserEmailList()throws DataAccessException;
+    public List<UserRegistration> getUserEmailList()throws DataAccessException;
     
     /**
      * This method returns the list Of registered organization email List for forget password  

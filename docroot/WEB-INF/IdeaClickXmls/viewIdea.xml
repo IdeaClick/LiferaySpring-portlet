@@ -28,7 +28,7 @@
 			<map>
 				<entry key="view">
 					<map>
-						<entry key="viewSubmitIdeaPage">
+						<entry key="viewSubmitedIdeaPage">
 							<ref bean="submitIdeaController" />
 						</entry>
 					</map>

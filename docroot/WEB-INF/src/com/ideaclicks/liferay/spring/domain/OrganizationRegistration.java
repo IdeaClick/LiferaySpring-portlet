@@ -7,48 +7,67 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.RegExp;
+
 @Entity
 @Table(name="X_ORGANIZATION")
 public class OrganizationRegistration implements Serializable{
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="ORGANIZATION_ID")
 	@GeneratedValue
-	private Integer id;
+	private String id;
 	
 	@Column(name="ORGANIZATION_NAME")
+	@NotBlank
+	@RegExp("[A-Za-z\\s]+") 
 	private String orgName;
 	
 	@Column(name="ORGANIZATION_CODE")
+	@NotBlank
+	@Length(min=3 ,max=6)
+	@RegExp("[A-Za-z0-9]+") 
 	private String orgCode;
 	
 	@Column(name="ORGANIZATION_TYPE")
+	@NotBlank
 	private String orgType;
 	
 	@Column(name="ORGANIZATION_EMAIL")
+	@NotBlank
+	@Email
 	private String email;
-	
+
 	@Column(name="PASSWORD")
+	@NotBlank
 	private String pswd;
 	
 	@Column(name="ORGANIZATION_CONTACT")
-	private long contactNo;
+	@NotBlank
+	@RegExp("[0-9]+") 
+	private String contactNo;
 	
 	@Column(name="STATUS")
+	@NotBlank
 	private String status;
 	
 		
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public String getId() {
 		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
@@ -63,13 +82,6 @@ public class OrganizationRegistration implements Serializable{
 	 */
 	public void setStatus(String status) {
 		this.status = "DEACTIVATE";
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	/**
@@ -117,14 +129,14 @@ public class OrganizationRegistration implements Serializable{
 	/**
 	 * @return the contactNo
 	 */
-	public long getContactNo() {
+	public String getContactNo() {
 		return contactNo;
 	}
 
 	/**
 	 * @param contactNo the contactNo to set
 	 */
-	public void setContactNo(long contactNo) {
+	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
 	

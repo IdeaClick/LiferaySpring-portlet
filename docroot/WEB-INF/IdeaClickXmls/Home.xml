@@ -31,7 +31,7 @@
 						<entry key="viewOrgReg">
 							<ref bean="registrationController" />
 						</entry>
-						<entry key="orgReg">
+						<entry key="orgRegistration">
 							<ref bean="registrationController" />
 						</entry>
 						<entry key="captchaURL">

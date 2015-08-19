@@ -3,24 +3,28 @@ package  com.ideaclicks.liferay.spring.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import com.ideaclicks.liferay.spring.domain.IdeasCategory;
-import com.ideaclicks.liferay.spring.domain.Ideas;
-import com.ideaclicks.liferay.spring.domain.userRegistration;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
-import com.ideaclicks.liferay.spring.base.BusinessException;
+
 import com.ideaclicks.liferay.spring.dao.IdeaManagementDAO;
+import com.ideaclicks.liferay.spring.domain.Ideas;
+import com.ideaclicks.liferay.spring.domain.IdeasCategory;
+import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
+import com.ideaclicks.liferay.spring.domain.UserRegistration;
+import com.ideaclicks.liferay.spring.exception.AdminException;
 import com.ideaclicks.liferay.spring.exception.SecurityException;
 import com.ideaclicks.liferay.spring.exception.UserException;
-import com.ideaclicks.liferay.spring.exception.AdminException;
+import com.ideaclicks.liferay.spring.util.GlobalConstants;
+import com.ideaclicks.liferay.spring.util.ServiceStatus;
 @Service
 public class IdeaManagementServiceImpl implements IdeaManagementService {
+	
+	ServiceStatus servicestatus = new ServiceStatus();
 	
 	/**
      * This field holds the logger for this class.
@@ -58,12 +62,12 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 	}
 
 	@Transactional
-	public String organizationRegistration(OrganizationRegistration registration)throws AdminException {	
+	public ServiceStatus organizationRegistration(OrganizationRegistration registration)throws AdminException {	
 	
 		boolean flag1 = true;
 		boolean flag2 = true;
 		boolean value = false;
-		String msg = "";
+		
 		try{
 			System.out.println("we r in org ");
 			LOG.debug("ideamanagementDao============" + ideamanagementDAO);
@@ -83,9 +87,12 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 					OrganizationRegistration reg = iterator.next();
 					if(reg.getOrgCode().equalsIgnoreCase(registration.getOrgCode())){
 						LOG.debug("Repeated Organization code============");
-						msg = "organization code already registered";
+						servicestatus.setStatus(GlobalConstants.FAILED);
+						servicestatus.setErrorKey(GlobalConstants.ERROR);
+						servicestatus.setErrorMsg(GlobalConstants.REPEATED_ORGANIZATION_CODE);
 						flag1 = false;
 						System.out.println("2"+flag1);
+						return servicestatus;
 					}
 				}
 				Iterator<OrganizationRegistration> iterator1 = orgEmaillist.iterator();
@@ -93,9 +100,12 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 					OrganizationRegistration reg = iterator1.next();
 					if(reg.getEmail().equalsIgnoreCase(registration.getEmail())){
 						LOG.debug("Repeated Organization email============");	
-						msg ="repeated organization email";
+						servicestatus.setStatus(GlobalConstants.FAILED);
+						servicestatus.setErrorKey(GlobalConstants.ERROR1);
+						servicestatus.setErrorMsg(GlobalConstants.REPEATED_ORGANIZATION_EMAIL);
 						flag2 = false;
 						System.out.println("3"+flag2);
+						return servicestatus;
 					}
 				}			
 		 	}	
@@ -104,9 +114,11 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 		 		System.out.println("Service ------------");
 		 		ideamanagementDAO.organizationRegistration(registration);
 		 		value = true;
-		 		msg = "registration successful";
-			}
-		 	
+		 		servicestatus.setStatus(GlobalConstants.SUCCESS);
+				servicestatus.setSuccessMsg(GlobalConstants.REGISTRATION_COMPLETE);
+				return servicestatus;
+		 	}
+		 		 	
 		}catch(DataIntegrityViolationException cve) {
             LOG.debug(" inside organization Registration service========>>"
                     + cve.getClass().getName());
@@ -115,12 +127,11 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
                     " organization Name already exist please enter a new one.",
                     "error.exist.orgName");
         }
-		System.out.println("messsssssss"+msg);
-		return msg;
+		return servicestatus;
 	}
 	
 	@Transactional
-	public String newUserRegistration(userRegistration uRegistration)
+	public String newUserRegistration(UserRegistration uRegistration)
 			 throws UserException {
 		boolean flag = true;
 		String msg = null;
@@ -130,7 +141,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 			LOG.debug("ideamanagementDao============" + ideamanagementDAO);
 			
 			List<OrganizationRegistration> orgCodelist = ideamanagementDAO.getOrganizationCodeList();
-			List<userRegistration> userEmaillist = ideamanagementDAO.getUserEmailList();
+			List<UserRegistration> userEmaillist = ideamanagementDAO.getUserEmailList();
 			LOG.debug("Organization Code list============" + orgCodelist);
 		 	LOG.debug("user Email list============" + userEmaillist);
 		 	
@@ -147,9 +158,9 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 					{
 						if(!userEmaillist.isEmpty()){
 							System.out.println("3");
-			 				Iterator<userRegistration> iterator = userEmaillist.iterator();
+			 				Iterator<UserRegistration> iterator = userEmaillist.iterator();
 			 				while(iterator.hasNext()) {
-			 					userRegistration uReg = iterator.next();
+			 					UserRegistration uReg = iterator.next();
 			 						if(uReg.getEmail().equalsIgnoreCase(uRegistration.getEmail())){
 			 							LOG.debug("Repeated user email============");	
 			 							msg = "user already registered";

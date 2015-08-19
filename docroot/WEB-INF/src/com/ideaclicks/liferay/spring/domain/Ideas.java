@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+
 @Entity
 @Table(name="X_IDEAS")
 public class Ideas implements Serializable {
@@ -23,12 +25,15 @@ private Integer id;
 private String orgCode;
 
 @Column(name="IDEASTITILE")
+@NotBlank
 private String title;
 
 @Column(name="IDEASDESCRIPTION")
+@NotBlank
 private String desc;
 
 @Column(name="CATEGORY")
+@NotBlank
 private String category;
 
 @Column(name="SUBMITTED_BY")

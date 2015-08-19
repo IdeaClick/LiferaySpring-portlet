@@ -3,12 +3,11 @@ package com.ideaclicks.liferay.spring.controller;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.crypto.Cipher;
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
+import javax.annotation.Resource;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,20 +16,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ideaclicks.liferay.spring.domain.userRegistration;
+import com.ideaclicks.liferay.spring.domain.UserRegistration;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
+import com.ideaclicks.liferay.spring.util.GlobalConstants;
 import com.ideaclicks.liferay.spring.util.RandomPasswordGenerator;
 import com.ideaclicks.liferay.spring.util.SendEmail;
 import com.ideaclicks.liferay.spring.util.VerifyRecaptcha;
-import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
-import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.util.PortalUtil;
@@ -38,14 +36,19 @@ import com.liferay.portal.util.PortalUtil;
 @Controller("userregistrationController")
 @RequestMapping("VIEW")
 public class UserRegistrationController {
+
+	private Validator validator;
+	
+	@Resource(name = "validator")
+    public void setValidator(Validator validator) {
+        this.validator = validator;
+    }
 	
 	SendEmail snd = new SendEmail();
 	
-	String textMessage = "Your Password is...";
-	char[] pswd;
-    String password;
-    static Cipher cipher;
-	/**
+	String pswd;
+    
+    /**
      * This field holds the logger for this class.
      */
     private static final Log LOG = LogFactory.getLog(UserRegistrationController.class);
@@ -54,73 +57,87 @@ public class UserRegistrationController {
 	private IdeaManagementService ideamgmtService;
 	
 	@RenderMapping
-	public String userRegistrationn(Map<String, Object> map) {
-		map.put("userRegistration", new userRegistration());
+	public String UserRegistrationn(Map<String, Object> map) {
+		map.put("userRegistration", new UserRegistration());
 		return "userRegistration";
 	}
 	
 	@RenderMapping(params = "action=viewUserReg")
-	public ModelAndView renderOneMethod(RenderRequest request, RenderResponse response, Model model, @ModelAttribute("user_reg") userRegistration uRegistration, BindingResult result) throws IOException,
+	public ModelAndView renderOneMethod(RenderRequest request, RenderResponse response, Model model, @ModelAttribute("user_reg") UserRegistration uRegistration, BindingResult result) throws IOException,
 			PortletException,MinervaException {
 				return new ModelAndView("userRegistration");
 	}
 	
-	@ActionMapping(params = "action=userReg")
-	public void userReg(ActionRequest actionRequest, ActionResponse actionResponse, Model model, @ModelAttribute("user_reg") userRegistration uRegistration, BindingResult result) throws IOException,
-			PortletException,MinervaException  {
-		String message = null;
-		try {
-			
-			 // get reCAPTCHA request param
-	        String gRecaptchaResponse = actionRequest.getParameter("g-recaptcha-response");
-	        System.out.println(gRecaptchaResponse);
+	@RenderMapping(params = "action=userReg")
+	public ModelAndView handlePostRequest(RenderRequest renderRequest, RenderResponse renderResponse, Model model,@Valid @ModelAttribute("user_reg") UserRegistration uRegistration,
+            BindingResult result,Map<String, Object> map)throws IOException,PortletException {
+		String message="";
+		try{
+			// get reCAPTCHA request param
+	        String gRecaptchaResponse = renderRequest.getParameter("g-recaptcha-response");
 	        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
-	        System.out.println("Captcha Resopnse"+verify);
-	    
+	        LOG.info("Captcha Resopnse"+verify);
 	        if(verify) {
-		
-	        		pswd = RandomPasswordGenerator.generatePswd();
-	        		password = pswd.toString();
-		
-	        		uRegistration.setPswd(password);
+	          	LOG.info("Before validate new user registration::");
+	            validator.validate(uRegistration, result);
+	            if (result.hasErrors()) {
+	                LOG.info("validation  failed");
+	            }
+	            else{
+	                LOG.info("Success Validation ======>>>");
+	            	                
+	        		pswd =RandomPasswordGenerator.generatePswd().toString();
+	        			
+	        		uRegistration.setPswd(pswd);
 	        		uRegistration.setStatus("DEACTIVATE");	
 			
 	        		message =ideamgmtService.newUserRegistration(uRegistration);
 			
 	        		if(message.equalsIgnoreCase("user registration successful")){
 	        			LOG.info("Registration Complete");
-	        			snd.getDetails(uRegistration.getEmail(),password,uRegistration.getOrgCode());
-	        			SessionMessages.add(actionRequest, "success");
+	        			String url = GlobalConstants.LOGIN_URL + GlobalConstants.QUESTIONMARK +GlobalConstants.ORGCODE+ GlobalConstants.EQUAL + uRegistration.getOrgCode();
+						snd.sendEmail(uRegistration.getEmail(),pswd,uRegistration.getOrgCode(),url);
+	        			SessionMessages.add(renderRequest, "success");
+	        			
+	        			return new ModelAndView("success");
 	        			
 	        		}
 	        		else if(message.equalsIgnoreCase("user already registered")){
 	        			// Hide default error message
-	    				SessionErrors.add(actionRequest, "error-key");
-	    				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+	    				SessionErrors.add(renderRequest, "error-key");
+	    				SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 	    	     		
 	        			LOG.info("Already registered");
-	        			SessionErrors.add(actionRequest, "error");	
+	        			SessionErrors.add(renderRequest, "error");
+	        			return new ModelAndView("userRegistration");
 	        		}
 	        		else if(message.equalsIgnoreCase("your organization not registered")){
 	        			// Hide default error message
-	    				SessionErrors.add(actionRequest, "error-key");
-	    				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-	    	     		
+	    				SessionErrors.add(renderRequest, "error-key");
+	    				SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+ 		
 	        			LOG.info("organization not registered");
-	        			SessionErrors.add(actionRequest, "error1");	
+	        			SessionErrors.add(renderRequest, "error1");
+	        			return new ModelAndView("userRegistration");
 	        		}
+	            }
 	        }else{
-	        	 System.out.println("Captcha Resopnse"+verify);
-	     		  SessionErrors.add(actionRequest, "captcha");
+	        	// Hide default error message
+				SessionErrors.add(renderRequest, "error-key");
+				SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+				LOG.debug("Captcha Resopnse"+verify);
+				SessionErrors.add(renderRequest, "captcha");
+				return new ModelAndView("userRegistration");
 	        }
-			
-		}  catch (MinervaException e) {
-				ObjectError error = new ObjectError("User Registered",e.getMessage());
-				result.addError(error);
-				LOG.debug("Exception" + e.getMessage());
-				
-        }catch(Exception e){
-            LOG.error("Exception " + e.getMessage());
-        }	
-	}
+		}catch (MinervaException e) {
+			ObjectError error = new ObjectError("User Registered",e.getMessage());
+			result.addError(error);
+			LOG.error("Exception" + e.getMessage());
+		}catch(Exception e){
+			e.printStackTrace();
+			LOG.error("Exception " + e.getMessage());
+		}	
+		return new ModelAndView("userRegistration");
+	}          
+	
 }

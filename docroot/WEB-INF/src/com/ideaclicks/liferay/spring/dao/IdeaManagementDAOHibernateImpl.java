@@ -16,7 +16,7 @@ import com.ideaclicks.liferay.spring.base.DataAccessException;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
-import com.ideaclicks.liferay.spring.domain.userRegistration;
+import com.ideaclicks.liferay.spring.domain.UserRegistration;
 @Repository
 public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	//no need to close sessionFactory.close() because it automatically close the connection once operation finished
@@ -43,7 +43,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 			return true;			
 		}
 		else{
-				String sql1 = "from userRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
+				String sql1 = "from UserRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
 				List list1 = sessionFactory.getCurrentSession().createQuery(sql1)
 				.setParameter(0, username)
 				.setParameter(1, password)
@@ -80,7 +80,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	
 	}
 	
-	public void newUserRegistration(userRegistration uRegistration) {
+	public void newUserRegistration(UserRegistration uRegistration) {
 		
 		sessionFactory.getCurrentSession().save(uRegistration);
 	
@@ -146,13 +146,13 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	}
 	
 	@SuppressWarnings("unchecked")	
-	public List<userRegistration> getUserEmailList() throws DataAccessException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(userRegistration.class);		
+	public List<UserRegistration> getUserEmailList() throws DataAccessException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UserRegistration.class);		
 		ProjectionList projList = Projections.projectionList();
 		projList.add(Projections.property("email"), "email");
 		criteria.setProjection(Projections.distinct(projList));
-		criteria.setResultTransformer(Transformers.aliasToBean(userRegistration.class));
-		List<userRegistration> userList = criteria.list();
+		criteria.setResultTransformer(Transformers.aliasToBean(UserRegistration.class));
+		List<UserRegistration> userList = criteria.list();
 		System.out.println("User List"+userList);
 		return userList ;
 	}
