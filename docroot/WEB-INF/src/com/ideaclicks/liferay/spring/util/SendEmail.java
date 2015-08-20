@@ -18,7 +18,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
  
 public class SendEmail extends MVCPortlet{
 	String Username = "amolshirude001@gmail.com";
-	String Password = "BeautifulLife@123";
+	String Password = "";
 	String fromEmailAddress = "amolshirude001@gmail.com";
 	String toEmailAddress;
 	String subject = "IdeaClicks : Organization Registration details";
