@@ -13,7 +13,7 @@ public class Contact implements Serializable {
 	@Column(name="ID")
 	@GeneratedValue
 	private Integer id;
-	
+
 	@Column(name="FIRSTNAME")
 	private String firstname;
 
@@ -22,11 +22,11 @@ public class Contact implements Serializable {
 
 	@Column(name="EMAIL")
 	private String email;
-	
+
 	@Column(name="TELEPHONE")
 	private String telephone;
-	
-	
+
+
 	public String getEmail() {
 		return email;
 	}
@@ -46,7 +46,6 @@ public class Contact implements Serializable {
 		return lastname;
 	}
 	public void setFirstname(String firstname) {
-		System.out.println("=============="+firstname);
 		this.firstname = firstname;
 	}
 	public void setLastname(String lastname) {
@@ -58,5 +57,5 @@ public class Contact implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 }

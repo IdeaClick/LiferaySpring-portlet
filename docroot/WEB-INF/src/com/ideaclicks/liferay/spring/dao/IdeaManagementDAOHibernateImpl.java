@@ -21,45 +21,45 @@ import com.ideaclicks.liferay.spring.domain.UserRegistration;
 public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	//no need to close sessionFactory.close() because it automatically close the connection once operation finished
 	/**
-     * This field holds the logger for this class.
-     */
-    private static final Log LOG = LogFactory.getLog(IdeaManagementDAOHibernateImpl.class);
+	 * This field holds the logger for this class.
+	 */
+	private static final Log LOG = LogFactory.getLog(IdeaManagementDAOHibernateImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
-		    
+
 	public boolean authenticateUser(String username, String password,String orgcode) {
 		LOG.info("In login authentication");
-		
+
 		String sql = "from OrganizationRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
 		List list = sessionFactory.getCurrentSession().createQuery(sql)
-		.setParameter(0, username)
-		.setParameter(1, password)
-		.setParameter(2, orgcode)
-		.list();
-		
+				.setParameter(0, username)
+				.setParameter(1, password)
+				.setParameter(2, orgcode)
+				.list();
+
 		if(list.size() != 0){
 			LOG.debug("User Found");
 			return true;			
 		}
 		else{
-				String sql1 = "from UserRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
-				List list1 = sessionFactory.getCurrentSession().createQuery(sql1)
-				.setParameter(0, username)
-				.setParameter(1, password)
-				.setParameter(2, orgcode)
-				.list();
-				if(list1.size() != 0){
-					LOG.debug("User Found");
-					return true;
-				}
-				else{
-					LOG.debug("User Not Found");
-					return false;
-				}
+			String sql1 = "from UserRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
+			List list1 = sessionFactory.getCurrentSession().createQuery(sql1)
+					.setParameter(0, username)
+					.setParameter(1, password)
+					.setParameter(2, orgcode)
+					.list();
+			if(list1.size() != 0){
+				LOG.debug("User Found");
+				return true;
+			}
+			else{
+				LOG.debug("User Not Found");
+				return false;
+			}
 		}
 	}
-		
+
 	@SuppressWarnings("unchecked")
 	public List<OrganizationRegistration> getuserByemail(String username)
 			throws DataAccessException {
@@ -72,20 +72,20 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		System.out.println("List"+userList);
 		return userList ;
 	}
-	
+
 	@Override
 	public void organizationRegistration(OrganizationRegistration registration) {
 		System.out.println("Dao..............");
 		sessionFactory.getCurrentSession().save(registration);
-	
+
 	}
-	
+
 	public void newUserRegistration(UserRegistration uRegistration) {
-		
+
 		sessionFactory.getCurrentSession().save(uRegistration);
-	
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<OrganizationRegistration> getOrganizationCodeList() throws DataAccessException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
@@ -97,7 +97,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		System.out.println("List"+orgCodeList);
 		return orgCodeList ;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<OrganizationRegistration> getOrganizationNameList() throws DataAccessException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
@@ -109,7 +109,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		System.out.println("List"+orgList);
 		return orgList ;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<OrganizationRegistration> getOrganizationEmailList() throws DataAccessException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
@@ -121,30 +121,30 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		System.out.println("List"+emailList);
 		return emailList ;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Ideas> getIdeaList(String orgzcode) throws DataAccessException {
 		System.out.println("Orgss code"+orgzcode);
 		String sql = "from Ideas where orgCode = :orgscode ORDER BY id DESC";
 		List<Ideas> list=sessionFactory.getCurrentSession().createQuery(sql)
-		.setParameter("orgscode", orgzcode)
-		.list();
+				.setParameter("orgscode", orgzcode)
+				.list();
 		System.out.println("List"+list);
 		return list ;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<IdeasCategory> getIdeasCategoryList() throws DataAccessException {
-	Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IdeasCategory.class);		
-	ProjectionList projList = Projections.projectionList();
-	projList.add(Projections.property("category"), "category");
-	criteria.setProjection(Projections.distinct(projList));
-	criteria.setResultTransformer(Transformers.aliasToBean(IdeasCategory.class));
-	List<IdeasCategory> IdeaCategoryList = criteria.list();
-	System.out.println("List"+IdeaCategoryList);
-	return IdeaCategoryList ;
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IdeasCategory.class);		
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.property("category"), "category");
+		criteria.setProjection(Projections.distinct(projList));
+		criteria.setResultTransformer(Transformers.aliasToBean(IdeasCategory.class));
+		List<IdeasCategory> IdeaCategoryList = criteria.list();
+		System.out.println("List"+IdeaCategoryList);
+		return IdeaCategoryList ;
 	}
-	
+
 	@SuppressWarnings("unchecked")	
 	public List<UserRegistration> getUserEmailList() throws DataAccessException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UserRegistration.class);		
@@ -156,13 +156,13 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		System.out.println("User List"+userList);
 		return userList ;
 	}
-	
+
 	@Override
 	public String forgetPassword(String email) throws DataAccessException {
 		String sql = "from OrganizationRegistration r " + "where r.email = :emailid";
 		List list=sessionFactory.getCurrentSession().createQuery(sql)
-		.setParameter("emailid", email)
-		.list();
+				.setParameter("emailid", email)
+				.list();
 		OrganizationRegistration reg=null;
 		if(list.size() == 0|| list.size()>1) {
 			throw new DataAccessException("Exception : No password with " + email + " emailid  found. The record may have been deleted.");	
@@ -173,16 +173,12 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 			System.out.println("Password:"+password);
 			return password;
 		}
-		
 	}
-	
+
 	@Override
 	public boolean SubmitIdea(Ideas idea)
 			throws DataAccessException {
 		boolean b = sessionFactory.getCurrentSession().save(idea) != null;
 		return b;
-		
 	}
-
-	
 }

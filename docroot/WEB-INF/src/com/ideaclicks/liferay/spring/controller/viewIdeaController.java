@@ -13,18 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
-import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.SessionInfo;
 
 @Controller("viewideaController")
 @RequestMapping("VIEW")
 public class viewIdeaController {
-
-
 	/**
 	 * This field holds the logger for this class.
 	 */
@@ -32,7 +28,7 @@ public class viewIdeaController {
 
 	@Autowired
 	private IdeaManagementService ideamgmtService;
-	
+
 	@RenderMapping 
 	public String login(RenderRequest request, RenderResponse response, Model model,Map<String, Object> map) throws IOException,
 	PortletException {	
@@ -41,7 +37,6 @@ public class viewIdeaController {
 			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 			LOG.info("View Idea Controller Session Info"+sessInfo);
 			if(sessInfo!=null){
-				
 				map.put("IdeasList", ideamgmtService.getIdeaList(sessInfo.getOrgCode()));
 				return "viewIdeas";
 			}
@@ -49,34 +44,9 @@ public class viewIdeaController {
 				return "gotoLoginViewIdeas";
 			}
 		}catch(Exception e){
-			
 			LOG.error("Exception " + e.getMessage());
 			LOG.info("Exception" + e.getStackTrace().toString());
 		}
 		return "viewIdeas";
 	}
-
-	/*@RenderMapping
-	public String viewIdeas(RenderRequest renderRequest, RenderResponse renderResponse, Model model,Map<String, Object> map) throws IOException,
-	PortletException, MinervaException {
-		try{
-			PortletSession newSession = renderRequest.getPortletSession();
-			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.PORTLET_SCOPE);
-			String currentUserOrganizationCode = sessInfo.getOrgCode();
-			LOG.info("currentUserOrganizationCode"+sessInfo.getOrgCode());
-			if(!currentUserOrganizationCode.isEmpty()){
-				map.put("IdeasList", ideamgmtService.getIdeaList(currentUserOrganizationCode));
-				return "viewIdeas";
-			}
-			else{
-				return "gotoLoginViewIdeas";
-			}
-
-		}catch(MinervaException e){
-			LOG.debug("MinervaException"+e.getMessage());
-		}catch (Exception e) {
-			LOG.debug("check for the exception here" + e.getMessage());
-		}
-		return "viewIdeas";
-	}*/
 }

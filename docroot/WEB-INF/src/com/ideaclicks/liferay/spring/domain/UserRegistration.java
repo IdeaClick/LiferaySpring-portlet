@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.annotations.Cache;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -29,22 +28,22 @@ public class UserRegistration implements Serializable{
 	@Length(min=3 ,max=6)
 	@RegExp("[A-Za-z0-9]+") 
 	private String orgCode;
-	
+
 	@Column(name="USER_NAME")
 	@NotBlank
 	@RegExp("[A-Za-z\\s]+") 
 	private String userName;
-	
+
 	@Column(name="USER_EMAIL")
 	@NotBlank
 	@Email
 	private String email;
-	
+
 	@Column(name="PASSWORD")
 	@NotBlank
 	private String pswd;
-	
-	
+
+
 	@Column(name="USER_CONTACT")
 	@NotBlank
 	@RegExp("[0-9]+") 
@@ -53,12 +52,12 @@ public class UserRegistration implements Serializable{
 	@Column(name="STATUS")
 	@NotBlank
 	private String status;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.AUTO)	
 	@Column(name="USER_ID")
 	private String id;
-	
+
 	/**
 	 * @return the id
 	 */
@@ -121,7 +120,7 @@ public class UserRegistration implements Serializable{
 		this.email = email;
 	}
 
-	
+
 
 	/**
 	 * @return the status
@@ -135,17 +134,6 @@ public class UserRegistration implements Serializable{
 	 */
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "userRegistration [id=" + id + ", userName=" + userName
-				+ ", orgName=" + ", email=" + email + ", contact="
-				+ contact + ", status=" + status + "]";
 	}
 
 	public String getPswd() {
@@ -164,7 +152,13 @@ public class UserRegistration implements Serializable{
 		this.orgCode = orgCode;
 	}
 
-	
-	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "userRegistration [id=" + id + ", userName=" + userName
+				+ ", orgName=" + ", email=" + email + ", contact="
+				+ contact + ", status=" + status + "]";
+	}
 }

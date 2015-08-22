@@ -9,10 +9,10 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @Controller("homeController")
 @RequestMapping("VIEW")
 public class HomeController {
-	
+
 	@RenderMapping
 	public String home(Map<String, Object> map){
 		return "home";
-		
+
 	}
 }

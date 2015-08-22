@@ -4,15 +4,15 @@ package com.ideaclicks.liferay.spring.util;
 import java.util.Random;
 
 public class RandomPasswordGenerator {
-    private static final String ALPHA_CAPS  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String ALPHA   = "abcdefghijklmnopqrstuvwxyz";
-    private static final String NUM     = "0123456789";
-    private static final String SPL_CHARS   = "!@#$%^&*_=+-/";
-    private static int noOfCAPSAlpha = 1;
-    private static int noOfDigits = 1;
-    private static int noOfSplChars = 1;
-    private static int minLen = 8;
-    private static int maxLen = 12;
+    private static final String ALPHA_CAPS  = GlobalConstants.ALPHA_CAPS;
+    private static final String ALPHA   = GlobalConstants.ALPHA;
+    private static final String NUM     = GlobalConstants.NUM;
+    private static final String SPL_CHARS   = GlobalConstants.SPL_CHARS;
+    private static int noOfCAPSAlpha = GlobalConstants.NOOFCAPSALPHA;
+    private static int noOfDigits = GlobalConstants.NOOFDIGITS;
+    private static int noOfSplChars = GlobalConstants.NOOFSPLCHARS;
+    private static int minLen = GlobalConstants.MINLEN;
+    private static int maxLen = GlobalConstants.MAXLEN;
     public static char[] generatePswd() {
         if(minLen > maxLen)
             throw new IllegalArgumentException("Min. Length > Max. Length!");

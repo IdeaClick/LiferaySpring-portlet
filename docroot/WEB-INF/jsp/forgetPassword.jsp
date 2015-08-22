@@ -14,11 +14,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<%-- <link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css"> --%>
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
-<script type='text/javascript'>
-		<script src="${pageContext.request.contextPath}/js/aui-min.js">	
-      </script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"></link>
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body>
 
@@ -30,8 +27,6 @@
 				<form:input name="<portlet:namespace />email" path="email" placeholder="Enter Your Email-Id" style="height: 30px;width: 250px" />
 			</div>
 			<!-- end of box -->
-			<%--  				Email Id: &nbsp; &nbsp;<input type="text" name="<portlet:namespace/>email" id="email" class="form-control" style="width:250px" required>
- --%>
 			<br> <br>
 			<div id="box" align="center">
 				<p>

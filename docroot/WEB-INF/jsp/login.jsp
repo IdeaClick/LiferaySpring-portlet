@@ -1,9 +1,6 @@
-<%@ include file="/WEB-INF/jsp/include.jsp"%>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ page import="com.liferay.portal.util.PortalUtil,javax.portlet.PortletSession,com.liferay.portal.kernel.util.PropsUtil" %>
 <%@ page import="javax.portlet.PortletPreferences" %>
-<portlet:defineObjects/>
-
 
 <portlet:renderURL var="loginURL">
 <portlet:param name="action" value="login"></portlet:param>
@@ -13,39 +10,7 @@
 <liferay-ui:error key="error" message="Invalid User Name or Password" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
 
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <style type="text/css">
-		.data, .data td {
-			border-collapse: collapse;
-			width: 100%;
-			border: 1px solid #aaa;
-			margin: 2px;
-			padding: 2px;
-		}
-		.data th {
-			font-weight: bold;
-			background-color: #5C82FF;
-			color: white;
-		}
-</style>
-    		 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-			<link href="${pageContext.request.contextPath}/css/csd-portal.css" rel="stylesheet" type="text/css">
-      		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
-   			<%--<script type='text/javascript'>
-					<script src="${pageContext.request.contextPath}/js/aui-min.js">
-			</script> --%>
-          <!--   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">  
-      		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">  
-      
-      		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>   
-     		 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>    -->
-     		 
-     		 <script src='https://www.google.com/recaptcha/api.js'></script>
-     		    		    
- </head>
- <body onload="document.login.email.focus();">
+<body onload="document.login.email.focus();">
 <%
  		HttpServletRequest httpReq = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(renderRequest));
  	   	String orgcode = httpReq.getParameter("orgcode");

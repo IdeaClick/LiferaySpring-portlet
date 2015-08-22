@@ -6,14 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>carousel</title>
-<%-- <script src="${pageContext.request.contextPath}/js/aui-min.js"></script> --%>
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
-	rel="stylesheet"></link>
-
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"></link>
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body>
-	<div id="main">
+	<div id="main" class="box">
 		<div id="site_content">
 			<div class="sidebar_container">
 				<div class="sidebar">

@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.portlet.PortletException;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -39,7 +38,6 @@ public class LoginController extends MVCPortlet  {
 	 * This field holds the logger for this class.
 	 */
 	private static final Log LOG = LogFactory.getLog(LoginController.class);
-
 
 	@Autowired
 	private IdeaManagementService ideamgmtService;
@@ -77,10 +75,8 @@ public class LoginController extends MVCPortlet  {
 
 				if(value){
 					LOG.info("Successfully Login");
-				
 					SessionManager ownsessionobject = SessionManager.getInstance();
 					ownsessionobject.createSession(renderRequest,reg);
-				
 					SessionMessages.add(renderRequest, "loginsuccess");
 					model.addAttribute("submit_idea", new Ideas());
 					LOG.info("before retrun submit idea");
@@ -105,12 +101,10 @@ public class LoginController extends MVCPortlet  {
 			result.addError(error);
 		} catch (Exception e) {
 			LOG.info("Exception" + e.getMessage());
-			
 			LOG.info("Exception stack" + e.getStackTrace().toString());
 			ObjectError error = new ObjectError("InvalidUser","Invalid User name / Password ");
 			result.addError(error);
 		}
-		
 		LOG.info("before retrun login");
 		return new ModelAndView("login");
 	}

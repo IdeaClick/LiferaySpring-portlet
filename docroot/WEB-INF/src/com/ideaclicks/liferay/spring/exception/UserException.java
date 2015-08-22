@@ -10,7 +10,7 @@ package com.ideaclicks.liferay.spring.exception;
 public class UserException extends MinervaException {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * errorCode keep track of type of error
 	 */

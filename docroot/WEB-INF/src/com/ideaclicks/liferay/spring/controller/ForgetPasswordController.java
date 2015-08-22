@@ -3,8 +3,6 @@ package com.ideaclicks.liferay.spring.controller;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -25,56 +23,51 @@ import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.SendEmail;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.Base64;
 
 @Controller("forgetpasswordController")
 @RequestMapping("VIEW")
 public class ForgetPasswordController{
-	
-	static Cipher cipher;
+
 	SendEmail snd = new SendEmail();
 	/**
-     * This field holds the logger for this class.
-     */
-    private static final Log LOG = LogFactory.getLog(ForgetPasswordController.class);
-    
+	 * This field holds the logger for this class.
+	 */
+	private static final Log LOG = LogFactory.getLog(ForgetPasswordController.class);
+
 	@Autowired
 	private IdeaManagementService ideamgmtService;
-	
+
 	@RenderMapping
 	public String forgetPassword(Map<String, Object> map) {
 		map.put("forgetPassword", new OrganizationRegistration());
 		return "forgetPassword";
 	}
-	
-	
-	
+
 	@RenderMapping(params = "action=forgetPassword")
 	public ModelAndView forgetpass(RenderRequest renderRequest,RenderResponse renderResponse, Model model,@ModelAttribute("forgetpassword") OrganizationRegistration registration, BindingResult result) throws IOException,
-			PortletException,MinervaException {
-		
+	PortletException,MinervaException {
+
 		String password=null;
 		System.out.println("Email Id:"+registration.getEmail());
 		try {
-				password=ideamgmtService.forgetPassword(registration.getEmail());
-					if(!(password == null)){
-							System.out.println("Password is:"+password);
-							snd.sendEmail(registration.getEmail(),password);
-							return new ModelAndView("login");
-					}
-					else{
-							SessionErrors.add(renderRequest, "error");
-						}
+			password=ideamgmtService.forgetPassword(registration.getEmail());
+			if(!(password == null)){
+				System.out.println("Password is:"+password);
+				snd.sendEmail(registration.getEmail(),password);
+				return new ModelAndView("login");
+			}
+			else{
+				SessionErrors.add(renderRequest, "error");
+			}
 		}catch (MinervaException me) {
-            // redirected to error page
-            LOG.debug("check for the exception here" + me.getMessage());
-        } catch (Exception e) {
-            // redirected to error page
-            LOG.debug("check for the exception here" + e.getMessage());
-        }
+			// redirected to error page
+			LOG.debug("check for the exception here" + me.getMessage());
+		} catch (Exception e) {
+			// redirected to error page
+			LOG.debug("check for the exception here" + e.getMessage());
+		}
 		return new ModelAndView("forgetPassword");
 	}
-	
 }
-	
+
 

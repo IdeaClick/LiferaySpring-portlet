@@ -16,21 +16,21 @@ import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 @RequestMapping("VIEW")
 public class DisplayRegOrgController {
 	/**
-     * This field holds the logger for this class.
-     */
-    private static final Log LOG = LogFactory.getLog(DisplayRegOrgController.class);
+	 * This field holds the logger for this class.
+	 */
+	private static final Log LOG = LogFactory.getLog(DisplayRegOrgController.class);
 
 	@Autowired
 	private IdeaManagementService ideamgmtService;
+
 	@RenderMapping
 	public String home(Map<String, Object> map)throws MinervaException{
 		try {
 			map.put("OrganizationList",ideamgmtService.getOrganizationNameList());
 		} catch (MinervaException me) {
-            // redirected to error page
-            LOG.debug("check for the exception here" + me.getMessage());
+			// redirected to error page
+			LOG.debug("check for the exception here" + me.getMessage());
 		}
 		return "registeredOrganization";
 	}
-
 }

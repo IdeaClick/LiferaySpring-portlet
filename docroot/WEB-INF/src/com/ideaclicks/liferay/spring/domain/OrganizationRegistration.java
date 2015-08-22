@@ -1,6 +1,7 @@
 package com.ideaclicks.liferay.spring.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,22 +23,22 @@ public class OrganizationRegistration implements Serializable{
 	@Column(name="ORGANIZATION_ID")
 	@GeneratedValue
 	private String id;
-	
+
 	@Column(name="ORGANIZATION_NAME")
 	@NotBlank
 	@RegExp("[A-Za-z\\s]+") 
 	private String orgName;
-	
+
 	@Column(name="ORGANIZATION_CODE")
 	@NotBlank
 	@Length(min=3 ,max=6)
 	@RegExp("[A-Za-z0-9]+") 
 	private String orgCode;
-	
+
 	@Column(name="ORGANIZATION_TYPE")
 	@NotBlank
 	private String orgType;
-	
+
 	@Column(name="ORGANIZATION_EMAIL")
 	@NotBlank
 	@Email
@@ -46,17 +47,17 @@ public class OrganizationRegistration implements Serializable{
 	@Column(name="PASSWORD")
 	@NotBlank
 	private String pswd;
-	
+
 	@Column(name="ORGANIZATION_CONTACT")
 	@NotBlank
 	@RegExp("[0-9]+") 
 	private String contactNo;
-	
+
 	@Column(name="STATUS")
 	@NotBlank
 	private String status;
-	
-		
+
+
 	/**
 	 * @return the id
 	 */
@@ -139,7 +140,7 @@ public class OrganizationRegistration implements Serializable{
 	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
-	
+
 	/**
 	 * @return the pswd
 	 */
@@ -157,6 +158,10 @@ public class OrganizationRegistration implements Serializable{
 	public String getOrgCode() {
 		return orgCode;
 	}
+	
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
 
 	@Override
 	public String toString() {
@@ -165,9 +170,4 @@ public class OrganizationRegistration implements Serializable{
 				+ email + ", pswd=" + pswd + ", contactNo=" + contactNo
 				+ ", status=" + status + "]";
 	}
-
-	public void setOrgCode(String orgCode) {
-		this.orgCode = orgCode;
-	}	
-	
 }

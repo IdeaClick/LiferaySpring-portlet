@@ -34,88 +34,88 @@ import com.liferay.portal.util.PortalUtil;
 @RequestMapping("VIEW")
 public class SubmitIdeaController {
 	/**
-     * This field holds the logger for this class.
-     */
-    private static final Log LOG = LogFactory.getLog(SubmitIdeaController.class);
-    
-    private Validator validator;
-	
+	 * This field holds the logger for this class.
+	 */
+	private static final Log LOG = LogFactory.getLog(SubmitIdeaController.class);
+
+	private Validator validator;
+
 	@Resource(name = "validator")
-    public void setValidator(Validator validator) {
-        this.validator = validator;
-    }
-	
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+
 	@Autowired
 	private IdeaManagementService ideamgmtService;
-	
+
 	@RenderMapping
 	public String submitIdea(RenderRequest renderRequest, RenderResponse renderResponse, Model model,@ModelAttribute("submit_idea") Ideas idea,Map<String, Object> map) throws IOException,
-				PortletException, MinervaException {
-	try{
-		PortletSession newSession = renderRequest.getPortletSession();
-		SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
-		LOG.info("Submit Idea Controller Session Info"+sessInfo);
-		if(sessInfo!=null){
-			map.put("categoryList",ideamgmtService.getIdeasCategoryList());
-			return "submitIdea";
+	PortletException, MinervaException {
+		try{
+			PortletSession newSession = renderRequest.getPortletSession();
+			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
+			LOG.info("Submit Idea Controller Session Info"+sessInfo);
+			if(sessInfo!=null){
+				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
+				return "submitIdea";
+			}
+			else{
+				return "gotoLoginSubmitIdeas";
+			}
+		}catch(MinervaException e){
+			LOG.debug(e.getMessage());
+		}catch (Exception e){
+			LOG.debug("check for the exception here" + e.getMessage());
 		}
-		else{
-			return "gotoLoginSubmitIdeas";
-		}
-	}catch(MinervaException e){
-		LOG.debug(e.getMessage());
-	}catch (Exception e){
-		LOG.debug("check for the exception here" + e.getMessage());
-		}
-	return "submitIdea";
+		return "submitIdea";
 	}
-		
+
 	@RenderMapping(params = "action=viewSubmitedIdeaPage")
 	public ModelAndView renderOneMethod(RenderRequest renderRequest,RenderResponse renderResponse,Map<String, Object> map) throws IOException,
-			PortletException,MinervaException {
-			return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
+	PortletException,MinervaException {
+		return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 	}
-	
+
 	@RenderMapping(params = "action=submitIdea")
 	public ModelAndView handlePostRequest(RenderRequest renderRequest,RenderResponse renderResponse, Model model,@Valid @ModelAttribute("submit_idea") Ideas idea,
-            BindingResult result,Map<String, Object> map)throws IOException,PortletException {
-			
+			BindingResult result,Map<String, Object> map)throws IOException,PortletException {
+
 		boolean value = false;
 		try{
 			validator.validate(idea,result);
-	        if (result.hasErrors()) {
-	          LOG.info("validation  failed");
-	          map.put("categoryList",ideamgmtService.getIdeasCategoryList());
-	        }
-	        else{
-	        	
-	        	PortletSession newSession = renderRequest.getPortletSession();
-	        	SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
-	        	String loginUserOrgCode = sessInfo.getOrgCode();
-            	String loginuseremail = sessInfo.getEmail();
-            	idea.setOrgCode(loginUserOrgCode);
-            	idea.setSubmittedBy(loginuseremail);
-	        
-            	value=ideamgmtService.SubmitIdea(idea);
-				
-	            	if(value){
-							SessionMessages.add(renderRequest, "success");
-							return new ModelAndView("viewIdeas","IdeasList",ideamgmtService.getIdeaList(loginUserOrgCode));
-					}
-	            	else{
-						// Hide default error message
-						SessionErrors.add(renderRequest, "error-key");
-						SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-						//display error message
-						SessionErrors.add(renderRequest, "error");
-						return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
-					}
-	            }
-			}catch (MinervaException me) {
-				LOG.debug("check for the exception here" + me.getMessage());
-			} catch (Exception e) {
-				LOG.debug("check for the exception here" + e.getMessage());
+			if (result.hasErrors()) {
+				LOG.info("validation  failed");
+				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
 			}
+			else{
+
+				PortletSession newSession = renderRequest.getPortletSession();
+				SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
+				String loginUserOrgCode = sessInfo.getOrgCode();
+				String loginuseremail = sessInfo.getEmail();
+				idea.setOrgCode(loginUserOrgCode);
+				idea.setSubmittedBy(loginuseremail);
+
+				value=ideamgmtService.SubmitIdea(idea);
+
+				if(value){
+					SessionMessages.add(renderRequest, "success");
+					return new ModelAndView("viewIdeas","IdeasList",ideamgmtService.getIdeaList(loginUserOrgCode));
+				}
+				else{
+					// Hide default error message
+					SessionErrors.add(renderRequest, "error-key");
+					SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					//display error message
+					SessionErrors.add(renderRequest, "error");
+					return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
+				}
+			}
+		}catch (MinervaException me) {
+			LOG.debug("check for the exception here" + me.getMessage());
+		} catch (Exception e) {
+			LOG.debug("check for the exception here" + e.getMessage());
+		}
 		return new ModelAndView("submitIdea");
 	}
 }

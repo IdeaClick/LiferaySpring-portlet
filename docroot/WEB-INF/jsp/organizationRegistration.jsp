@@ -1,10 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
-<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
-<liferay-theme:defineObjects />
-<portlet:defineObjects/>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 
 <portlet:renderURL var="OrgRegURL">
 	<portlet:param name="action" value="orgRegistration" />
@@ -15,30 +9,15 @@
 <liferay-ui:error key="error1" message="Sorry,Organization already registered with entered Email Id" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
 
-<!DOCTYPE html >
-<html>
-<head>
-<style>
-.form-error-field {
-	background-color: #FFC;
-}
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 
-.form-error-message {
-	font-weight: bold;
-	color: #900;
-}
-</style>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	  	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
- 		<script src='https://www.google.com/recaptcha/api.js'></script>
-</head>
 <body onload="document.login.orgName.focus();">
 <h4><fmt:message key="heading.orgregistration" /> </h4>
 <div id="main">
 	<c:set var="portletnamespace" value="<%=renderResponse.getNamespace()%>"/>
 	<form:form name="reg" modelAttribute="reg" method="post" action="<%=OrgRegURL%>">
 		
-			<div class="box" style="margin-left: 108px"><fmt:message key="label.organizationname" /><b style="color: red;">*</b>:<br> 
+			<div class="box" style="margin-left: 108px"><fmt:message key="label.organizationname" /><b style="color: red;">*</b>:<br>
 				<form:input name="<portlet:namespace />orgName" path="orgName" title="Enter Organization Name" cssErrorClass="form-error-field" style="height: 30px; width: 300px" />
 				<div class="form-error-message"><form:errors path="orgName"></form:errors></div>
 			</div><!-- end of box -->
@@ -65,7 +44,7 @@
 	
 			<div class="box" style="margin-left: 108px"><fmt:message key="label.contact" /><b style="color: red;">*</b>:<br>
 				<form:input name="<portlet:namespace />contactNo" path="contactNo" title="Please enter Contact number" pattern="[0-9]{10}"  maxlength="10" cssErrorClass="form-error-field" style="height: 30px; width: 300px"/>
-			<div class="form-error-message"><form:errors path="contactNo"></form:errors></div>
+					<div class="form-error-message"><form:errors path="contactNo"></form:errors></div>
 			</div><!-- end of box -->
 	
 			<div style="margin-left: 108px" class="g-recaptcha" data-sitekey=<fmt:message key="captcha.data-sitekey" />>

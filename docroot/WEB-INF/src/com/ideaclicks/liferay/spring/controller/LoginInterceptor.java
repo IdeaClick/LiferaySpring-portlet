@@ -27,46 +27,45 @@ import com.ideaclicks.liferay.spring.util.GlobalConstants;
  */
 @Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-    /**
-     * This method prehandle the request to check if session is valid if not
-     * redirect to login page.
-     * <br/><br/>
-     * Annotation @Override  informs the compiler that the element is meant to
-     *           override an element declared in a superclass.
-     * @param request
-     *            HttpServletRequest
-     * @param response
-     *            HttpServletResponse
-     * @param handler
-     *            Handler Object
-     * @return boolean Request prehandle status
-     */
+	/**
+	 * This method prehandle the request to check if session is valid if not
+	 * redirect to login page.
+	 * <br/><br/>
+	 * Annotation @Override  informs the compiler that the element is meant to
+	 *           override an element declared in a superclass.
+	 * @param request
+	 *            HttpServletRequest
+	 * @param response
+	 *            HttpServletResponse
+	 * @param handler
+	 *            Handler Object
+	 * @return boolean Request prehandle status
+	 */
 
-    private static final Log LOG = LogFactory.getLog(LoginInterceptor.class);
+	private static final Log LOG = LogFactory.getLog(LoginInterceptor.class);
 
-    @Override
-    public boolean preHandle(HttpServletRequest request,
-            HttpServletResponse response, Object handler) throws Exception {
-        LOG.info("preHandle method call in LoginInterceptor");
-        String getUrl = request.getServletPath();
+	@Override
+	public boolean preHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler) throws Exception {
+		LOG.info("preHandle method call in LoginInterceptor");
+		String getUrl = request.getServletPath();
 
-        LOG.info("getUrl ===>" + getUrl);
-        if (getUrl.equals(GlobalConstants.LOGIN_URL1)
-                || getUrl.equals(GlobalConstants.LOGIN_URL2)
-                || getUrl.equals(GlobalConstants.LOGIN_URL3)) {
-            return true;
-        } else {
-            String userSession = (String) WebUtils.getSessionAttribute(request,
-                    "userSession");
-            if (userSession != null && userSession.equals("valid")) {
-                return true;
-            } else {
-                RedirectView view = new RedirectView("login.servlet", true);
-                LOG.info("Redirected to login.servlet Forwarding to controller");
-                ModelAndView modelAndView = new ModelAndView(view);
-                throw new ModelAndViewDefiningException(modelAndView);
-            }
-        }
-    }
-
+		LOG.info("getUrl ===>" + getUrl);
+		if (getUrl.equals(GlobalConstants.LOGIN_URL1)
+				|| getUrl.equals(GlobalConstants.LOGIN_URL2)
+				|| getUrl.equals(GlobalConstants.LOGIN_URL3)) {
+			return true;
+		} else {
+			String userSession = (String) WebUtils.getSessionAttribute(request,
+					"userSession");
+			if (userSession != null && userSession.equals("valid")) {
+				return true;
+			} else {
+				RedirectView view = new RedirectView("login.servlet", true);
+				LOG.info("Redirected to login.servlet Forwarding to controller");
+				ModelAndView modelAndView = new ModelAndView(view);
+				throw new ModelAndViewDefiningException(modelAndView);
+			}
+		}
+	}
 }

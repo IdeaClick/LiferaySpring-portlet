@@ -1,37 +1,14 @@
-<%@ include file="/WEB-INF/jsp/include.jsp"%>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
-<portlet:defineObjects/>
-
-
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 <!-- This URL validate the CAPTCHA data entered by user -->
 <portlet:renderURL var="userRegURL">
 	<portlet:param name="action" value="userReg" />
 </portlet:renderURL> 
-
 
 <liferay-ui:success key="success" message="Registration Sucessful" />
 <liferay-ui:error key="error" message="Sorry,user already registered" />
 <liferay-ui:error key="error1" message="Sorry, Your organization not registered" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
 
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.form-error-field {
-	background-color: #FFC;
-}
-
-.form-error-message {
-	font-weight: bold;
-	color: #900;
-}
-</style>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%--   <script src="${pageContext.request.contextPath}/js/aui-min.js"></script> --%>
-    	 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link>
-      <script src='https://www.google.com/recaptcha/api.js'></script>
-</head>
 <body onload="document.login.orgCode.focus();">
 <h4><fmt:message key="heading.userregistration" /></h4>
 <form:form name="user_reg" modelAttribute="user_reg" method="post"  action="<%=userRegURL%>" >

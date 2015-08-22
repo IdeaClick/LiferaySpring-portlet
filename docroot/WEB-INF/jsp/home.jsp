@@ -1,12 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp"%>
-<portlet:defineObjects />
-<!DOCTYPE html>
-<html>
-<head>
- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-     <%-- <script src="${pageContext.request.contextPath}/js/aui-min.js"></script>
-      <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"></link> --%>
-</head>
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 <title>Home</title>
 <style type="text/css">
 #box .myButton {
@@ -57,8 +49,6 @@
 	top: 1px;
 }
 </style>
-
-
 </head>
 <body>
 
@@ -69,7 +59,7 @@
 					</portlet:renderURL>">Register
 			Organization</a>
 	</div>
-	<div id="box">
+	<div class="box" id="box">
 		<p>Welcome to Ideaclicks.</p>
 		<p>Innovation is a BUZZ and every organization is striving hard to
 			stay ahead in the competition.</p>
