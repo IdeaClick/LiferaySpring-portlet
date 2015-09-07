@@ -1,7 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html >
 <html>
 <link rel="stylesheet" href="body.css" type="text/css">
 <title>Access Restricted</title>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
 	<table width="100%" bgcolor="#666666" cellpadding=0>

@@ -15,6 +15,7 @@ public class GlobalConstants {
 	 * LINE SEPERATOR.
 	 */
 	public static final String LINESEPARATOR = "\n";
+	public static final char special_char[]={'<','>','%','"','#','!','~','^','{','}','[',']','|'};
 	/**
 	 * QUESTION MARK.
 	 */
@@ -60,7 +61,7 @@ public class GlobalConstants {
 	 * Locked Status Code.
 	 */
 	public static final String LOCKED_STATUS_CODE = "LOCKED";
-	public static final String LOGIN_URL = "http://localhost:8080/group/liferay/login";
+	public static final String LOGIN_URL = "http://liferay.ind-cloud.everdata.com/web/guest/login";
 	/*
 	 * Service Success/Error Messages
 	 */
@@ -77,8 +78,8 @@ public class GlobalConstants {
 	/*
 	 * Email Username and password
 	 */
-	public static final String EMAIL_USERNAME = "amolshirude001@gmail.com";
-	public static final String EMAIL_PASSWORD = "BeautifulLife@123";
+	public static final String EMAIL_USERNAME = "team.ideaclicks@gmail.com";
+	public static final String EMAIL_PASSWORD = "C204LaValle#";
 	/*
 	 * Password generator constants 
 	 */
@@ -96,6 +97,6 @@ public class GlobalConstants {
 	 * Captcha keys
 	 */
 	public static final String URL = "https://www.google.com/recaptcha/api/siteverify";
-	public static final String SECRET = "6LdX4goTAAAAAOht4bPhYKSd6xMocq6SEEVsrvKk";
+	public static final String SECRET = "6LezMwwTAAAAANWjllzFecfpvJ3PgLaBY8EaY9ul";
 	public final static String USER_AGENT = "Mozilla/5.0";
 }

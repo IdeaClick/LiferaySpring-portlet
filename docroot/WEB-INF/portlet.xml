@@ -51,6 +51,7 @@
 			<value>false</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
+		
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
@@ -60,6 +61,7 @@
 			<short-title>Home</short-title>
 			<keywords>Home</keywords>
 		</portlet-info>
+		
 		<security-role-ref>
 			<role-name>administrator</role-name>
 		</security-role-ref>
@@ -72,6 +74,7 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
+		
 	</portlet>
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
@@ -249,4 +252,55 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	<portlet>
+		<portlet-name>ContactUs</portlet-name>
+		<display-name>ContactUs</display-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>/WEB-INF/IdeaClickXmls/contact_us.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>content/Language</resource-bundle>
+		<portlet-info>
+			<title>Contact Us</title>
+			<short-title>Contact Us</short-title>
+			<keywords>ContactUs</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	 <filter>
+		<filter-name>myFilter</filter-name>
+		<filter-class>com.ideaclicks.liferay.spring.util.ServletFilter</filter-class>
+		<lifecycle>RENDER_PHASE</lifecycle>
+		<lifecycle>ACTION_PHASE</lifecycle>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>myFilter</filter-name>
+		 <portlet-name>Home</portlet-name>
+		 <portlet-name>Login</portlet-name>
+		 <portlet-name>Submit_Idea</portlet-name>
+		 <portlet-name>ViewIdeas</portlet-name>
+		 <portlet-name>Logout</portlet-name>
+		 <portlet-name>ContactUs</portlet-name>
+	</filter-mapping>
 </portlet-app>

@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Size;
 
 @Entity
 @Table(name="X_IDEAS")
@@ -30,6 +32,7 @@ public class Ideas implements Serializable {
 
 	@Column(name="IDEASDESCRIPTION")
 	@NotBlank
+	@Size(min=0 ,max=2000)
 	private String desc;
 
 	@Column(name="CATEGORY")

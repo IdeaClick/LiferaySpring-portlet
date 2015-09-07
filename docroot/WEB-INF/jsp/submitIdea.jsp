@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <portlet:renderURL var="submitIdeaURL">
 <portlet:param name="action" value="submitIdea" />
 </portlet:renderURL>
@@ -15,34 +16,34 @@
 		<form:form id="myform" name="submit_idea" modelAttribute="submit_idea"
 			method="post" action="${submitIdeaURL}">
 
-			<div class="box" style="margin-left: 108px">
+			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<fmt:message key="label.ideatitle" />
 				<b style="color: red;">*</b>:<br>
 				<form:input name="<portlet:namespace />title" title="Your Idea"
-					path="title" style="height: 30px; width: 350px" />
+					path="title" style="height: 100%; width: 50%;" />
 				<div class="form-error-message">
 					<form:errors path="title"></form:errors>
 				</div>
 			</div>
 			<!-- end of box -->
 
-			<div class="box" style="margin-left: 108px">
+			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<fmt:message key="label.desc" />
 				<b style="color: red;">*</b>:<br>
 				<form:textarea name="<portlet:namespace />desc" path="desc"
 					title="Give Description of your Idea"
-					style="width: 350px; height: 200px;"></form:textarea>
+					style="width: 50%; height: 150px;"></form:textarea>
 				<div class="form-error-message">
 					<form:errors path="desc"></form:errors>
 				</div>
 			</div>
 			<!-- end of box -->
 
-			<div class="box" style="margin-left: 108px">
+			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<fmt:message key="label.selectcategory" />
 				<b style="color: red;">*</b>:<br>
 				<form:select path="category" title="Please select Category"
-					name="<portlet:namespace />category" style="width: 350px">
+					name="<portlet:namespace />category" style="width: 50%;">
 					<form:option value="">Select..</form:option>
 					<c:forEach items="${categoryList}" var="IdeasCategory">
 						<form:option value="${IdeasCategory.category}">${IdeasCategory.category}</form:option>
@@ -54,7 +55,7 @@
 			</div>
 			<!-- end of box -->
 			<br>
-			<div class="box" style="margin-left: 108px">
+			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<form:button id="submit" style="width:100px" type="submit"
 					class="btn btn-warning">
 					<fmt:message key="button.submit" />

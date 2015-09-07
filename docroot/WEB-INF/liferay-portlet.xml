@@ -40,6 +40,12 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	
 	</portlet>
+	<portlet>
+		<portlet-name>ContactUs</portlet-name>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	
+	</portlet>
 	
 	<role-mapper>
 	

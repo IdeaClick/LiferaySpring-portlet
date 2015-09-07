@@ -31,7 +31,7 @@ public class UserRegistration implements Serializable{
 
 	@Column(name="USER_NAME")
 	@NotBlank
-	@RegExp("[A-Za-z\\s]+") 
+	@RegExp("[A-Za-z0-9\\s]+") 
 	private String userName;
 
 	@Column(name="USER_EMAIL")

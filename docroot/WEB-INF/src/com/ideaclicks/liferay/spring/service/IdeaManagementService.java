@@ -2,6 +2,7 @@ package com.ideaclicks.liferay.spring.service;
 
 import java.util.List;
 
+import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
@@ -89,5 +90,11 @@ public interface IdeaManagementService {
     *  @throws AdminException
     */
    public List<IdeasCategory> getIdeasCategoryList()throws AdminException;
+   
+   /***
+    * @return boolean value
+    *  @throws AdminException
+    */
+   public boolean contactUs(Contact contact)throws AdminException;
    
 }

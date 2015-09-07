@@ -10,6 +10,7 @@
 		<portlet id="Submit_Idea" />
 		<portlet id="ViewIdeas" />
 		<portlet id="Logout" />
+		<portlet id="ContactUs" />
 		
 	</category>
 </display>

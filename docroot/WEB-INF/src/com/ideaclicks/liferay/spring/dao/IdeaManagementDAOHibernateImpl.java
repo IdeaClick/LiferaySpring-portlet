@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ideaclicks.liferay.spring.base.DataAccessException;
+import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.domain.UserRegistration;
+import com.ideaclicks.liferay.spring.util.IClicksEncriptionDecription;
 @Repository
 public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	//no need to close sessionFactory.close() because it automatically close the connection once operation finished
@@ -30,11 +32,11 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 
 	public boolean authenticateUser(String username, String password,String orgcode) {
 		LOG.info("In login authentication");
-
-		String sql = "from OrganizationRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
+		System.out.println("Encrypted password"+IClicksEncriptionDecription.encryptPassword(password));
+		String sql = "from UserRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
 		List list = sessionFactory.getCurrentSession().createQuery(sql)
 				.setParameter(0, username)
-				.setParameter(1, password)
+				.setParameter(1, IClicksEncriptionDecription.encryptPassword(password))
 				.setParameter(2, orgcode)
 				.list();
 
@@ -43,13 +45,13 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 			return true;			
 		}
 		else{
-			String sql1 = "from UserRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
-			List list1 = sessionFactory.getCurrentSession().createQuery(sql1)
+			sql = "from OrganizationRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
+			list = sessionFactory.getCurrentSession().createQuery(sql)
 					.setParameter(0, username)
-					.setParameter(1, password)
+					.setParameter(1, IClicksEncriptionDecription.encryptPassword(password))
 					.setParameter(2, orgcode)
 					.list();
-			if(list1.size() != 0){
+			if(list.size() != 0){
 				LOG.debug("User Found");
 				return true;
 			}
@@ -81,7 +83,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	}
 
 	public void newUserRegistration(UserRegistration uRegistration) {
-
+		
 		sessionFactory.getCurrentSession().save(uRegistration);
 
 	}
@@ -160,19 +162,35 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	@Override
 	public String forgetPassword(String email) throws DataAccessException {
 		String sql = "from OrganizationRegistration r " + "where r.email = :emailid";
-		List list=sessionFactory.getCurrentSession().createQuery(sql)
+		List Elist=sessionFactory.getCurrentSession().createQuery(sql)
 				.setParameter("emailid", email)
 				.list();
 		OrganizationRegistration reg=null;
-		if(list.size() == 0|| list.size()>1) {
-			throw new DataAccessException("Exception : No password with " + email + " emailid  found. The record may have been deleted.");	
-		}
-		else {
-			reg = (OrganizationRegistration) list.get(0);
+		if(Elist.size() != 0|| Elist.size()==1) {
+			reg = (OrganizationRegistration) Elist.get(0);
 			String password = reg.getPswd();
 			System.out.println("Password:"+password);
-			return password;
+			return password;	
 		}
+		else{
+			String sql1 = "from UserRegistration r " + "where r.email = :emailid";
+			List emailList=sessionFactory.getCurrentSession().createQuery(sql1)
+					.setParameter("emailid", email)
+					.list();
+			System.out.println(email+"List"+emailList);
+			UserRegistration userReg=null;
+			if(emailList.size()!=0 || emailList.size()==1){
+				userReg = (UserRegistration) emailList.get(0);
+				String password = userReg.getPswd();
+				System.out.println("Password:"+password);
+				return password;	
+			}
+			else{
+				return null;
+			}
+			
+		}
+		
 	}
 
 	@Override
@@ -180,5 +198,12 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 			throws DataAccessException {
 		boolean b = sessionFactory.getCurrentSession().save(idea) != null;
 		return b;
+	}
+
+	@Override
+	public boolean contactUs(Contact contact) throws DataAccessException {
+		boolean flag = sessionFactory.getCurrentSession().save(contact) != null;
+		System.out.println("Valllllllllllll"+flag);
+		return flag;
 	}
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE project>
 
-<project name="LiferaySpring-portlet" basedir="." default="deploy">
-	<import
-		file="D:\Liferay Work Space\liferay-plugins-sdk-6.2.0\portlets/build-common-portlet.xml" />
+<project name="MyHelloWorld-portlet" basedir="." default="deploy">
+	<import file="../build-common-portlet.xml" />
 </project>

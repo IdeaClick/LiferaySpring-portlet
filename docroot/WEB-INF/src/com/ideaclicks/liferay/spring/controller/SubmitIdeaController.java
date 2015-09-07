@@ -112,8 +112,11 @@ public class SubmitIdeaController {
 				}
 			}
 		}catch (MinervaException me) {
+			LOG.error("Submit Idea Errors"+me.getStackTrace());
 			LOG.debug("check for the exception here" + me.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
+			LOG.error("Submit Idea Errors"+e.getStackTrace());
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
 		return new ModelAndView("submitIdea");

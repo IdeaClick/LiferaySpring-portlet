@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ideaclicks.liferay.spring.dao.IdeaManagementDAO;
+import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
@@ -66,6 +67,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 	
 		boolean flag1 = true;
 		boolean flag2 = true;
+		boolean flag3 = true;
 		boolean value = false;
 		
 		try{
@@ -74,7 +76,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 			
 		 	List<OrganizationRegistration> orgCodelist = ideamanagementDAO.getOrganizationCodeList();
 		 	List<OrganizationRegistration> orgEmaillist = ideamanagementDAO.getOrganizationEmailList();
-		 	
+		 	List<UserRegistration> userEmaillist = ideamanagementDAO.getUserEmailList();
 		 	LOG.debug("got Organization Code list============" + orgCodelist);
 		 	LOG.debug("got Organization Email list============" + orgEmaillist);
 		 	if (orgCodelist.isEmpty() && orgEmaillist.isEmpty()) {
@@ -107,10 +109,23 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 						System.out.println("3"+flag2);
 						return servicestatus;
 					}
-				}			
+				}
+				Iterator<UserRegistration> iterator2 = userEmaillist.iterator();
+ 				while(iterator2.hasNext()) {
+ 					UserRegistration uReg = iterator2.next();
+ 						if(uReg.getEmail().equalsIgnoreCase(registration.getEmail())){
+ 							LOG.debug("Repeated user email============");
+ 							servicestatus.setStatus(GlobalConstants.FAILED);
+ 							servicestatus.setErrorKey(GlobalConstants.ERROR1);
+ 							servicestatus.setErrorMsg(GlobalConstants.REPEATED_ORGANIZATION_EMAIL);
+ 							flag3 = false;
+ 							System.out.println("4"+flag3);
+ 							return servicestatus;
+ 						}
+ 					}
 		 	}	
-		 	System.out.println("flag1 value"+flag1+"flag2 value"+flag2);
-		 	if(flag1 && flag2){
+		 	System.out.println("flag1 value"+flag1+"flag2 value"+flag2+"flag3 value"+flag3);
+		 	if(flag1 && flag2 && flag3){
 		 		System.out.println("Service ------------");
 		 		ideamanagementDAO.organizationRegistration(registration);
 		 		value = true;
@@ -142,6 +157,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 			
 			List<OrganizationRegistration> orgCodelist = ideamanagementDAO.getOrganizationCodeList();
 			List<UserRegistration> userEmaillist = ideamanagementDAO.getUserEmailList();
+			List<OrganizationRegistration> orgEmailList = ideamanagementDAO.getOrganizationEmailList();
 			LOG.debug("Organization Code list============" + orgCodelist);
 		 	LOG.debug("user Email list============" + userEmaillist);
 		 	
@@ -166,8 +182,21 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 			 							msg = "user already registered";
 			 							System.out.println("4");
 			 							flag = false;
+			 							break;
 			 						}
 			 					}
+			 				Iterator<OrganizationRegistration> iterator2 = orgEmailList.iterator();
+			 				while(iterator2.hasNext()) {
+			 					OrganizationRegistration orgReg = iterator2.next();
+			 						if(orgReg.getEmail().equalsIgnoreCase(uRegistration.getEmail())){
+			 							LOG.debug("Repeated user email============");	
+			 							msg = "user already registered";
+			 							System.out.println("4");
+			 							flag = false;
+			 							break;
+			 						}
+			 					}
+			 				
 						}	
 					}
 					else{
@@ -271,43 +300,17 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 	
 	@Transactional
 	public String forgetPassword(String email) throws AdminException {
-		boolean flag =	false;
 		String pass = null;
-		 List<OrganizationRegistration> emailList ;
-		try{
-			LOG.debug("ideamanagementDao============" + ideamanagementDAO);
-			emailList = ideamanagementDAO.getOrganizationEmailList();
-			LOG.debug("Registed Organization Email Id list============" + emailList);
-			
-			if (!emailList.isEmpty()) {
-				Iterator<OrganizationRegistration> iterator = emailList.iterator();
-				while(iterator.hasNext()) {
-					OrganizationRegistration reg = iterator.next();
-					if(reg.getEmail().equalsIgnoreCase(email)){
-						LOG.debug("email Id matched============");	
-						flag = true;
-						break;
-					}
-				}
-				if(flag){
-					pass= ideamanagementDAO.forgetPassword(email);
-					LOG.debug("Your Password is============"+pass);	
-				}
-				else
-				{
-					LOG.debug("Incorrect emailId============");	
-					pass=null;
-				}
-						 		
-     } else { 
-    	 	pass = null;
-     }
-	}catch(Exception e) {
-        LOG.error(e.getMessage());
-    }
-	System.out.print("Return Value:"+pass);
-	return pass;	
-}
+		try{	
+			pass= ideamanagementDAO.forgetPassword(email);
+			LOG.debug("Your Password is============"+pass);	
+			return pass;
+
+		}catch(Exception e) {
+			LOG.error(e.getMessage());
+		}
+		return pass;	
+	}
 
 	
 
@@ -326,6 +329,20 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
                     "error in submit idea page ",
                     "error.exist.submitIdea");
         }
+		return flag;
+	}
+
+	@Transactional
+	public boolean contactUs(Contact contact) throws AdminException {
+		boolean flag = false;
+		try{
+				flag=ideamanagementDAO.contactUs(contact);
+				
+		}catch(DataIntegrityViolationException cve) {
+            LOG.debug(" inside Contact us service========>>"
+                    + cve.getClass().getName());
+            LOG.error(cve.getMessage());
+           }
 		return flag;
 	}
 }

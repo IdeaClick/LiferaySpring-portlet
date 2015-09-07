@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/header.jsp" %>
 <body>
-<div class="box">Logout Successfully</div>
+<div class="box" style="margin-left: auto; margin-right: auto;">Logout Successfully</div>
 </body>
 </html>

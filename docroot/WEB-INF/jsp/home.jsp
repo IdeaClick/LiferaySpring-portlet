@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <title>Home</title>
 <style type="text/css">
 #box .myButton {

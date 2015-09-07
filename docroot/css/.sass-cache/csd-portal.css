@@ -1,0 +1,154 @@
+/*
+	Common CSS elements - BEGIN
+*/
+/* errorText element is used to show message in red color */
+.errorText {
+  color: #C11B17;
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-style: normal;
+  font-size: 11px; }
+
+/* successText element is used to show message in blue color */
+.successText {
+  color: #2B60DE;
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-style: normal;
+  font-size: 11px; }
+
+.normalText {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 12px;
+  font-weight: normal; }
+
+.titleTextClass {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF; }
+
+.tableClass {
+  padding: 5px; }
+
+/* shows a table with a list of items in bold */
+.mainTableClass td {
+  padding: 5px;
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 11px;
+  font-weight: bold; }
+
+.headerTableClass {
+  border: solid #0000FF;
+  width: 100%; }
+
+.activeHeaderTdClass {
+  padding: 5px;
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000000;
+  background-color: #DF0101;
+  width: 50px; }
+
+.inactiveHeaderTdClass {
+  padding: 5px;
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background-color: #000000;
+  width: 50px; }
+
+.activeHeaderTdClass a:hover {
+  text-decoration: none;
+  color: #FFFFFF; }
+
+.inactiveHeaderTdClass a:hover {
+  text-decoration: none;
+  color: #FFFFFF; }
+
+.activeHeaderTdClass a {
+  text-decoration: none;
+  color: #FFFFFF; }
+
+.inactiveHeaderTdClass a {
+  text-decoration: none;
+  color: #FFFFFF; }
+
+.linkBlack a {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-style: bold;
+  font-size: 11px;
+  color: #000000;
+  text-decoration: none; }
+
+.linkBlack a:hover {
+  text-decoration: none;
+  color: #0101DF; }
+
+/* shows a table with a list of items in normal font */
+.listTableClass td {
+  padding: 5px;
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 11px;
+  font-weight: normal; }
+
+input.buttonClass {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  border: 1px solid;
+  border-color: #999999;
+  width: 100px; }
+
+.legendClass {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #0101DF; }
+
+.smallTextBoldClass {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 8px;
+  font-weight: bold; }
+
+.smallTextNormalClass {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  font-size: 10px;
+  font-weight: normal; }
+
+.titleRowClass {
+  background-color: #0B0B61; }
+
+/*
+	Common CSS elements - END
+*/
+.lemonBackgroundColor {
+  background-color: #C9C299; }
+
+.greenBackgroundColor {
+  background-color: #D0F5A9; }
+
+.yellowBackgroundColor {
+  background-color: #FFFF66; }
+
+.headerRowClass {
+  background-color: #99CCFF; }
+
+.oddRowClass {
+  background-color: #D6EFD7; }
+
+.evenRowClass {
+  background-color: #F8F9DC; }
+
+.greyBackgroundColor {
+  background-color: #F2F2F2; }
+
+.listTableClass {
+  border: 1px solid;
+  border-color: #000000;
+  width: 100%; }
+
+.tableBorderClass {
+  border: 1px solid;
+  border-color: #000000; }
+

@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
-
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <liferay-ui:success key="success" message="Idea Submitted" />
 <liferay-ui:error key="error" message="Sorry,Idea not submitted" />
 

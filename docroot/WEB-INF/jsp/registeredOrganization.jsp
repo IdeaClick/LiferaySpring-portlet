@@ -10,7 +10,10 @@
 	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body>
-	<div id="main" class="box">
+<div class="box" style="margin-left: auto; margin-right: auto;">
+		<fmt:message key="heading.registeredorganization" />
+</div>
+	<div id="main" class="box"style="margin-left: auto; margin-right: auto;">
 		<div id="site_content">
 			<div class="sidebar_container">
 				<div class="sidebar">

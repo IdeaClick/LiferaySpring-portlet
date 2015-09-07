@@ -1,8 +1,11 @@
 package com.ideaclicks.liferay.spring.controller;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -22,11 +25,14 @@ import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
+import com.ideaclicks.liferay.spring.util.SessionInfo;
 import com.ideaclicks.liferay.spring.util.SessionManager;
 import com.ideaclicks.liferay.spring.util.VerifyRecaptcha;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
@@ -45,7 +51,21 @@ public class LoginController extends MVCPortlet  {
 	@RenderMapping 
 	public String login(RenderRequest request, RenderResponse response, Model model,Map<String, Object> map) throws IOException,
 	PortletException {		
-
+		try{
+			PortletSession newSession = request.getPortletSession();
+			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
+			LOG.info("Submit Idea Controller Session Info"+sessInfo);
+			if(sessInfo!=null){
+				model.addAttribute("submit_idea", new Ideas());
+				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
+				return "submitIdea";
+			}
+			else{
+				return "login";
+			}
+		}catch (Exception e){
+			LOG.debug("check for the exception here" + e.getMessage());
+		}
 		return "login";
 	}
 
@@ -56,7 +76,7 @@ public class LoginController extends MVCPortlet  {
 	}
 
 	@RenderMapping(params = "action=login") 
-	public ModelAndView Authentication(RenderRequest renderRequest, RenderResponse renderResponse,  Model model, @ModelAttribute("login") OrganizationRegistration reg, BindingResult result) throws IOException,
+	public ModelAndView Authentication(RenderRequest renderRequest, RenderResponse renderResponse,PortletRequest prequest, Model model, @ModelAttribute("login") OrganizationRegistration reg, BindingResult result) throws IOException,
 	PortletException,SecurityException{ 
 		boolean value = true;
 		try {
@@ -70,7 +90,7 @@ public class LoginController extends MVCPortlet  {
 				String password = ParamUtil.getString(renderRequest,"pswd");
 				String orgcode =  ParamUtil.getString(renderRequest,"orgCode");
 				LOG.info("Email Id"+emailId+"Password"+password+"Organization Code"+orgcode);
-
+System.out.println("Emailllllllllllllll Id"+emailId);
 				value = ideamgmtService.authenticateUser(emailId, password ,orgcode);
 
 				if(value){
@@ -80,6 +100,7 @@ public class LoginController extends MVCPortlet  {
 					SessionMessages.add(renderRequest, "loginsuccess");
 					model.addAttribute("submit_idea", new Ideas());
 					LOG.info("before retrun submit idea");
+
 					return new ModelAndView("submitIdea","categoryList", ideamgmtService.getIdeasCategoryList());
 				}
 				else{

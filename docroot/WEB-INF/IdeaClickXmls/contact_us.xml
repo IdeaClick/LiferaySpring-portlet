@@ -16,8 +16,7 @@
 
 	<bean id="parameterMappingInterceptor"
 		class="org.springframework.web.portlet.handler.ParameterMappingInterceptor" />
-
-	<bean id="portletModeParameterHandlerMapping"
+<bean id="portletModeParameterHandlerMapping"
 		class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
 		<property name="interceptors">
 			<list>
@@ -28,20 +27,8 @@
 			<map>
 				<entry key="view">
 					<map>
-						<entry key="viewUserReg">
-							<ref bean="userregistrationController" />
-						</entry>
-						<entry key="userReg">
-							<ref bean="userregistrationController" />
-						</entry>
-						<entry key="forgetPswd">
-							<ref bean="forgetpasswordController" />
-						</entry>
-						<entry key="forgetPasswordAction">
-							<ref bean="forgetpasswordController" />
-						</entry>
-						<entry key="submitIdea">
-							<ref bean="submitIdeaController" />
+						<entry key="ContactUs">
+							<ref bean="contactUsController" />
 						</entry>
 					</map>
 				</entry>
@@ -49,12 +36,13 @@
 		</property>
 	</bean>
 
+	
 	<bean id="portletModeHandlerMapping"
 		class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
 		<property name="portletModeMap">
 			<map>
 				<entry key="view">
-					<ref bean="loginController" />
+					<ref bean="contactUsController" />
 				</entry>
 			</map>
 		</property>

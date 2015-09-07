@@ -3,6 +3,7 @@ package com.ideaclicks.liferay.spring.dao;
 import java.util.List;
 
 import com.ideaclicks.liferay.spring.base.DataAccessException;
+import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
@@ -80,4 +81,12 @@ public interface IdeaManagementDAO {
 	 * @throws DataAccessException
 	 */
 	public boolean SubmitIdea(Ideas idea)throws DataAccessException;
+	
+	/**
+	 * Contact Us .
+	 * @param Contact object
+	 * @return  success/failure
+	 * @throws DataAccessException
+	 */
+	public boolean contactUs(Contact contact)throws DataAccessException;
 }

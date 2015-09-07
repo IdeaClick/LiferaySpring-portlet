@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.portlet.PortletException;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.validation.Valid;
@@ -27,6 +28,7 @@ import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.EncriptionToDecription;
 import com.ideaclicks.liferay.spring.util.GlobalConstants;
+import com.ideaclicks.liferay.spring.util.IClicksEncriptionDecription;
 import com.ideaclicks.liferay.spring.util.RandomPasswordGenerator;
 import com.ideaclicks.liferay.spring.util.SendEmail;
 import com.ideaclicks.liferay.spring.util.VerifyRecaptcha;
@@ -87,7 +89,7 @@ public class UserRegistrationController {
 					String pswd;
 					pswd =RandomPasswordGenerator.generatePswd().toString();
 					
-					uRegistration.setPswd(pswd);
+					uRegistration.setPswd(IClicksEncriptionDecription.encryptPassword(pswd));
 					uRegistration.setStatus("DEACTIVATE");	
 
 					message =ideamgmtService.newUserRegistration(uRegistration);
@@ -95,9 +97,10 @@ public class UserRegistrationController {
 					if(message.equalsIgnoreCase("user registration successful")){
 						LOG.info("Registration Complete");
 						String url = GlobalConstants.LOGIN_URL + GlobalConstants.QUESTIONMARK +GlobalConstants.ORGCODE+ GlobalConstants.EQUAL + uRegistration.getOrgCode();
-						snd.sendEmail(uRegistration.getEmail(),pswd,uRegistration.getOrgCode(),url);
+						snd.sendEmailUser(uRegistration.getEmail(),pswd,uRegistration.getOrgCode(),url);
 						SessionMessages.add(renderRequest, "success");
-
+						PortletSession session = renderRequest.getPortletSession();
+						session.setAttribute("email",uRegistration.getEmail(), PortletSession.APPLICATION_SCOPE);
 						return new ModelAndView("success");
 
 					}

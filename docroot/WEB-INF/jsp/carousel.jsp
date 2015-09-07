@@ -5,30 +5,57 @@
 <!DOCTYPE html PUBLIC>
 <html>
 <head>
+<style type="text/css">
+#myCarousel .content_box { 
+	padding: 2%; 
+}
+
+#myCarousel .aui-carousel-item {
+	height: auto;
+	position: relative;
+	display: none;
+	border: 3px solid #ccc;
+}
+
+#myCarousel .aui-carousel-item-active { 
+	display: block; 
+}
+
+#myCarousel .aui-carousel-item img {
+	width: 100%;
+	height: auto;
+	margin-bottom: -5px;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"></link>
-</head>
+<script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
+<link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"></link></head>
 <body>
-	<div id="myCarousel">
-		<img src="<%=renderRequest.getContextPath()%>/images/header.jpg"
-			style="width: 100%; height: 250px"> <img
-			src="<%=renderRequest.getContextPath()%>/images/yourgreatidea.jpg"
-			style="width: 100%; height: 250px"> <img
-			src="<%=renderRequest.getContextPath()%>/images/share1.png"
-			style="width: 100%; height: 250px"> <img
-			src="<%=renderRequest.getContextPath()%>/images/share.jpg"
-			style="width: 100%; height: 250px">
-	</div>
+<div id="myCarousel">
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/header.jpg"></div>
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/yourgreatidea.jpg"></div>
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/share1.png"></div>
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/share.jpg"></div>
+</div>
+	
 
-	<script>
-		YUI().use('aui-carousel', function(Y) {
-			new Y.Carousel({
-				contentBox : '#myCarousel',
-				height : 250,
-				width : 1320
-			}).render();
-		});
+<script>
+
+YUI().use(
+		  'aui-carousel',
+		  function(Y) {
+		    new Y.Carousel(
+		      {
+		    	  activeIndex: 'rand',
+		          contentBox: '#myCarousel',
+		          intervalTime: 3,
+		          height:250
+		          //width: 700 /* hide the width for parent of #myCarousel container */
+		      }
+		    ).render();
+		  }
+		);
 	</script>
 </body>
 </html>

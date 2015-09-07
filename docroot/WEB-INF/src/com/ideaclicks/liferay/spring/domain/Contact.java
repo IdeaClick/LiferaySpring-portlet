@@ -4,58 +4,103 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 @Entity
 @Table(name="CONTACTS")
 public class Contact implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="ID")
-	@GeneratedValue
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.AUTO)	
+	private String id;
 
-	@Column(name="FIRSTNAME")
-	private String firstname;
+	@Column(name="Name")
+	@NotBlank
+	private String yourName;
 
-	@Column(name="LASTNAME")
-	private String lastname;
 
-	@Column(name="EMAIL")
+	@Column(name="Email")
+	@NotBlank
+	@Email
 	private String email;
 
-	@Column(name="TELEPHONE")
-	private String telephone;
+	@Column(name="Message")
+	@NotBlank
+	private String message;
 
-
-	public String getEmail() {
-		return email;
-	}
-	public String getTelephone() {
-		return telephone;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-	public String getFirstname() {
-		return firstname;
-	}
-	public String getLastname() {
-		return lastname;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-	public Integer getId() {
+	/**
+	 * @return the id
+	 */
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the yourName
+	 */
+	public String getYourName() {
+		return yourName;
+	}
+
+	/**
+	 * @param yourName the yourName to set
+	 */
+	public void setYourName(String yourName) {
+		this.yourName = yourName;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the message
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * @param message the message to set
+	 */
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Contact [id=" + id + ", yourName=" + yourName + ", email="
+				+ email + ", message=" + message + "]";
+	}
+
+	
 }
