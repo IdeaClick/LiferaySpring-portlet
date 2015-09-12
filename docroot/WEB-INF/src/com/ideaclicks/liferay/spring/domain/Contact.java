@@ -23,17 +23,17 @@ public class Contact implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private String id;
 
-	@Column(name="Name")
+	@Column(name="Name",length = 50)
 	@NotBlank
 	private String yourName;
 
 
-	@Column(name="Email")
+	@Column(name="Email",length = 50)
 	@NotBlank
 	@Email
 	private String email;
 
-	@Column(name="Message")
+	@Column(name="Message",length = 1000)
 	@NotBlank
 	private String message;
 

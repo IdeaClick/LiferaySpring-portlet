@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 <liferay-ui:success key="success" message="Idea Submitted" />
-<liferay-ui:error key="error" message="Sorry,Idea not submitted" />
 
 <style type="text/css">
 .view-idea-container {
@@ -128,9 +127,10 @@
 	    	Keywords : <input type="text" name="searchIdeas" class="search-idea"/> 
 	    	<button class="btn btn-info">Search</button>
     	</div>-->
-				<h2>
-					<fmt:message key="label.ideas" />
-				</h2>
+				<div class="box">
+					<fmt:message key="heading.ideas" />
+				</div>
+				<hr>
 				<c:forEach items="${IdeasList}" var="Idea">
 
 
@@ -229,20 +229,13 @@
     		</div>
     	</div>-->
 			</div>
+			<div class="box"><b>Categories</b></div>
 			<div class="categories-container">
-				<h4>Categories</h4>
+			<c:forEach items="${categoryList}" var="IdeasCategory">
 				<div class="category">
-					<a> Mobile </a>
+					<a> ${IdeasCategory.category} </a>
 				</div>
-				<div class="category">
-					<a> Agriculture </a>
-				</div>
-				<div class="category">
-					<a> Television </a>
-				</div>
-				<div class="category">
-					<a> Property </a>
-				</div>
+			</c:forEach>
 			</div>
 		</form:form>
 	</div>

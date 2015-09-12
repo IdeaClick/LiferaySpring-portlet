@@ -62,6 +62,8 @@ public class GlobalConstants {
 	 */
 	public static final String LOCKED_STATUS_CODE = "LOCKED";
 	public static final String LOGIN_URL = "http://liferay.ind-cloud.everdata.com/web/guest/login";
+	public static final String SUBMIT_IDEA_URL = "http://liferay.ind-cloud.everdata.com/web/guest/submit-idea";
+	public static final String VIEW_IDEA_URL = "http://liferay.ind-cloud.everdata.com/web/guest/view-idea";
 	/*
 	 * Service Success/Error Messages
 	 */
@@ -78,8 +80,8 @@ public class GlobalConstants {
 	/*
 	 * Email Username and password
 	 */
-	public static final String EMAIL_USERNAME = "team.ideaclicks@gmail.com";
-	public static final String EMAIL_PASSWORD = "C204LaValle#";
+	public static final String EMAIL_USERNAME = "amolshirude001@gmail.com";
+	public static final String EMAIL_PASSWORD = "BeautifulLife@123";
 	/*
 	 * Password generator constants 
 	 */

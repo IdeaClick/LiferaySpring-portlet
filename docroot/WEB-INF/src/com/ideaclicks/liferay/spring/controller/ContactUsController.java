@@ -22,6 +22,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
+import com.ideaclicks.liferay.spring.util.SendEmail;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -35,6 +36,8 @@ public class ContactUsController {
 	 * This field holds the logger for this class.
 	 */
 	private static final Log LOG = LogFactory.getLog(ContactUsController.class);
+	
+	SendEmail snd = new SendEmail();
 
 	private Validator validator;
 
@@ -71,7 +74,7 @@ public class ContactUsController {
 				if(value){
 					System.out.println("result"+value);
 					SessionMessages.add(actionRequest, "success");
-					
+					snd.sendEmailContactUs(contact.getYourName(),contact.getEmail(),contact.getMessage());
 				}
 				else{
 					// Hide default error message

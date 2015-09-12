@@ -7,10 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.Size;
 
 @Entity
 @Table(name="X_IDEAS")
@@ -19,40 +17,39 @@ public class Ideas implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="IDEASID")
+	@Column(name="IDEASID",length = 10)
 	@GeneratedValue
-	private Integer id;
+	private String id;
 
-	@Column(name="ORGANIZATION_CODE")
+	@Column(name="ORGANIZATION_CODE",length = 10)
 	private String orgCode;
 
-	@Column(name="IDEASTITILE")
-	@NotBlank
+	@Column(name="IDEASTITILE",length = 255 )
+	@NotBlank 
 	private String title;
 
-	@Column(name="IDEASDESCRIPTION")
+	@Column(name="IDEASDESCRIPTION",length=2555)
 	@NotBlank
-	@Size(min=0 ,max=2000)
 	private String desc;
 
-	@Column(name="CATEGORY")
+	@Column(name="CATEGORY",length = 50)
 	@NotBlank
 	private String category;
 
-	@Column(name="SUBMITTED_BY")
+	@Column(name="SUBMITTED_BY",length = 50)
 	private String submittedBy;
 
 
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

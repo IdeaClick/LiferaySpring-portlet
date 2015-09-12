@@ -33,10 +33,10 @@
 <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"></link></head>
 <body>
 <div id="myCarousel">
-  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/header.jpg"></div>
-  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/yourgreatidea.jpg"></div>
-  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/share1.png"></div>
-  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/share.jpg"></div>
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/header.jpg" style="height=100%; width=100%"></div>
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/yourgreatidea.jpg " style="height=100%; width=100%"></div>
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/share1.png" style="height=100%; width=100%"></div>
+  <div class="image-viewer-base-image"><img src="<%=renderRequest.getContextPath()%>/images/share.jpg" style="height=100%; width=100%"></div>
 </div>
 	
 
@@ -49,7 +49,7 @@ YUI().use(
 		      {
 		    	  activeIndex: 'rand',
 		          contentBox: '#myCarousel',
-		          intervalTime: 3,
+		          intervalTime: 7,
 		          height:250
 		          //width: 700 /* hide the width for parent of #myCarousel container */
 		      }

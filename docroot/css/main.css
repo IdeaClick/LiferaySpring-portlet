@@ -1,6 +1,14 @@
 .box {
 	font-size: 15px;
 	font-family: 'Titillium Web', sans-serif;
+	color :#932500;
+
+}
+
+.box1 {
+	font-size: 15px;
+	font-family: 'Titillium Web', sans-serif;
+
 }
 
 .form-error-field {
@@ -11,8 +19,9 @@
 .form-error-message {
 	font-family: 'Titillium Web', sans-serif;
 	font-weight: bold;
-	color: #900;
+	color: Red;
 }
+
 
 .data,.data td {
 	border-collapse: collapse;
@@ -27,4 +36,3 @@
 	background-color: #5C82FF;
 	color: white;
 }
-

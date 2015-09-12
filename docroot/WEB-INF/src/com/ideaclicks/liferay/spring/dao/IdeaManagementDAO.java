@@ -89,4 +89,6 @@ public interface IdeaManagementDAO {
 	 * @throws DataAccessException
 	 */
 	public boolean contactUs(Contact contact)throws DataAccessException;
+	
+	public boolean ResetPassword(String email,String oldpswd,String newpswd)throws DataAccessException;
 }

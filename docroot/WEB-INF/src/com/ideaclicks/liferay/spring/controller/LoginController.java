@@ -1,8 +1,9 @@
 package com.ideaclicks.liferay.spring.controller;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
@@ -19,6 +20,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import com.ideaclicks.liferay.spring.domain.Ideas;
@@ -58,7 +60,7 @@ public class LoginController extends MVCPortlet  {
 			if(sessInfo!=null){
 				model.addAttribute("submit_idea", new Ideas());
 				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
-				return "submitIdea";
+				return "login_successful";
 			}
 			else{
 				return "login";
@@ -75,45 +77,55 @@ public class LoginController extends MVCPortlet  {
 		return new ModelAndView("login");
 	}
 
-	@RenderMapping(params = "action=login") 
-	public ModelAndView Authentication(RenderRequest renderRequest, RenderResponse renderResponse,PortletRequest prequest, Model model, @ModelAttribute("login") OrganizationRegistration reg, BindingResult result) throws IOException,
-	PortletException,SecurityException{ 
+	@ActionMapping(params = "action=login") 
+	public void Authentication(ActionRequest actionRequest, ActionResponse actionResponse,Model model, @ModelAttribute("login") OrganizationRegistration reg, 
+			BindingResult result,Map<String, Object> map) throws IOException,PortletException,SecurityException{ 
 		boolean value = true;
 		try {
 
 			// get reCAPTCHA request param
-			String gRecaptchaResponse = renderRequest.getParameter("g-recaptcha-response");
+			String gRecaptchaResponse = actionRequest.getParameter("g-recaptcha-response");
 			System.out.println(gRecaptchaResponse);
 			boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 			if(verify){
-				String emailId = ParamUtil.getString(renderRequest,"email");
-				String password = ParamUtil.getString(renderRequest,"pswd");
-				String orgcode =  ParamUtil.getString(renderRequest,"orgCode");
+				String emailId = ParamUtil.getString(actionRequest,"email");
+				String password = ParamUtil.getString(actionRequest,"pswd");
+				String orgcode =  ParamUtil.getString(actionRequest,"orgCode");
 				LOG.info("Email Id"+emailId+"Password"+password+"Organization Code"+orgcode);
-System.out.println("Emailllllllllllllll Id"+emailId);
+			
 				value = ideamgmtService.authenticateUser(emailId, password ,orgcode);
-
+				
 				if(value){
 					LOG.info("Successfully Login");
+					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+					LOG.info("Home URL"+td.getURLHome());
+					
 					SessionManager ownsessionobject = SessionManager.getInstance();
-					ownsessionobject.createSession(renderRequest,reg);
-					SessionMessages.add(renderRequest, "loginsuccess");
-					model.addAttribute("submit_idea", new Ideas());
+					ownsessionobject.createSession(actionRequest,reg);
+					
+					PortletSession session = actionRequest.getPortletSession();
+					session.setAttribute("email",emailId, PortletSession.APPLICATION_SCOPE);
+					
+					
+					SessionMessages.add(actionRequest, "loginsuccess");
+					super.processAction(actionRequest, actionResponse);
+					
 					LOG.info("before retrun submit idea");
-
-					return new ModelAndView("submitIdea","categoryList", ideamgmtService.getIdeasCategoryList());
+								        
+					actionResponse.sendRedirect("http://localhost:8081/group/liferay/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet&p_p_lifecycle=0");
+					
+					//actionResponse.sendRedirect(td.getURLHome()+"/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet");
 				}
 				else{
 					// Hide default error message
-					SessionErrors.add(renderRequest, "error-key");
-					SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					SessionErrors.add(actionRequest, "error-key");
+					SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 					//display error message
-					SessionErrors.add(renderRequest, "error");
-					return new ModelAndView("login");
+					SessionErrors.add(actionRequest, "error");
 				}
 			}else{
 				LOG.info("Captcha Resopnse"+verify);
-				SessionErrors.add(renderRequest, "captcha");
+				SessionErrors.add(actionRequest, "captcha");
 			}
 		}catch(SecurityException se) {
 			LOG.error("SecurityException " + se.getMessage());
@@ -127,6 +139,5 @@ System.out.println("Emailllllllllllllll Id"+emailId);
 			result.addError(error);
 		}
 		LOG.info("before retrun login");
-		return new ModelAndView("login");
 	}
 }	

@@ -345,4 +345,10 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
            }
 		return flag;
 	}
+
+	@Transactional
+	public boolean ResetPassword(String email, String oldpswd, String newpswd) {
+		
+		return ideamanagementDAO.ResetPassword(email, oldpswd, newpswd);
+	}
 }

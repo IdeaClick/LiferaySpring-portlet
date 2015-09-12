@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
@@ -20,6 +22,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import com.ideaclicks.liferay.spring.domain.Ideas;
@@ -28,11 +31,13 @@ import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.SessionInfo;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 
 @Controller("submitIdeaController")
 @RequestMapping("VIEW")
-public class SubmitIdeaController {
+public class SubmitIdeaController{
 	/**
 	 * This field holds the logger for this class.
 	 */
@@ -67,6 +72,7 @@ public class SubmitIdeaController {
 		}catch (Exception e){
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
+		//map.put("categoryList",ideamgmtService.getIdeasCategoryList());
 		return "submitIdea";
 	}
 
@@ -76,20 +82,19 @@ public class SubmitIdeaController {
 		return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 	}
 
-	@RenderMapping(params = "action=submitIdea")
-	public ModelAndView handlePostRequest(RenderRequest renderRequest,RenderResponse renderResponse, Model model,@Valid @ModelAttribute("submit_idea") Ideas idea,
-			BindingResult result,Map<String, Object> map)throws IOException,PortletException {
+	@ActionMapping(params = "action=submitIdea")
+	public void handlePostRequest(ActionRequest actionRequest,ActionResponse actionResponse, Model model,@Valid @ModelAttribute("submit_idea") Ideas idea,
+			BindingResult result,Map<String, Object> map)throws IOException,PortletException,MinervaException {
 
 		boolean value = false;
 		try{
 			validator.validate(idea,result);
 			if (result.hasErrors()) {
 				LOG.info("validation  failed");
-				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
 			}
 			else{
 
-				PortletSession newSession = renderRequest.getPortletSession();
+				PortletSession newSession = actionRequest.getPortletSession();
 				SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 				String loginUserOrgCode = sessInfo.getOrgCode();
 				String loginuseremail = sessInfo.getEmail();
@@ -99,16 +104,19 @@ public class SubmitIdeaController {
 				value=ideamgmtService.SubmitIdea(idea);
 
 				if(value){
-					SessionMessages.add(renderRequest, "success");
-					return new ModelAndView("viewIdeas","IdeasList",ideamgmtService.getIdeaList(loginUserOrgCode));
-				}
+					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+					LOG.info("Home URL"+td.getURLHome());
+					SessionMessages.add(actionRequest, "success");
+					actionResponse.sendRedirect("http://localhost:8081/group/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+				}												
 				else{
 					// Hide default error message
-					SessionErrors.add(renderRequest, "error-key");
-					SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					SessionErrors.add(actionRequest, "error-key");
+					SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 					//display error message
-					SessionErrors.add(renderRequest, "error");
-					return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
+					SessionErrors.add(actionRequest, "error");
+					//return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 				}
 			}
 		}catch (MinervaException me) {
@@ -119,6 +127,6 @@ public class SubmitIdeaController {
 			LOG.error("Submit Idea Errors"+e.getStackTrace());
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
-		return new ModelAndView("submitIdea");
+		//return new ModelAndView("submitIdea");
 	}
 }

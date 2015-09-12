@@ -38,6 +38,7 @@ public class viewIdeaController {
 			LOG.info("View Idea Controller Session Info"+sessInfo);
 			if(sessInfo!=null){
 				map.put("IdeasList", ideamgmtService.getIdeaList(sessInfo.getOrgCode()));
+				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
 				return "viewIdeas";
 			}
 			else{

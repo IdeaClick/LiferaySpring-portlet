@@ -4,7 +4,7 @@
 <%@page import = "javax.portlet.PortletSession"%>
 <body>
 <body>
-    <div class="box" style="margin-left: auto; margin-right: auto;"> <fmt:message key="organization_registration_success.message" />
+    <div class="box" style="margin-left: auto; margin-right: auto;"> <fmt:message key="registration_success.message" />
     <% 
        out.print(session.getAttribute("email"));
     

@@ -2,6 +2,7 @@ package com.ideaclicks.liferay.spring.util;
 
 import java.io.Serializable;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
@@ -44,18 +45,18 @@ public class SessionManager implements Serializable{
 		}
 		//session.invalidate();
 	}
-	public void createSession(RenderRequest renderRequest,OrganizationRegistration reg){
+	public void createSession(ActionRequest actonRequest,OrganizationRegistration reg){
 
 		String lcmName = " [SessionManager.createSessions] ";
 		String lsesId = null;
 		String clientIp  = null;
 
-		clientIp = PortalUtil.getHttpServletRequest(renderRequest).getRemoteAddr();
+		clientIp = PortalUtil.getHttpServletRequest(actonRequest).getRemoteAddr();
 
 		if(LOG.isDebugEnabled()){
 			LOG.debug(lcmName+"clientIp  = " + clientIp);
 		}
-		PortletSession session = renderRequest.getPortletSession();
+		PortletSession session = actonRequest.getPortletSession();
 		LOG.debug(lcmName+"old session id "+session.getId());
 		if(!session.isNew())
 		{
@@ -63,7 +64,7 @@ public class SessionManager implements Serializable{
 			//session.invalidate();
 			LOG.debug(lcmName+"inside  session.invalidate()");
 
-			session = renderRequest.getPortletSession();
+			session = actonRequest.getPortletSession();
 
 			LOG.debug(lcmName+"new session created is "+session.getId()); 			   
 		}

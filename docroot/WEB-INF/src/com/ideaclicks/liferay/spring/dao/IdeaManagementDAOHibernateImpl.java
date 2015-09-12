@@ -32,7 +32,6 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 
 	public boolean authenticateUser(String username, String password,String orgcode) {
 		LOG.info("In login authentication");
-		System.out.println("Encrypted password"+IClicksEncriptionDecription.encryptPassword(password));
 		String sql = "from UserRegistration r " + "where r.email = ? and r.pswd = ? and r.orgCode = ?";
 		List list = sessionFactory.getCurrentSession().createQuery(sql)
 				.setParameter(0, username)
@@ -79,7 +78,6 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	public void organizationRegistration(OrganizationRegistration registration) {
 		System.out.println("Dao..............");
 		sessionFactory.getCurrentSession().save(registration);
-
 	}
 
 	public void newUserRegistration(UserRegistration uRegistration) {
@@ -205,5 +203,40 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		boolean flag = sessionFactory.getCurrentSession().save(contact) != null;
 		System.out.println("Valllllllllllll"+flag);
 		return flag;
+	}
+
+	@Override
+	public boolean ResetPassword(String email, String oldpswd, String newpswd)
+			throws DataAccessException {
+		String sql;
+		int value;
+		sql = "UPDATE UserRegistration u " + "SET u.pswd = ? " + "where u.email = ? and u.pswd = ?";
+		value = sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter(0, IClicksEncriptionDecription.encryptPassword(newpswd))
+				.setParameter(1, email)
+				.setParameter(2, IClicksEncriptionDecription.encryptPassword(oldpswd))
+				.executeUpdate();
+		 System.out.println("Value"+value);
+		 
+		if(value == 0){
+			sql = "UPDATE OrganizationRegistration u " + "SET u.pswd = ? " + "where u.email = ? and u.pswd = ?";
+			value = sessionFactory.getCurrentSession().createQuery(sql)
+					.setParameter(0, IClicksEncriptionDecription.encryptPassword(newpswd))
+					.setParameter(1, email)
+					.setParameter(2, IClicksEncriptionDecription.encryptPassword(oldpswd))
+					.executeUpdate();
+			System.out.println("Value1"+value);
+			if(value !=0){
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else{
+			return true;
+		}
+		
 	}
 }

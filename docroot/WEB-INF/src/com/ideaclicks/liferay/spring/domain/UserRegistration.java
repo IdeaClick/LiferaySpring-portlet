@@ -25,7 +25,7 @@ public class UserRegistration implements Serializable{
 
 	@Column(name="ORGANIZATION_CODE")
 	@NotBlank
-	@Length(min=3 ,max=6)
+	@Length(min=3 ,max=10)
 	@RegExp("[A-Za-z0-9]+") 
 	private String orgCode;
 

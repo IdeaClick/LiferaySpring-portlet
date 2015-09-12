@@ -1,19 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<portlet:defineObjects />
-<!DOCTYPE html PUBLIC>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"></link>
-	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" type="text/css"></link>
-</head>
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 <body>
-<div class="box" style="margin-left: auto; margin-right: auto;">
-		<fmt:message key="heading.registeredorganization" />
-</div>
-	<div id="main" class="box"style="margin-left: auto; margin-right: auto;">
+	<div class="box" style="margin-left: auto; margin-right: auto;">
+		<b><fmt:message key="heading.registeredorganization" /></b>
+	</div>
+	<hr>
+	<div id="main" class="box"
+		style="margin-left: auto; margin-right: auto;">
 		<div id="site_content">
 			<div class="sidebar_container">
 				<div class="sidebar">

@@ -8,6 +8,7 @@ import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.domain.UserRegistration;
 import com.ideaclicks.liferay.spring.exception.AdminException;
+import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.exception.SecurityException;
 import com.ideaclicks.liferay.spring.exception.UserException;
 import com.ideaclicks.liferay.spring.util.ServiceStatus;
@@ -96,5 +97,7 @@ public interface IdeaManagementService {
     *  @throws AdminException
     */
    public boolean contactUs(Contact contact)throws AdminException;
+   
+   public boolean ResetPassword(String email,String oldpswd,String newpswd)throws MinervaException;
    
 }

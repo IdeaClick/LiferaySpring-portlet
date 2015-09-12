@@ -11,6 +11,7 @@
 		<portlet id="ViewIdeas" />
 		<portlet id="Logout" />
 		<portlet id="ContactUs" />
+		<portlet id="ResetPassword" />
 		
 	</category>
 </display>

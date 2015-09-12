@@ -253,6 +253,41 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
+		<portlet-name>ResetPassword</portlet-name>
+		<display-name>ResetPassword</display-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>/WEB-INF/IdeaClickXmls/resetPassword.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>content/Language</resource-bundle>
+		<portlet-info>
+			<title>ResetPassword</title>
+			<short-title>ResetPassword</short-title>
+			<keywords>ResetPassword</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
 		<portlet-name>ContactUs</portlet-name>
 		<display-name>ContactUs</display-name>
 		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
@@ -287,6 +322,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	
 	 <filter>
 		<filter-name>myFilter</filter-name>
 		<filter-class>com.ideaclicks.liferay.spring.util.ServletFilter</filter-class>

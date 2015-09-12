@@ -1,12 +1,13 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <%@ page import="com.liferay.portal.util.PortalUtil,javax.portlet.PortletSession,com.liferay.portal.kernel.util.PropsUtil" %>
 <%@ page import="javax.portlet.PortletPreferences" %>
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
-<portlet:renderURL var="loginURL">
-<portlet:param name="action" value="login"></portlet:param>
-</portlet:renderURL>
 
-<liferay-ui:success key="success" message="Sucessfully Login" />
+<portlet:actionURL var="loginURL">
+<portlet:param name="action" value="login"></portlet:param>
+</portlet:actionURL>
+
+<liferay-ui:success key="success" message="Login successful. You can now submit ideas, review ideas and comment on existing ideas." />
 <liferay-ui:error key="error" message="Invalid User Name or Password" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
 
@@ -47,7 +48,7 @@
                 </label>
 	</div>
    <div class="box" style="margin-left: auto; margin-right: auto;">
-		<P><button type="submit" style="width:100px" class="btn btn-warning" ><fmt:message key="button.login" /></button>
+		<P><button type="submit" style="width:100px" class="btn btn-danger" ><fmt:message key="button.login" /></button>
 		<b style="margin-left: 25px"><a href="<portlet:renderURL>
 					<portlet:param name="action" value="viewUserReg"/>
 				</portlet:renderURL>"><fmt:message key="button.newuser" />

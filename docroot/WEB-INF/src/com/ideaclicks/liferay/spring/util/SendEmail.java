@@ -46,10 +46,10 @@ public class SendEmail extends MVCPortlet{
 		try{
 			tmessage="";
 			subject = "IdeaClicks : Organization Registration details";
-			
+			toEmailAddress = toEmailAdd;
 			String textMessage = "Welcome Administrator !";
 			
-			textMessage = textMessage.concat("\n\r Your Organization"+orgName+"has been registered successfully");
+			textMessage = textMessage.concat("\n\r Your Organization "+ orgName +" has been registered successfully");
 			textMessage = textMessage.concat("\n\r Your UserName is : "+toEmailAdd);
 			textMessage = textMessage.concat("\n\r Your Password is : "+pswd);
 			textMessage = textMessage.concat("\n\r Your Organization Code is : "+orgCode);
@@ -73,6 +73,7 @@ public class SendEmail extends MVCPortlet{
 		try{
 			tmessage="";
 			subject = "IdeaClicks : User Registration details";
+			toEmailAddress = toEmailAdd;
 			String textMessage = "Welcome to IdeaClicks ! ";
 			
 			textMessage = textMessage.concat("\n\r Your UserName is : "+toEmailAdd);
@@ -89,14 +90,15 @@ public class SendEmail extends MVCPortlet{
 	}
 
 
-	public void sendEmailForgetPassword(String toEmailId,String pswd)throws IOException, PortletException 
+	public void sendEmailForgetPassword(String toEmailAdd,String pswd)throws IOException, PortletException 
 	{
 		try{
 			tmessage="";
 			subject = "IdeaClicks : Your Password";
+			toEmailAddress = toEmailAdd;
 			String textMessage = "Welcome to IdeaClicks ! ";
 		
-			textMessage = textMessage.concat("\n\nYour UserName is : "+toEmailId);
+			textMessage = textMessage.concat("\n\nYour UserName is : "+toEmailAdd);
 			textMessage = textMessage.concat("\n\nYour Password is : "+pswd); 
 			
 			tmessage = textMessage.concat("\n\n You can now start submitting ideas using this URL. \n\r"+ GlobalConstants.LOGIN_URL +
@@ -108,7 +110,22 @@ public class SendEmail extends MVCPortlet{
 			System.out.println("Error"+e);
 		}
 	}
-
+	public void sendEmailContactUs(String userName,String toEmailAdd,String Message)throws IOException,PortletException
+	{
+		try{
+			tmessage="";
+			subject = "IdeaClicks";
+			toEmailAddress = toEmailAdd;
+			String textMessage = "Welcome to IdeaClicks ! ";
+					
+			tmessage = textMessage.concat("\n\r Thanks for Contacting Us \n\r Happy innovation !"+
+					"\n\r Team IdeaClicks.");
+			start();
+		}catch(Exception e)
+		{
+			System.out.println("Error"+e);
+		}
+	}
 
 	private void start() {
 

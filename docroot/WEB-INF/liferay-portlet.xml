@@ -2,47 +2,60 @@
 <!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
 
 <liferay-portlet-app>
-
 	<portlet>
 		<portlet-name>Home</portlet-name>
+			<action-url-redirect>true</action-url-redirect>
 			<private-session-attributes>false</private-session-attributes>
 			<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>carousel</portlet-name>
-		<private-session-attributes>false</private-session-attributes>
+		<action-url-redirect>true</action-url-redirect>
+			<private-session-attributes>false</private-session-attributes>
 			<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
-		<private-session-attributes>false</private-session-attributes>
+		<action-url-redirect>true</action-url-redirect>
+			<private-session-attributes>false</private-session-attributes>
 			<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>Login</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>Submit_Idea</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>ViewIdeas</portlet-name>
-		<private-session-attributes>false</private-session-attributes>
+		<action-url-redirect>true</action-url-redirect>
+			<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	
 	</portlet>
 	<portlet>
 		<portlet-name>Logout</portlet-name>
-		<private-session-attributes>false</private-session-attributes>
+		<action-url-redirect>true</action-url-redirect>
+			<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	
 	</portlet>
 	<portlet>
-		<portlet-name>ContactUs</portlet-name>
+		<portlet-name>ResetPassword</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
+	<portlet>
+		<portlet-name>ContactUs</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
+			<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	
 	</portlet>

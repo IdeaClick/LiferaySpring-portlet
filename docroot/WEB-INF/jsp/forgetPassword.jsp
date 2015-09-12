@@ -8,7 +8,7 @@
 	<portlet:param name="action" value="forgetPasswordAction" />
 </portlet:renderURL>
 
-<liferay-ui:error key="error" message="Password not found" />
+<liferay-ui:error key="error" message="Invalid email I'd. Please check and try again." />
 
 <!DOCTYPE html>
 <html lang="en">

@@ -105,6 +105,7 @@
 		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="lang" />
 	</bean>
+	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="order">
 			<value>0</value>
@@ -115,10 +116,7 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="loginInterceptor" class="com.ideaclicks.liferay.spring.controller.LoginInterceptor">
-	</bean>
-	
+		
 	<bean id="parameterMappingInterceptor" class="org.springframework.web.portlet.handler.ParameterMappingInterceptor"/>
 	
 	
