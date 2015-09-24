@@ -11,9 +11,11 @@ import javax.persistence.Table;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.annotations.Check;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.RegExp;
 
 @Entity
@@ -23,40 +25,32 @@ public class UserRegistration implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private static final Log LOG = LogFactory.getLog(UserRegistration.class);
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@Column(name="USER_ID")
+	private String id;
+	
 	@Column(name="ORGANIZATION_CODE")
-	@NotBlank
-	@Length(min=3 ,max=10)
-	@RegExp("[A-Za-z0-9]+") 
 	private String orgCode;
 
-	@Column(name="USER_NAME")
-	@NotBlank
-	@RegExp("[A-Za-z0-9\\s]+") 
+	@Column(name="USER_NAME") 
 	private String userName;
 
 	@Column(name="USER_EMAIL")
-	@NotBlank
 	@Email
 	private String email;
 
 	@Column(name="PASSWORD")
-	@NotBlank
 	private String pswd;
-
+	
+	private String cpswd;
 
 	@Column(name="USER_CONTACT")
-	@NotBlank
-	@RegExp("[0-9]+") 
 	private String contact;
 
 	@Column(name="STATUS")
 	@NotBlank
 	private String status;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	
-	@Column(name="USER_ID")
-	private String id;
 
 	/**
 	 * @return the id
@@ -144,6 +138,20 @@ public class UserRegistration implements Serializable{
 		this.pswd = pswd;
 	}
 
+	/**
+	 * @return the cpswd
+	 */
+	public String getCpswd() {
+		return cpswd;
+	}
+
+	/**
+	 * @param cpswd the cpswd to set
+	 */
+	public void setCpswd(String cpswd) {
+		this.cpswd = cpswd;
+	}
+
 	public String getOrgCode() {
 		return orgCode;
 	}
@@ -157,8 +165,9 @@ public class UserRegistration implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "userRegistration [id=" + id + ", userName=" + userName
-				+ ", orgName=" + ", email=" + email + ", contact="
-				+ contact + ", status=" + status + "]";
+		return "UserRegistration [orgCode=" + orgCode + ", userName="
+				+ userName + ", email=" + email + ", pswd=" + pswd + ", cpswd="
+				+ cpswd + ", contact=" + contact + ", status=" + status
+				+ ", id=" + id + "]";
 	}
 }

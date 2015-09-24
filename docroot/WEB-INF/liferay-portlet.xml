@@ -4,21 +4,22 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>Home</portlet-name>
-			<action-url-redirect>true</action-url-redirect>
-			<private-session-attributes>false</private-session-attributes>
-			<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<action-url-redirect>true</action-url-redirect>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>carousel</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
-			<private-session-attributes>false</private-session-attributes>
-			<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
+		<friendly-url-routes>/friendly_url.xml</friendly-url-routes>
 		<action-url-redirect>true</action-url-redirect>
-			<private-session-attributes>false</private-session-attributes>
-			<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
 		<portlet-name>Login</portlet-name>
@@ -35,19 +36,15 @@
 	<portlet>
 		<portlet-name>ViewIdeas</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
-			<private-session-attributes>false</private-session-attributes>
+		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	
+		<header-portlet-javascript>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js</header-portlet-javascript>
+
 	</portlet>
-	<portlet>
-		<portlet-name>Logout</portlet-name>
-		<action-url-redirect>true</action-url-redirect>
-			<private-session-attributes>false</private-session-attributes>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	
-	</portlet>
+
 	<portlet>
 		<portlet-name>ResetPassword</portlet-name>
+		<friendly-url-routes>/friendly_url.xml</friendly-url-routes>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
@@ -55,13 +52,19 @@
 	<portlet>
 		<portlet-name>ContactUs</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
-			<private-session-attributes>false</private-session-attributes>
+		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	
+
 	</portlet>
-	
+	<portlet>
+		<portlet-name>Logout</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+
+	</portlet>
 	<role-mapper>
-	
+
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
 	</role-mapper>
@@ -77,4 +80,5 @@
 		<role-name>user</role-name>
 		<role-link>User</role-link>
 	</role-mapper>
+
 </liferay-portlet-app>

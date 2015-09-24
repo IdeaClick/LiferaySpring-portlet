@@ -31,6 +31,12 @@
 						<entry key="viewSubmitedIdeaPage">
 							<ref bean="submitIdeaController" />
 						</entry>
+						<entry key="commentsOnIdea">
+							<ref bean="commentController" />
+						</entry>
+						<entry key="like_dislike_counter">
+							<ref bean="commentController" />
+						</entry>
 					</map>
 				</entry>
 			</map>

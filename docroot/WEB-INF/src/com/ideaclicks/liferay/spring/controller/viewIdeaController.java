@@ -34,10 +34,10 @@ public class viewIdeaController {
 	PortletException {	
 		try{
 			PortletSession newSession = request.getPortletSession();
-			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
-			LOG.info("View Idea Controller Session Info"+sessInfo);
-			if(sessInfo!=null){
-				map.put("IdeasList", ideamgmtService.getIdeaList(sessInfo.getOrgCode()));
+			SessionInfo sessionInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
+			LOG.info("View Idea Controller Session Info"+sessionInfo);
+			if(sessionInfo!=null){
+				map.put("IdeasList", ideamgmtService.getIdeaList(sessionInfo.getOrgCode(),sessionInfo.getEmail()));
 				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
 				return "viewIdeas";
 			}

@@ -51,7 +51,7 @@
 			<value>false</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
-		
+
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
@@ -61,7 +61,7 @@
 			<short-title>Home</short-title>
 			<keywords>Home</keywords>
 		</portlet-info>
-		
+
 		<security-role-ref>
 			<role-name>administrator</role-name>
 		</security-role-ref>
@@ -74,7 +74,7 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-		
+
 	</portlet>
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
@@ -146,7 +146,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
-	
+
 	<portlet>
 		<portlet-name>Submit_Idea</portlet-name>
 		<display-name>Submit_Idea</display-name>
@@ -193,6 +193,10 @@
 		<init-param>
 			<name>add-process-action-success-action</name>
 			<value>false</value>
+		</init-param>
+		<init-param>
+			<name>copy-request-parameters</name>
+			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -322,8 +326,8 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
-	
-	 <filter>
+
+	<filter>
 		<filter-name>myFilter</filter-name>
 		<filter-class>com.ideaclicks.liferay.spring.util.ServletFilter</filter-class>
 		<lifecycle>RENDER_PHASE</lifecycle>
@@ -332,11 +336,23 @@
 
 	<filter-mapping>
 		<filter-name>myFilter</filter-name>
-		 <portlet-name>Home</portlet-name>
-		 <portlet-name>Login</portlet-name>
-		 <portlet-name>Submit_Idea</portlet-name>
-		 <portlet-name>ViewIdeas</portlet-name>
-		 <portlet-name>Logout</portlet-name>
-		 <portlet-name>ContactUs</portlet-name>
+		<portlet-name>Home</portlet-name>
+		<portlet-name>Login</portlet-name>
+		<portlet-name>Submit_Idea</portlet-name>
+		<portlet-name>ViewIdeas</portlet-name>
+		<portlet-name>Logout</portlet-name>
+		<portlet-name>ContactUs</portlet-name>
 	</filter-mapping>
+	<container-runtime-option>
+		<name>javax.portlet.actionScopedRequestAttributes</name>
+		<value>true</value>
+	</container-runtime-option>
+	<container-runtime-option>
+		<name>javax.portlet.renderHeaders</name>
+		<value>true</value>
+	</container-runtime-option>
+	<container-runtime-option>
+		<name>javax.portlet.escapeXml</name>
+		<value>false</value>
+	</container-runtime-option>
 </portlet-app>

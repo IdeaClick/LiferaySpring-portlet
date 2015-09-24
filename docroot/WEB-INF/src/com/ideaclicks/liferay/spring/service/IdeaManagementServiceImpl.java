@@ -258,13 +258,13 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 	}
 	
 	@Transactional
-	public List<Ideas> getIdeaList(String orgzcode) throws AdminException {
+	public List<Ideas> getIdeaList(String orgsCode,String loggedInUser) throws AdminException {
 		
 		 List<Ideas> list ;
 		 List<Ideas> newList = null;
 		try{
 				LOG.debug("ideamanagementDao============" + ideamanagementDAO);
-				list = ideamanagementDAO.getIdeaList(orgzcode);
+				list = ideamanagementDAO.getIdeaList(orgsCode,loggedInUser);
 				LOG.debug("Ideas list============" + list);
 				
 			if (!list.isEmpty()) { 
@@ -350,5 +350,11 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 	public boolean ResetPassword(String email, String oldpswd, String newpswd) {
 		
 		return ideamanagementDAO.ResetPassword(email, oldpswd, newpswd);
+	}
+
+	@Transactional
+	public List<Ideas> getSingleIdea(String ideasId) throws AdminException {
+		List list =ideamanagementDAO.getSingleIdea(ideasId);
+		return list;
 	}
 }

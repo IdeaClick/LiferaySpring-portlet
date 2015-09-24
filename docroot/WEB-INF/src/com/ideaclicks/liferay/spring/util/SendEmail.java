@@ -28,7 +28,8 @@ public class SendEmail extends MVCPortlet{
 	private static final Log LOG = LogFactory.getLog(SendEmail.class);
 	
 	String Username = GlobalConstants.EMAIL_USERNAME;
-	String Password = GlobalConstants.EMAIL_PASSWORD;
+	String Password = IClicksEncriptionDecription.decryptPassword(GlobalConstants.EMAIL_PASSWORD);	
+	
 	String fromEmailAddress = GlobalConstants.EMAIL_USERNAME;
 	String toEmailAddress = "";
 	String subject = "";
@@ -146,6 +147,8 @@ public class SendEmail extends MVCPortlet{
 		System.out.println(" create session b4 ");
 		// Create a Session object based on the properties and 
 		// Authenticator object
+		LOG.info("Login Password"+Password);
+		System.out.println("Login Password"+Password);
 		Session session = Session.getInstance(props,new LoginAuthenticator(Username,Password));
 
 		System.out.println(" create session after ");

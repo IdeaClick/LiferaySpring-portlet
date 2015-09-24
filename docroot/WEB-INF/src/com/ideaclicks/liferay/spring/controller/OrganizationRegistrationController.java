@@ -14,6 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hsqldb.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +44,8 @@ public class OrganizationRegistrationController    {
 
 	ServiceStatus servicestatus = null;
 
+	@Autowired
+	@Qualifier("orgRegistrationValidator")
 	private Validator validator;
 
 	@Resource(name = "validator")
@@ -91,13 +94,13 @@ public class OrganizationRegistrationController    {
 				else{
 					LOG.info("Success Validation ======>>>");
 					String pswd;
-					pswd =RandomPasswordGenerator.generatePswd().toString();
+					//pswd =RandomPasswordGenerator.generatePswd().toString();
 			
-					registration.setPswd(IClicksEncriptionDecription.encryptPassword(pswd));
+					registration.setPswd(IClicksEncriptionDecription.encryptPassword(registration.getPswd()));
 					registration.setStatus("DEACTIVATE");
 
 					LOG.info("Organization Name:"+registration.getOrgName()+"Organization Code:"+registration.getOrgCode()+"Organization Type:"+registration.getOrgType()+
-							"Organization Email:"+registration.getEmail()+"Organization Contact:"+registration.getContactNo());
+							"Organization Email:"+registration.getEmail()+"Organization Contact:"+registration.getContact());
 
 					servicestatus = ideamgmtService.organizationRegistration(registration);
 					if(servicestatus.getStatus() == GlobalConstants.SUCCESS){
@@ -106,7 +109,7 @@ public class OrganizationRegistrationController    {
 						//generate login url with adding some attribute
 						String url = GlobalConstants.LOGIN_URL + GlobalConstants.QUESTIONMARK +GlobalConstants.ORGCODE+ GlobalConstants.EQUAL + registration.getOrgCode();
 						System.out.println(" check session b4 send mail " + Session.INFO_ID);
-						snd.sendEmailOrganization(registration.getOrgName(),registration.getOrgCode(),registration.getEmail(),pswd,url);
+						snd.sendEmailOrganization(registration.getOrgName(),registration.getOrgCode(),registration.getEmail(),registration.getPswd(),url);
 						PortletSession session = renderRequest.getPortletSession();
 						session.setAttribute("email",registration.getEmail(), PortletSession.APPLICATION_SCOPE);
 						

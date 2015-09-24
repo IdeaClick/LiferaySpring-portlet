@@ -26,13 +26,10 @@ public class OrganizationRegistration implements Serializable{
 
 	@Column(name="ORGANIZATION_NAME")
 	@NotBlank
-	@RegExp("[A-Za-z\\s]+") 
 	private String orgName;
 
 	@Column(name="ORGANIZATION_CODE")
 	@NotBlank
-	@Length(min=3 ,max=10)
-	@RegExp("[A-Za-z0-9]+") 
 	private String orgCode;
 
 	@Column(name="ORGANIZATION_TYPE")
@@ -47,11 +44,12 @@ public class OrganizationRegistration implements Serializable{
 	@Column(name="PASSWORD")
 	@NotBlank
 	private String pswd;
-
+	
+	private String cpswd;
+	
 	@Column(name="ORGANIZATION_CONTACT")
 	@NotBlank
-	@RegExp("[0-9]+") 
-	private String contactNo;
+	private String contact;
 
 	@Column(name="STATUS")
 	@NotBlank
@@ -130,15 +128,15 @@ public class OrganizationRegistration implements Serializable{
 	/**
 	 * @return the contactNo
 	 */
-	public String getContactNo() {
-		return contactNo;
+	public String getContact() {
+		return contact;
 	}
 
 	/**
 	 * @param contactNo the contactNo to set
 	 */
-	public void setContactNo(String contactNo) {
-		this.contactNo = contactNo;
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 	/**
@@ -155,6 +153,18 @@ public class OrganizationRegistration implements Serializable{
 		this.pswd = pswd;
 	}
 
+	/**
+	 * @return the cpswd
+	 */
+	public String getCpswd() {
+		return cpswd;
+	}
+	/**
+	 * @param cpswd the cpswd to set
+	 */
+	public void setCpswd(String cpswd) {
+		this.cpswd = cpswd;
+	}
 	public String getOrgCode() {
 		return orgCode;
 	}
@@ -163,11 +173,14 @@ public class OrganizationRegistration implements Serializable{
 		this.orgCode = orgCode;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "OrganizationRegistration [id=" + id + ", orgName=" + orgName
 				+ ", orgCode=" + orgCode + ", orgType=" + orgType + ", email="
-				+ email + ", pswd=" + pswd + ", contactNo=" + contactNo
-				+ ", status=" + status + "]";
+				+ email + ", pswd=" + pswd + ", cpswd=" + cpswd
+				+ ", contactNo=" + contact + ", status=" + status + "]";
 	}
 }

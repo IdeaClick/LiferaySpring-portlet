@@ -123,11 +123,13 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Ideas> getIdeaList(String orgzcode) throws DataAccessException {
-		System.out.println("Orgss code"+orgzcode);
-		String sql = "from Ideas where orgCode = :orgscode ORDER BY id DESC";
+	public List<Ideas> getIdeaList(String orgsCode,String loggedInUser) throws DataAccessException {
+		System.out.println("Orgss code"+orgsCode);
+		String sql = "from Ideas where (orgCode = :orgscode and ideaStatus = :status) or (orgCode = :orgscode and submittedBy = :loggedInUser) ORDER BY id DESC";
 		List<Ideas> list=sessionFactory.getCurrentSession().createQuery(sql)
-				.setParameter("orgscode", orgzcode)
+				.setParameter("orgscode", orgsCode)
+				.setParameter("status","public")
+				.setParameter("loggedInUser",loggedInUser)
 				.list();
 		System.out.println("List"+list);
 		return list ;
@@ -194,7 +196,8 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	@Override
 	public boolean SubmitIdea(Ideas idea)
 			throws DataAccessException {
-		boolean b = sessionFactory.getCurrentSession().save(idea) != null;
+		LOG.info("Idea Values"+idea);
+		boolean b = sessionFactory.getCurrentSession().save(idea)!=null;
 		return b;
 	}
 
@@ -238,5 +241,15 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 			return true;
 		}
 		
+	}
+
+	@Override
+	public List<Ideas> getSingleIdea(String ideasId) throws DataAccessException {
+		String sql = "from Ideas r " + "where r.id = ?";
+		List list = sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter(0, ideasId)
+				.list();
+
+		return list;
 	}
 }

@@ -39,7 +39,7 @@ public class IClicksEncriptionDecription {
 	}
 
 	public static void main(String[] args) {
-		String password="[C@e3394b";
+		String password="C204LaValle#";
 		String encrPwd= IClicksEncriptionDecription.doCypher(IClicksEncriptionDecription.ENCRYPT_MODE, password);
 		System.out.println(encrPwd);
 		

@@ -8,6 +8,7 @@ import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.domain.UserRegistration;
+import com.ideaclicks.liferay.spring.exception.AdminException;
 public interface IdeaManagementDAO {
 	/*
 	 * This method check login credentials
@@ -48,7 +49,7 @@ public interface IdeaManagementDAO {
 	 * @return List Of Ideas
 	 * @throws DataAccessException
 	 */
-	public List<Ideas> getIdeaList(String orgzcode)throws DataAccessException;
+	public List<Ideas> getIdeaList(String orgsCode,String loggedInUser)throws DataAccessException;
 	/**
 	 * This method returns the collection of Ideas Category
 	 * @return List Of Ideas Category
@@ -91,4 +92,6 @@ public interface IdeaManagementDAO {
 	public boolean contactUs(Contact contact)throws DataAccessException;
 	
 	public boolean ResetPassword(String email,String oldpswd,String newpswd)throws DataAccessException;
+	
+	 public List<Ideas> getSingleIdea(String ideasId)throws DataAccessException;
 }

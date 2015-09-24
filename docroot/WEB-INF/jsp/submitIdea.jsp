@@ -13,12 +13,9 @@
 	</div>
 	<hr>
 	<div id="main">
-		<form:form id="myform" name="submit_idea" modelAttribute="submit_idea"
-			method="post" action="${submitIdeaURL}">
+		<form:form name="submit_idea" commandName="submit_idea"  modelAttribute="submit_idea" method="post" action="${submitIdeaURL}">
 
-			<div class="form-error-message">
-				<form:errors path="title"></form:errors>
-			</div>
+			<div class="form-error-message"><form:errors path="title"></form:errors></div>
 			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<fmt:message key="label.ideatitle" />
 				<b style="color: red;">*</b>:<br>
@@ -55,6 +52,14 @@
 			</div>
 			<!-- end of box -->
 			<br>
+			<div class="box">
+			<form:checkbox name="<portlet:namespace />ideaStatus" value="confidential" path="ideaStatus"/>&nbsp;&nbsp;Confidential
+			</div>
+		<%-- 	<div class="box">
+			<input type="radio" name="<portlet:namespace />ideaStatus" value="public" checked/>Public &nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="<portlet:namespace />ideaStatus" value="private"/>Private 
+			</div> --%>
+			<br>
 			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<form:button id="submit" style="width:100px" type="submit"
 					class="btn btn-danger">
@@ -66,6 +71,7 @@
 					<fmt:message key="button.reset" />
 				</form:button>
 			</div>
+			
 			<!-- end of box -->
 		</form:form>
 	</div>

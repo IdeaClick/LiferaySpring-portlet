@@ -73,18 +73,27 @@
 					style="height: 30px; width: 300px" />
 			</div><!-- end of box -->
 			
+			<div class="form-error-message"><form:errors path="pswd"></form:errors></div>
+			<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="label.password" /><b style="color: red;">*</b>:<br>
+				<form:input type="password"  id="password"  name="<portlet:namespace />pswd" path="pswd" title="Please enter Password" style="height: 30px; width: 300px" cssErrorClass="form-error-field"/>
+			</div><!-- end of box -->
+			
+			<div class="form-error-message"><form:errors path="cpswd"></form:errors></div>
+			<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="label.confirmPassword" /><b style="color: red;">*</b>:<br>
+				<form:input type="password" id="confirm_password" name="<portlet:namespace />cpswd" path="cpswd" title="Please Reenter Password" style="height: 30px; width: 300px" cssErrorClass="form-error-field"/>
+			</div><!-- end of box -->
+			
 			<div class="form-error-message">
-				<form:errors path="contactNo"></form:errors>
+				<form:errors path="contact"></form:errors>
 			</div>
 			
 			<div class="box" style="margin-left: auto; margin-right: auto;">
-				<fmt:message key="label.contact" />
-				<b style="color: red;">*</b>:<br>
-				<form:input name="<portlet:namespace />contactNo" path="contactNo"
-					title="Please enter Contact number" pattern="[0-9]{10}"
-					maxlength="10" cssErrorClass="form-error-field"
+				<fmt:message key="label.contact" />:<br>
+				<form:input name="<portlet:namespace />contact" path="contact"
+					title="Please enter Contact number" pattern="[0-9]"
+					 cssErrorClass="form-error-field"
 					style="height: 30px; width: 300px" />
-			</div><!-- end of box -->
+			</div><!-- end of box ## maxlength="10"-->
 			
 			<div style="margin-left: auto; margin-right: auto;"
 				class="g-recaptcha"

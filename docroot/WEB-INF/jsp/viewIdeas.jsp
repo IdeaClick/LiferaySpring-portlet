@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
+<%@page import="javax.portlet.PortletSession"%>
 <liferay-ui:success key="success" message="Idea Submitted" />
 
 <style type="text/css">
@@ -116,27 +117,28 @@
 </style>
 </head>
 <body>
-
+	<div class="box">
+		<fmt:message key="heading.ideas" />
+	</div>
 	<div>
 		<form:form id="viewIdea" name="viewIdea" modelAttribute="viewIdea"
 			method="post" action="">
-
-
 			<div class="view-idea-container">
 				<!-- <div class="search-container">
 	    	Keywords : <input type="text" name="searchIdeas" class="search-idea"/> 
 	    	<button class="btn btn-info">Search</button>
-    	</div>-->
-				<div class="box">
-					<fmt:message key="heading.ideas" />
-				</div>
+    		</div>-->
 				<hr>
 				<c:forEach items="${IdeasList}" var="Idea">
-
-
 					<div class="idea-container">
-						<a class="idea-tile"> ${Idea.title} </a> <br>
+						<a class="idea-tile"
+							href="<portlet:renderURL>
+								<portlet:param name="action" value="commentsOnIdea"/>
+								<portlet:param name="Ideas_id" value="${Idea.id}"/>
+							</portlet:renderURL>">${Idea.title}
+						</a> <br>
 						<div class="idea-description">${Idea.desc}</div>
+
 						<br>
 						<div class="idea-details-container">
 							<fmt:message key="label.category" />
@@ -148,132 +150,19 @@
 					</div>
 					<br>
 				</c:forEach>
-
-				<%-- <div id="box" align="right">
-		<a class="btn"
-			href="<portlet:renderURL>
-					<portlet:param name="action" value="viewSubmitIdeaPage"/>
-					</portlet:renderURL>">Back
-		</a>
-	</div> --%>
-				<!-- <div class="idea-container">
-    		<a class="idea-tile">
-    			Liferay Framework
-    		</a>
-    		<div class="idea-description">
-    		Liferay, Inc., is a professional open-source company that provides free documentation and paid professional service to users of its software. Mainly focused on enterprise portal technology, the company has its headquarters in Diamond Bar, California, United States.
-			Liferay Portal was created in 2000 by chief software architect Brian Chan to provide an enterprise portal solution for non-profit organizations.[7] 
-			In 2004, the company was incorporated under the name Liferay, Inc. and formalized its Germany subsidiary Liferay GmbH. 
-			In 2007, the company opened new Asian headquarters in Dalian, China, and the Spanish subsidiary Liferay SL. 
-			In March 2009, the company opened a new office in Bangalore, India. To date there are 18 offices in 15 countries worldwide with a partner network of 110+ in 40 countries.   		
-    		</div>
-    		<br>
-    		<div class="idea-details-container">
-    			Category : 
-    			<span class="category">
-    				Web
-    			</span>
-    			<br>
-    			Submitted By:
-    			<span class="submit-by">
-    				CCC
-    			</span>
-    		</div>
-    	</div>
-    	<br>
-
-    	<div class="idea-container">
-    		<a class="idea-tile">
-    			Jquery Library
-    		</a>
-    		<div class="idea-description">
-    		The jQuery library is a single JavaScript file containing all of its common DOM, event, effects, and Ajax functions. It can be included within a web page by linking to a local copy or to one of the many copies available from public servers. jQuery has a CDN hosted by MaxCDN[13] (moved from MediaTemple[14] and, before that, Amazon[15]). Google[16] and Microsoft[17] host it as well.    		</div>
-    		<br>
-    		<div class="idea-details-container">
-    			Category : 
-    			<span class="category">
-    				Web
-    			</span>
-    			<br>
-    			Submitted By:
-    			<span class="submit-by">
-    				AAA
-    			</span>
-    		</div>
-    	</div>
-    	<br>
-
-    	<div class="idea-container">
-    		<a class="idea-tile">
-    			Enabling the community
-    		</a>
-    		<div class="idea-description">
-    		The goal for Plasma Mobile is to give the user full use of the device. It is designed as an inclusive system, intended to support all kinds of apps. Native apps are developed using Qt; it will also support apps written in GTK, Android apps, Ubuntu apps, and many others, if the license allows and the app can be made to work at a technical level.
-			Plasma Mobile's development process welcomes contributions at all levels. If you want to get your hands dirty with a cool app, if you want to provide a system functionality such as a mobile hotspot, if you want to improve power management at the kernel level, if you want to help with the design, Plasma Mobile welcomes your contributions.
-			If you want to take part in the creation of Plasma Mobile, get in touch with us!   
-			The goal for Plasma Mobile is to give the user full use of the device. It is designed as an inclusive system, intended to support all kinds of apps. Native apps are developed using Qt; it will also support apps written in GTK, Android apps, Ubuntu apps, and many others, if the license allows and the app can be made to work at a technical level.
-			Plasma Mobile's development process welcomes contributions at all levels. If you want to get your hands dirty with a cool app, if you want to provide a system functionality such as a mobile hotspot, if you want to improve power management at the kernel level, if you want to help with the design, Plasma Mobile welcomes your contributions.
-			If you want to take part in the creation of Plasma Mobile, get in touch with us!
 			</div>
-    		<br>
-    		<div class="idea-details-container">
-    			Category : 
-    			<span class="category">
-    				Mobile
-    			</span>
-    			<br>
-    			Submitted By:
-    			<span class="submit-by">
-    				BBB
-    			</span>
-    		</div>
-    	</div>-->
+			<div class="box">
+				<b>Categories</b>
 			</div>
-			<div class="box"><b>Categories</b></div>
 			<div class="categories-container">
-			<c:forEach items="${categoryList}" var="IdeasCategory">
-				<div class="category">
-					<a> ${IdeasCategory.category} </a>
-				</div>
-			</c:forEach>
+				<c:forEach items="${categoryList}" var="IdeasCategory">
+					<div class="category">
+						<a> ${IdeasCategory.category} </a>
+					</div>
+				</c:forEach>
 			</div>
 		</form:form>
 	</div>
 	<!-- end of main -->
-	<aui:script use="event, node">
-
-AUI().ready(
-		 /*  'aui-aria', */
-		  'aui-dialog',
-		  'aui-overlay-manager',
-		  /* 'dd-constrain', */
-		  function(A) {
-		    A.all('.idea-tile').each(function() {
-		      this.on('click', function(event){
-		    	var login_popup= Liferay.Util.Window.getWindow(
-		                {
-		                   dialog: {
-		                        centered: true,
-		                       constrain2view: true,
-		                        modal: true,
-		                        resizable: false,
-		                        width: 550,
-		                        height: 450,
-		                        bodyContent:"<div class='show-idea-container'><div class='show-idea-description'>"+this.get('parentNode').one(".idea-description").html()+"</div><br>"+
-		                        			"Category : <span class='show-idea-category'>"+this.get('parentNode').one(".idea-details-container .category").html()+"</span><br>"+
-		                        			"Submitted By : <span class='show-idea-author'>"+this.get('parentNode').one(".idea-details-container .submit-by").html()+"</span></div>"
-		                    }
-		                }).render();
-		             login_popup.show();
-		             console.log(this.html());
-		             login_popup.titleNode.html("<div class='show-ide-title'>"+this.text()+"</div>");
-		             //login_popup.setStyle('background-color','yellow');
-		      });
-		    });
-		  });
- 
- </aui:script>
-
 </body>
-
 </html>

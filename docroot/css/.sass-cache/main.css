@@ -14,7 +14,7 @@
 .form-error-message {
   font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
-  color: #932500; }
+  color: Red; }
 
 .data, .data td {
   border-collapse: collapse;

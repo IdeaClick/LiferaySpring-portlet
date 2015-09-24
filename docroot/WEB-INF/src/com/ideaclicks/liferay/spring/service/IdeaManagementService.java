@@ -83,7 +83,7 @@ public interface IdeaManagementService {
     * @return List of Organization objects
     *  @throws AdminException
     */
-   public List<Ideas> getIdeaList(String orgzcode)throws AdminException;
+   public List<Ideas> getIdeaList(String orgzcode,String loggedInUser)throws AdminException;
    
    /***
     * This method returns the list of Ideas Category.
@@ -99,5 +99,7 @@ public interface IdeaManagementService {
    public boolean contactUs(Contact contact)throws AdminException;
    
    public boolean ResetPassword(String email,String oldpswd,String newpswd)throws MinervaException;
+   
+   public List<Ideas> getSingleIdea(String ideasId)throws AdminException;
    
 }

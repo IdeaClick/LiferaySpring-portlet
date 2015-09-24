@@ -30,6 +30,7 @@
 	<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="label.password" />&nbsp;&nbsp;
 	<b><a href="<portlet:renderURL>
 					<portlet:param name="action" value="forgetPswd"/>
+					<portlet:param name="id" value="commentsOnIdea"/>
 				</portlet:renderURL>"><fmt:message key="button.forgetpassword" />
 	</a></b><br>
 		<input type="password" name="<portlet:namespace />pswd" placeholder="Enter Your Password" id="password" style="height: 30px; width: 300px" required>

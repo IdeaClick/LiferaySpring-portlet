@@ -112,9 +112,9 @@ public class LoginController extends MVCPortlet  {
 					
 					LOG.info("before retrun submit idea");
 								        
-					actionResponse.sendRedirect("http://localhost:8081/group/liferay/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet&p_p_lifecycle=0");
+					//actionResponse.sendRedirect("http://localhost:8081/group/liferay/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet&p_p_lifecycle=0");
 					
-					//actionResponse.sendRedirect(td.getURLHome()+"/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet");
+					actionResponse.sendRedirect(td.getURLHome()+"/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet");
 				}
 				else{
 					// Hide default error message
@@ -125,6 +125,10 @@ public class LoginController extends MVCPortlet  {
 				}
 			}else{
 				LOG.info("Captcha Resopnse"+verify);
+				// Hide default error message
+				SessionErrors.add(actionRequest, "error-key");
+				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+				//display error message
 				SessionErrors.add(actionRequest, "captcha");
 			}
 		}catch(SecurityException se) {

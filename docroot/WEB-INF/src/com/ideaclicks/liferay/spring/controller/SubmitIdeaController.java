@@ -15,10 +15,13 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
@@ -43,8 +46,15 @@ public class SubmitIdeaController{
 	 */
 	private static final Log LOG = LogFactory.getLog(SubmitIdeaController.class);
 
+	@Autowired
+	@Qualifier("submitIdeaValidator")
 	private Validator validator;
 
+	@InitBinder
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(validator);
+	}
+	
 	@Resource(name = "validator")
 	public void setValidator(Validator validator) {
 		this.validator = validator;
@@ -65,7 +75,7 @@ public class SubmitIdeaController{
 				return "submitIdea";
 			}
 			else{
-				return "gotoLoginSubmitIdeas";
+				return "submitIdea";
 			}
 		}catch(MinervaException e){
 			LOG.debug(e.getMessage());
@@ -83,14 +93,15 @@ public class SubmitIdeaController{
 	}
 
 	@ActionMapping(params = "action=submitIdea")
-	public void handlePostRequest(ActionRequest actionRequest,ActionResponse actionResponse, Model model,@Valid @ModelAttribute("submit_idea") Ideas idea,
-			BindingResult result,Map<String, Object> map)throws IOException,PortletException,MinervaException {
-
+	public void handlePostRequest(ActionRequest actionRequest,ActionResponse actionResponse,@Valid @ModelAttribute("submit_idea") Ideas idea,
+			BindingResult result)throws IOException,PortletException,MinervaException {
+		
 		boolean value = false;
 		try{
 			validator.validate(idea,result);
 			if (result.hasErrors()) {
 				LOG.info("validation  failed");
+				System.out.println("Validation Failed");
 			}
 			else{
 
@@ -99,16 +110,18 @@ public class SubmitIdeaController{
 				String loginUserOrgCode = sessInfo.getOrgCode();
 				String loginuseremail = sessInfo.getEmail();
 				idea.setOrgCode(loginUserOrgCode);
+				System.out.println("Organization code"+loginUserOrgCode);
 				idea.setSubmittedBy(loginuseremail);
-
 				value=ideamgmtService.SubmitIdea(idea);
 
 				if(value){
 					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 					LOG.info("Home URL"+td.getURLHome());
 					SessionMessages.add(actionRequest, "success");
-					actionResponse.sendRedirect("http://localhost:8081/group/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
-					//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					//actionResponse.sendRedirect("http://localhost:8081/group/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					
+					actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					
 				}												
 				else{
 					// Hide default error message

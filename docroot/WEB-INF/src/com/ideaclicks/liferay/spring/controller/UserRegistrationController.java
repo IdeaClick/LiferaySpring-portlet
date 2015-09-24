@@ -13,11 +13,14 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
@@ -26,7 +29,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ideaclicks.liferay.spring.domain.UserRegistration;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
-import com.ideaclicks.liferay.spring.util.EncriptionToDecription;
 import com.ideaclicks.liferay.spring.util.GlobalConstants;
 import com.ideaclicks.liferay.spring.util.IClicksEncriptionDecription;
 import com.ideaclicks.liferay.spring.util.RandomPasswordGenerator;
@@ -50,7 +52,14 @@ public class UserRegistrationController {
 	@Autowired
 	private IdeaManagementService ideamgmtService;
 
+	@Autowired
+	@Qualifier("userRegistrationValidator")
 	private Validator validator;
+
+	/*@InitBinder
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(validator);
+	}*/
 
 	@Resource(name = "validator")
 	public void setValidator(Validator validator) {
@@ -87,9 +96,9 @@ public class UserRegistrationController {
 				else{
 					LOG.info("Success Validation ======>>>");
 					String pswd;
-					pswd =RandomPasswordGenerator.generatePswd().toString();
-					
-					uRegistration.setPswd(IClicksEncriptionDecription.encryptPassword(pswd));
+					//pswd =RandomPasswordGenerator.generatePswd().toString();
+
+					uRegistration.setPswd(IClicksEncriptionDecription.encryptPassword(uRegistration.getPswd()));
 					uRegistration.setStatus("DEACTIVATE");	
 
 					message =ideamgmtService.newUserRegistration(uRegistration);
@@ -97,7 +106,7 @@ public class UserRegistrationController {
 					if(message.equalsIgnoreCase("user registration successful")){
 						LOG.info("Registration Complete");
 						String url = GlobalConstants.LOGIN_URL + GlobalConstants.QUESTIONMARK +GlobalConstants.ORGCODE+ GlobalConstants.EQUAL + uRegistration.getOrgCode();
-						snd.sendEmailUser(uRegistration.getEmail(),pswd,uRegistration.getOrgCode(),url);
+						snd.sendEmailUser(uRegistration.getEmail(),uRegistration.getPswd(),uRegistration.getOrgCode(),url);
 						SessionMessages.add(renderRequest, "success");
 						PortletSession session = renderRequest.getPortletSession();
 						session.setAttribute("email",uRegistration.getEmail(), PortletSession.APPLICATION_SCOPE);
