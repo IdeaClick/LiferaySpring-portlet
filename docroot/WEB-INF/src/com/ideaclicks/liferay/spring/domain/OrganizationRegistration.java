@@ -54,6 +54,10 @@ public class OrganizationRegistration implements Serializable{
 	@Column(name="STATUS")
 	@NotBlank
 	private String status;
+	
+	@Column(name="USERTYPE")
+	@NotBlank
+	private String usertype;
 
 
 	/**
@@ -173,6 +177,18 @@ public class OrganizationRegistration implements Serializable{
 		this.orgCode = orgCode;
 	}
 
+	/**
+	 * @return the usertype
+	 */
+	public String getUsertype() {
+		return usertype;
+	}
+	/**
+	 * @param usertype the usertype to set
+	 */
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -180,7 +196,8 @@ public class OrganizationRegistration implements Serializable{
 	public String toString() {
 		return "OrganizationRegistration [id=" + id + ", orgName=" + orgName
 				+ ", orgCode=" + orgCode + ", orgType=" + orgType + ", email="
-				+ email + ", pswd=" + pswd + ", cpswd=" + cpswd
-				+ ", contactNo=" + contact + ", status=" + status + "]";
+				+ email + ", pswd=" + pswd + ", cpswd=" + cpswd + ", contact="
+				+ contact + ", status=" + status + ", usertype=" + usertype
+				+ "]";
 	}
 }

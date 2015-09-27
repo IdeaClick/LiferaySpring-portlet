@@ -63,6 +63,14 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 
 	</portlet>
+	<portlet>
+		<portlet-name>InviteUsers</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+
+	</portlet>
+	
 	<role-mapper>
 
 		<role-name>administrator</role-name>

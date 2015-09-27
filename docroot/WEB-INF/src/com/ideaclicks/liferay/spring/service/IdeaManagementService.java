@@ -79,11 +79,25 @@ public interface IdeaManagementService {
    public boolean SubmitIdea(Ideas idea)throws UserException;
    
    /***
-    * This method returns the list of Organization.
-    * @return List of Organization objects
+    * This method returns the list of Ideas for User.
+    * @return List of Ideas
     *  @throws AdminException
     */
    public List<Ideas> getIdeaList(String orgzcode,String loggedInUser)throws AdminException;
+   
+   /***
+    * This method returns the list of Ideas for User.
+    * @return List of Ideas
+    *  @throws AdminException
+    */
+   public List<Ideas> getIdeaListForAdmin(String orgzcode)throws AdminException;
+   
+   /***
+    * This method returns the list of filter Ideas by category.
+    * @return List of filter Ideas
+    *  @throws AdminException
+    */
+   public List<Ideas> getIdeaFilterList(String orgscode,String loggedInUser,String filterIdeaCategory)throws AdminException;
    
    /***
     * This method returns the list of Ideas Category.
@@ -101,5 +115,7 @@ public interface IdeaManagementService {
    public boolean ResetPassword(String email,String oldpswd,String newpswd)throws MinervaException;
    
    public List<Ideas> getSingleIdea(String ideasId)throws AdminException;
+   
+   public String getUserType(String email)throws AdminException;
    
 }

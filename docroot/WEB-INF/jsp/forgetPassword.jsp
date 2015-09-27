@@ -8,7 +8,7 @@
 	<portlet:param name="action" value="forgetPasswordAction" />
 </portlet:renderURL>
 
-<liferay-ui:error key="error" message="Invalid email I'd. Please check and try again." />
+<liferay-ui:error key="error" message="Invalid email Id. Please check and try again." />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +23,7 @@
 	<div class="box" style="margin-left: auto; margin-right: auto;">
 		<fmt:message key="heading.forgetpassword" />
 	</div>
+	<br>
 	<form:form modelAttribute="forgetpassword" commandName="forgetpassword"
 		method="post" action="<%=forgetpassAction%>">
 
@@ -32,7 +33,7 @@
 			<form:input name="<portlet:namespace />email" path="email"
 				placeholder="Enter Your Email-Id" style="height: 30px;width: 250px" />
 			<br>
-			<form:button type="submit" class="btn btn-warning">Submit</form:button>
+			<form:button type="submit">Submit</form:button>
 		</div>
 
 	</form:form>

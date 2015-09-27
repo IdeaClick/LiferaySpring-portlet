@@ -117,7 +117,7 @@
 </style>
 </head>
 <body>
-user
+admin
 	<div class="box">
 		<fmt:message key="heading.ideas" />
 	</div>

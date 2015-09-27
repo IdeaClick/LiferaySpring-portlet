@@ -53,7 +53,7 @@
 			<!-- end of box -->
 			<br>
 			<div class="box">
-			<form:checkbox name="<portlet:namespace />ideaStatus" value="confidential" path="ideaStatus"/>&nbsp;&nbsp;Confidential
+			<form:checkbox name="<portlet:namespace />ideaStatus" value="private" path="ideaStatus"/>&nbsp;&nbsp;Confidential
 			</div>
 		<%-- 	<div class="box">
 			<input type="radio" name="<portlet:namespace />ideaStatus" value="public" checked/>Public &nbsp;&nbsp;&nbsp;&nbsp;
@@ -62,12 +62,12 @@
 			<br>
 			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<form:button id="submit" style="width:100px" type="submit"
-					class="btn btn-danger">
+					class="button">
 					<fmt:message key="button.submit" />
 				</form:button>
 				&nbsp;&nbsp;
 				<form:button id="reset" style="width:100px" type="reset"
-					class="btn btn-warning">
+					class="button">
 					<fmt:message key="button.reset" />
 				</form:button>
 			</div>

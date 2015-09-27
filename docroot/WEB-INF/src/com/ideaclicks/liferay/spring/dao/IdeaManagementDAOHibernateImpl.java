@@ -134,6 +134,31 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 		System.out.println("List"+list);
 		return list ;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Ideas> getIdeaListForAdmin(String orgsCode)
+			throws DataAccessException {
+		System.out.println("Orgss code"+orgsCode);
+		String sql = "from Ideas where orgCode = :orgscode ORDER BY id DESC";
+		List<Ideas> list=sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("orgscode", orgsCode)
+				.list();
+		System.out.println("List"+list);
+		return list ;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Ideas> getIdeaFilterList(String orgsCode, String loggedInUser,String filterIdeaCategory) throws DataAccessException {
+		String sql = "from Ideas where (orgCode = :orgscode and ideaStatus = :status and category = :IdeaCategory) or (orgCode = :orgscode and submittedBy = :loggedInUser and category = :IdeaCategory) ORDER BY id DESC";
+		List<Ideas> list=sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("orgscode", orgsCode)
+				.setParameter("status","public")
+				.setParameter("loggedInUser",loggedInUser)
+				.setParameter("IdeaCategory",filterIdeaCategory)
+				.list();
+		System.out.println("List"+list);
+		return list ;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<IdeasCategory> getIdeasCategoryList() throws DataAccessException {
@@ -188,9 +213,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 			else{
 				return null;
 			}
-			
 		}
-		
 	}
 
 	@Override
@@ -251,5 +274,37 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 				.list();
 
 		return list;
+	}
+
+	@Override
+	public String getUserType(String email) throws DataAccessException {
+		String sql = "from OrganizationRegistration r " + "where r.email = :emailid";
+		List Elist=sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("emailid", email)
+				.list();
+		OrganizationRegistration reg=null;
+		if(Elist.size() != 0|| Elist.size()==1) {
+			reg = (OrganizationRegistration) Elist.get(0);
+			String userType = reg.getUsertype();
+			System.out.println("User Type:"+userType);
+			return userType;	
+		}
+		else{
+			String sql1 = "from UserRegistration r " + "where r.email = :emailid";
+			List emailList=sessionFactory.getCurrentSession().createQuery(sql1)
+					.setParameter("emailid", email)
+					.list();
+			System.out.println(email+"List"+emailList);
+			UserRegistration userReg=null;
+			if(emailList.size()!=0 || emailList.size()==1){
+				userReg = (UserRegistration) emailList.get(0);
+				String userType = userReg.getUsertype();
+				System.out.println("User Type:"+userType);
+				return userType;	
+			}
+			else{
+				return null;
+			}
+		}
 	}
 }

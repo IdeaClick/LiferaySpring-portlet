@@ -99,22 +99,22 @@ public class LoginController extends MVCPortlet  {
 					LOG.info("Successfully Login");
 					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 					LOG.info("Home URL"+td.getURLHome());
-					
+					System.out.println("User Type Login Controller:"+ideamgmtService.getUserType(emailId));
+					reg.setUsertype(ideamgmtService.getUserType(emailId));
 					SessionManager ownsessionobject = SessionManager.getInstance();
 					ownsessionobject.createSession(actionRequest,reg);
 					
 					PortletSession session = actionRequest.getPortletSession();
 					session.setAttribute("email",emailId, PortletSession.APPLICATION_SCOPE);
 					
-					
 					SessionMessages.add(actionRequest, "loginsuccess");
 					super.processAction(actionRequest, actionResponse);
 					
 					LOG.info("before retrun submit idea");
 								        
-					//actionResponse.sendRedirect("http://localhost:8081/group/liferay/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet&p_p_lifecycle=0");
+					actionResponse.sendRedirect("http://localhost:8081/group/private/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet&p_p_lifecycle=0");
 					
-					actionResponse.sendRedirect(td.getURLHome()+"/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet");
+					//actionResponse.sendRedirect(td.getURLHome()+"/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet");
 				}
 				else{
 					// Hide default error message

@@ -1,9 +1,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <body>
-	<div class="box" style="margin-left: auto; margin-right: auto;">
-		<b><fmt:message key="heading.registeredorganization" /></b>
-	</div>
+	
 	<hr>
 	<div id="main" class="box"
 		style="margin-left: auto; margin-right: auto;">

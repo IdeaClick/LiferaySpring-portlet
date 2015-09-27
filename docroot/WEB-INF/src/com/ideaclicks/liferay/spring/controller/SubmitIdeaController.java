@@ -50,10 +50,10 @@ public class SubmitIdeaController{
 	@Qualifier("submitIdeaValidator")
 	private Validator validator;
 
-	@InitBinder
+	/*@InitBinder
 	private void initBinder(WebDataBinder binder) {
 		binder.setValidator(validator);
-	}
+	}*/
 	
 	@Resource(name = "validator")
 	public void setValidator(Validator validator) {
@@ -75,7 +75,7 @@ public class SubmitIdeaController{
 				return "submitIdea";
 			}
 			else{
-				return "submitIdea";
+				return "gotoLoginSubmitIdeas";
 			}
 		}catch(MinervaException e){
 			LOG.debug(e.getMessage());
@@ -118,9 +118,9 @@ public class SubmitIdeaController{
 					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 					LOG.info("Home URL"+td.getURLHome());
 					SessionMessages.add(actionRequest, "success");
-					//actionResponse.sendRedirect("http://localhost:8081/group/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					actionResponse.sendRedirect("http://localhost:8081/group/private/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
 					
-					actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
 					
 				}												
 				else{

@@ -50,7 +50,7 @@
 			<br>
 			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<form:button id="submit" style="width:100px" type="submit"
-					class="btn btn-danger">
+					class="">
 					<fmt:message key="button.submit" />
 				</form:button>
 

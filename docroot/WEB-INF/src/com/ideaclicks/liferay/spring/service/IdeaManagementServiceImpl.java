@@ -268,7 +268,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 				LOG.debug("Ideas list============" + list);
 				
 			if (!list.isEmpty()) { 
-        	 LOG.debug("Organization List===="+list);	
+        	 LOG.debug("Ideas List===="+list);	
         	 newList = new ArrayList<Ideas>(list);
          }
 		}catch(Exception e) {
@@ -276,6 +276,41 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
             throw new AdminException(e.getMessage());
         }
 		return newList;
+	}
+	
+	@Transactional
+	public List<Ideas> getIdeaListForAdmin(String orgscode)
+			throws AdminException {
+		 List<Ideas> list ;
+		 List<Ideas> newList = null;
+		try{
+				LOG.debug("ideamanagementDao============" + ideamanagementDAO);
+				list = ideamanagementDAO.getIdeaListForAdmin(orgscode);
+				LOG.debug("Ideas list============" + list);
+				
+			if (!list.isEmpty()) { 
+        	 LOG.debug("Ideas List===="+list);	
+        	 newList = new ArrayList<Ideas>(list);
+         }
+		}catch(Exception e) {
+            LOG.error(e.getMessage());
+            throw new AdminException(e.getMessage());
+        }
+		return newList;
+	}
+
+	
+	@Transactional
+	public List<Ideas> getIdeaFilterList(String orgsCode, String loggedInUser,String filterIdeaCategory) throws AdminException {
+		 List<Ideas> list;
+		try{
+		 list = ideamanagementDAO.getIdeaFilterList(orgsCode, loggedInUser, filterIdeaCategory);
+		 LOG.info("Filter Ideas List===="+list);
+		}catch(Exception e) {
+            LOG.error(e.getMessage());
+            throw new AdminException(e.getMessage());
+        }
+		return list;
 	}
 	
 	@Transactional
@@ -357,4 +392,11 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 		List list =ideamanagementDAO.getSingleIdea(ideasId);
 		return list;
 	}
+
+	@Transactional
+	public String getUserType(String email) throws AdminException {
+		String userType = ideamanagementDAO.getUserType(email);
+		return userType;
+	}
+	
 }

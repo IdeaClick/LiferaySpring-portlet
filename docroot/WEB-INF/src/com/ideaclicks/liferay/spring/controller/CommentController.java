@@ -64,20 +64,20 @@ public class CommentController{
 		
 		
 		
-		/*	int like_count = ParamUtil.getInteger(request, "like_count");
+			int like_count = ParamUtil.getInteger(request, "like_count");
 			System.out.println("Hiiiiiiiiiiii"+like_count);
 			like_count = like_count + 1 ;
-		 */
+		 
           try{
         	  int likeCount = ParamUtil.getInteger(request, "like_count");
   			System.out.println("Hii Amol!!"+likeCount);	
   			likeCount = likeCount+1;
   			response.getWriter().println(likeCount);
   			
-        	/*  response.setCharacterEncoding("UTF-8"); 
+        	 response.setCharacterEncoding("UTF-8"); 
         	  System.out.println("Like Count"+like_count);
       		response.getWriter().write(like_count); 
-         */
+         
           }catch (Exception e) {
         	  e.printStackTrace();
           }

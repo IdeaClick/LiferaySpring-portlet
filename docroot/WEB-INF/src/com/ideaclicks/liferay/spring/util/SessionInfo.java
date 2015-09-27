@@ -1,11 +1,14 @@
 package com.ideaclicks.liferay.spring.util;
-import javax.servlet.http.HttpSessionBindingEvent;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class SessionInfo implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * This field holds the logger for this class.
 	 */
@@ -16,6 +19,7 @@ public class SessionInfo implements java.io.Serializable{
 	private String sessionId;
 	private String email;
 	private String orgCode;
+	private String usertype;
 	/**
 	 * @return the requestIp
 	 */
@@ -63,5 +67,27 @@ public class SessionInfo implements java.io.Serializable{
 	 */
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
+	}
+	/**
+	 * @return the usertype
+	 */
+	public String getUsertype() {
+		return usertype;
+	}
+	/**
+	 * @param usertype the usertype to set
+	 */
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SessionInfo [mnSessionStatus=" + mnSessionStatus
+				+ ", requestIp=" + requestIp + ", sessionId=" + sessionId
+				+ ", email=" + email + ", orgCode=" + orgCode + ", usertype="
+				+ usertype + "]";
 	}
 }

@@ -95,18 +95,18 @@ public class UserRegistrationController {
 				}
 				else{
 					LOG.info("Success Validation ======>>>");
-					String pswd;
-					//pswd =RandomPasswordGenerator.generatePswd().toString();
+					String pswd = uRegistration.getPswd();
 
-					uRegistration.setPswd(IClicksEncriptionDecription.encryptPassword(uRegistration.getPswd()));
+					uRegistration.setPswd(IClicksEncriptionDecription.encryptPassword(pswd));
 					uRegistration.setStatus("DEACTIVATE");	
+					uRegistration.setUsertype("User");
 
 					message =ideamgmtService.newUserRegistration(uRegistration);
 
 					if(message.equalsIgnoreCase("user registration successful")){
 						LOG.info("Registration Complete");
 						String url = GlobalConstants.LOGIN_URL + GlobalConstants.QUESTIONMARK +GlobalConstants.ORGCODE+ GlobalConstants.EQUAL + uRegistration.getOrgCode();
-						snd.sendEmailUser(uRegistration.getEmail(),uRegistration.getPswd(),uRegistration.getOrgCode(),url);
+						snd.sendEmailUser(uRegistration.getEmail(),pswd,uRegistration.getOrgCode(),url);
 						SessionMessages.add(renderRequest, "success");
 						PortletSession session = renderRequest.getPortletSession();
 						session.setAttribute("email",uRegistration.getEmail(), PortletSession.APPLICATION_SCOPE);

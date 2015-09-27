@@ -93,11 +93,11 @@ public class OrganizationRegistrationController    {
 				}
 				else{
 					LOG.info("Success Validation ======>>>");
-					String pswd;
-					//pswd =RandomPasswordGenerator.generatePswd().toString();
+					String pswd= registration.getPswd();
 			
-					registration.setPswd(IClicksEncriptionDecription.encryptPassword(registration.getPswd()));
+					registration.setPswd(IClicksEncriptionDecription.encryptPassword(pswd));
 					registration.setStatus("DEACTIVATE");
+					registration.setUsertype("Admin");
 
 					LOG.info("Organization Name:"+registration.getOrgName()+"Organization Code:"+registration.getOrgCode()+"Organization Type:"+registration.getOrgType()+
 							"Organization Email:"+registration.getEmail()+"Organization Contact:"+registration.getContact());
@@ -109,10 +109,10 @@ public class OrganizationRegistrationController    {
 						//generate login url with adding some attribute
 						String url = GlobalConstants.LOGIN_URL + GlobalConstants.QUESTIONMARK +GlobalConstants.ORGCODE+ GlobalConstants.EQUAL + registration.getOrgCode();
 						System.out.println(" check session b4 send mail " + Session.INFO_ID);
-						snd.sendEmailOrganization(registration.getOrgName(),registration.getOrgCode(),registration.getEmail(),registration.getPswd(),url);
+						snd.sendEmailOrganization(registration.getOrgName(),registration.getOrgCode(),registration.getEmail(),pswd,url);
 						PortletSession session = renderRequest.getPortletSession();
 						session.setAttribute("email",registration.getEmail(), PortletSession.APPLICATION_SCOPE);
-						
+				
 						return new ModelAndView("success");
 					}
 					else if(servicestatus.getStatus() == GlobalConstants.FAILED){

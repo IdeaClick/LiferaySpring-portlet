@@ -1,7 +1,7 @@
 .box {
   font-size: 15px;
   font-family: 'Titillium Web', sans-serif;
-  color: #932500; }
+  color: #000000; }
 
 .box1 {
   font-size: 15px;
@@ -15,6 +15,12 @@
   font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
   color: Red; }
+
+button {
+  background-color: #025776;
+  color: #FFFFFF;
+  height: 30px;
+  font-weight: bold; }
 
 .data, .data td {
   border-collapse: collapse;

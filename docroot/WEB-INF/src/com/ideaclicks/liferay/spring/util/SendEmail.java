@@ -127,6 +127,23 @@ public class SendEmail extends MVCPortlet{
 			System.out.println("Error"+e);
 		}
 	}
+	
+	public void sendEmailInviteUsers(String toEmailAdd)throws IOException,PortletException
+	{
+		try{
+			tmessage="";
+			subject = "IdeaClicks Invitation";
+			toEmailAddress = toEmailAdd;
+			String textMessage = "Welcome to IdeaClicks ! ";
+					
+			tmessage = textMessage.concat("\n\r Invitation Email \n\r Happy innovation !"+
+					"\n\r Team IdeaClicks.");
+			start();
+		}catch(Exception e)
+		{
+			System.out.println("Error"+e);
+		}
+	}
 
 	private void start() {
 

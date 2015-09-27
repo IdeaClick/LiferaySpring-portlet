@@ -100,10 +100,11 @@ public class ResetPasswordController extends MVCPortlet{
 					SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 
 					String loginuseremail = sessInfo.getEmail();
-					System.out.println("Old Password"+oldPasswrod+"\n New Password"+newPasswrod+"\n Confirm Password"+confirmPasswrod);
+					LOG.info("Old Password"+oldPasswrod+"\n New Password"+newPasswrod+"\n Confirm Password"+confirmPasswrod);
 					value=ideamgmtService.ResetPassword(loginuseremail,oldPasswrod,confirmPasswrod);
 
 					if(value){
+						
 						SessionMessages.add(renderRequest, "success");
 						return new ModelAndView("resetpassword");
 					}

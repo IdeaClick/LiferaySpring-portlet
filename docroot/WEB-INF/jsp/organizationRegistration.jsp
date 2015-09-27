@@ -45,6 +45,7 @@
 				<form:input name="<portlet:namespace />orgCode" path="orgCode"
 					title="Enter Organization Code" cssErrorClass="form-error-field"
 					style="height: 30px; width: 300px" />
+				<span style="height:10px;width:10px;font-weight:bold;" title="Define Org Code. e.g:- <your org name><your city>">?</span>						
 			</div><!-- end of box -->
 			
 			<div class="form-error-message">
@@ -90,8 +91,7 @@
 			<div class="box" style="margin-left: auto; margin-right: auto;">
 				<fmt:message key="label.contact" />:<br>
 				<form:input name="<portlet:namespace />contact" path="contact"
-					title="Please enter Contact number" pattern="[0-9]"
-					 cssErrorClass="form-error-field"
+					title="Please enter Contact number" cssErrorClass="form-error-field"
 					style="height: 30px; width: 300px" />
 			</div><!-- end of box ## maxlength="10"-->
 			
@@ -99,10 +99,9 @@
 				class="g-recaptcha"
 				data-sitekey=<fmt:message key="captcha.data-sitekey" />>
 			</div><!-- end of box -->
-			
+			<br>
 			<div id="box" style="margin-left: auto; margin-right: auto;">
-				<form:button type="submit" style="width:150px"
-					class="btn btn-danger">
+				<form:button type="submit" style="width:150px">
 					<fmt:message key="button.registerorganization" />
 				</form:button>
 			</div><!-- end of box -->

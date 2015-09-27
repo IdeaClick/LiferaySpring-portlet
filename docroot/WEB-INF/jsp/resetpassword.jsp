@@ -24,9 +24,9 @@
 		<div class="box" style="margin-left: auto; margin-right: auto;">
 			<fmt:message key="label.reset.password.old.password" />
 			<b style="color: red;">*</b>:<br>
-			<form:input type="password" name="<portlet:namespace />oldpswd"
+			<form:password  name="<portlet:namespace />oldpswd"
 				title="Old Password" path="oldpswd"
-				style="height: 100%; width: 30%;" />
+				style="height: 100%; width: 30%;" ></form:password>
 		</div>
 		<!-- end of box -->
 		<br>
@@ -37,9 +37,9 @@
 		<div class="box" style="margin-left: auto; margin-right: auto;">
 			<fmt:message key="label.reset.password.new.password" />
 			<b style="color: red;">*</b>:<br>
-			<form:input type="password" name="<portlet:namespace />newpswd"
+			<form:password  name="<portlet:namespace />newpswd"
 				title="New Password" path="newpswd"
-				style="height: 100%; width: 30%;" />
+				style="height: 100%; width: 30%;" ></form:password>
 		</div>
 		<!-- end of box -->
 		<br>
@@ -50,16 +50,15 @@
 		<div class="box" style="margin-left: auto; margin-right: auto;">
 			<fmt:message key="label.reset.password.confirm.password" />
 			<b style="color: red;">*</b>:<br>
-			<form:input type="password" name="<portlet:namespace />confirmpswd"
+			<form:password name="<portlet:namespace />confirmpswd"
 				title="Confirm Password" path="confirmpswd"
-				style="height: 100%; width: 30%;" />
+				style="height: 100%; width: 30%;" ></form:password>
 		</div>
 		<!-- end of box -->
 		<br>
 
 		<div class="button" style="margin-left: auto; margin-right: auto;">
-			<form:button id="submit" style="width:120px" type="submit"
-				class="btn btn-danger">
+			<form:button id="submit" style="width:120px" type="submit">
 				<fmt:message key="button.reset.password" />
 			</form:button>
 		</div>

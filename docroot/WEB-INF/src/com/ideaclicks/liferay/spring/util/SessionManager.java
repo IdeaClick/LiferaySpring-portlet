@@ -72,8 +72,11 @@ public class SessionManager implements Serializable{
 		SessionInfo sessInfo = new SessionInfo();
 		sessInfo.setSessionId(session.getId());
 		sessInfo.setEmail(reg.getEmail()); 
+		sessInfo.setUsertype(reg.getUsertype());
 		sessInfo.setOrgCode(reg.getOrgCode());
 		sessInfo.setRequestIp(clientIp);
+		
+		System.out.println("Session Id"+session.getId()+"email"+reg.getEmail()+"orgcode"+reg.getOrgCode()+"Client Ip"+clientIp+"UserType:"+reg.getUsertype());
 
 		LOG.info("Session Id"+session.getId()+"email"+reg.getEmail()+"orgcode"+reg.getOrgCode()+"Client Ip"+clientIp);
 

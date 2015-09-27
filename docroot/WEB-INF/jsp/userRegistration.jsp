@@ -18,8 +18,9 @@
 <form:form name="user_reg" modelAttribute="user_reg" method="post"  action="<%=userRegURL%>" >
 			
 			<div class="form-error-message"><form:errors path="orgCode"></form:errors></div>
-			<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="label.organizationcode" /> <b style="color: red;">*</b>:<br> 
+			<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="lable.organizationcode.userRegPage" /> <b style="color: red;">*</b>:<br> 
 				<form:input name="<portlet:namespace />orgCode" path="orgCode" cssErrorClass="form-error-field" style="height: 30px; width: 300px" />
+				<span style="height:10px;width:10px;font-weight:bold;" title="Please refer to your email for organization code or contact administrator.">?</span>
 			</div><!-- end of box -->
 		
 			<div class="form-error-message"><form:errors path="userName"></form:errors></div>
@@ -44,14 +45,14 @@
 			
 			<div class="form-error-message"><form:errors path="contact"></form:errors></div>
 			<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="label.contact" />:<br>
-				<form:input name="<portlet:namespace />contact" path="contact" pattern="[0-9]" title="Please enter Contact number" style="height: 30px; width: 300px" cssErrorClass="form-error-field"/>
+				<form:input name="<portlet:namespace />contact" path="contact" title="Please enter Contact number" style="height: 30px; width: 300px" cssErrorClass="form-error-field"/>
 			</div><!-- end of box -->
 			
 			<div style="margin-left: auto; margin-right: auto;" class="g-recaptcha" data-sitekey=<fmt:message key="captcha.data-sitekey" />>
 			</div><!-- end of box -->
 			
 			<div id="box" style="margin-left: auto; margin-right: auto;">
-				<form:button type="submit" style="width:100px" class="btn btn-danger" ><fmt:message key="button.register" /></form:button>
+				<form:button type="submit" style="width:100px" class="button" ><fmt:message key="button.register" /></form:button>
 			</div><!-- end of box -->
 </form:form>
 </body>

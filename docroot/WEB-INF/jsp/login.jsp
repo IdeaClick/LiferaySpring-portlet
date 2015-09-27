@@ -36,8 +36,9 @@
 		<input type="password" name="<portlet:namespace />pswd" placeholder="Enter Your Password" id="password" style="height: 30px; width: 300px" required>
 	</div><!-- end of box -->
 
-	<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="label.organizationcode" /><br>
+	<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="lable.organizationcode.LoginPage" /><br>
 		<input name="<portlet:namespace />orgCode" id="orgName" value="<%=orgcode%>" type="text" style="height: 30px; width: 300px" required>
+		<span style="height:10px;width:10px;font-weight:bold;" title="Please refer to your email for organization code or contact administrator.">?</span>
 	</div><!-- end of box -->
 		
 	<div style="margin-left: auto; margin-right: auto;" class="g-recaptcha" data-sitekey=<fmt:message key="captcha.data-sitekey" />>
@@ -49,7 +50,7 @@
                 </label>
 	</div>
    <div class="box" style="margin-left: auto; margin-right: auto;">
-		<P><button type="submit" style="width:100px" class="btn btn-danger" ><fmt:message key="button.login" /></button>
+		<P><button type="submit" style="width:100px"><fmt:message key="button.login" /></button>
 		<b style="margin-left: 25px"><a href="<portlet:renderURL>
 					<portlet:param name="action" value="viewUserReg"/>
 				</portlet:renderURL>"><fmt:message key="button.newuser" />

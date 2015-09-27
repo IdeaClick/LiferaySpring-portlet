@@ -12,6 +12,6 @@
 		<portlet id="Logout" />
 		<portlet id="ContactUs" />
 		<portlet id="ResetPassword" />
-		
+		<portlet id="InviteUsers" />
 	</category>
 </display>

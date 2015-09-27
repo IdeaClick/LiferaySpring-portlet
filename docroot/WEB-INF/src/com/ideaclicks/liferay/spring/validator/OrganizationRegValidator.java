@@ -17,7 +17,7 @@ public class OrganizationRegValidator implements Validator {
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";  
 	String ID_PATTERN = "[0-9]+";  
 	String STRING_PATTERN = "[a-zA-Z]+";  
-	String MOBILE_PATTERN = "[0-9]";  //set contact number length [0-9]{10} 
+	String MOBILE_PATTERN = "[0-9]{10}";  //set contact number length [0-9]{10} 
 
 	public boolean supports(Class<?> paramClass) {
 		return OrganizationRegistration.class.equals(paramClass);
@@ -44,12 +44,12 @@ public class OrganizationRegValidator implements Validator {
 			}  
 		} 
 		
-		if(!(data.getContact() != null && data.getContact().isEmpty())){
+		/*if(!(data.getContact() != null && data.getContact().isEmpty())){
 			pattern = Pattern.compile(MOBILE_PATTERN);
 			matcher = pattern.matcher(data.getContact());
 			if(!matcher.matches()){
 				errors.rejectValue("contact", "UserRegistration.contactPattern");
 			}
-		}
+		}*/
 	}
 }

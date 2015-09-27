@@ -45,11 +45,24 @@ public interface IdeaManagementDAO {
 	 */
 	public List<OrganizationRegistration> getOrganizationCodeList()throws DataAccessException;
 	/**
-	 * This method returns the collection of Ideas
+	 * This method returns the collection of Ideas for User
 	 * @return List Of Ideas
 	 * @throws DataAccessException
 	 */
 	public List<Ideas> getIdeaList(String orgsCode,String loggedInUser)throws DataAccessException;
+	/**
+	 * This method returns the collection of Ideas for User
+	 * @return List Of Ideas
+	 * @throws DataAccessException
+	 */
+	public List<Ideas> getIdeaListForAdmin(String orgsCode)throws DataAccessException;
+	
+	/**
+	 * This method returns the collection of filter Ideas by category
+	 * @return List Of Ideas
+	 * @throws DataAccessException
+	 */
+	public List<Ideas> getIdeaFilterList(String orgsCode,String loggedInUser,String filterIdeaCategory)throws DataAccessException;
 	/**
 	 * This method returns the collection of Ideas Category
 	 * @return List Of Ideas Category
@@ -94,4 +107,6 @@ public interface IdeaManagementDAO {
 	public boolean ResetPassword(String email,String oldpswd,String newpswd)throws DataAccessException;
 	
 	 public List<Ideas> getSingleIdea(String ideasId)throws DataAccessException;
+	 
+	 public String getUserType(String email)throws DataAccessException;
 }

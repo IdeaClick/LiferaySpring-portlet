@@ -160,12 +160,12 @@ function likeCount(){
 						<fmt:message key="label.submittedby" />
 						<span class="submit-by"> ${Idea.submittedBy} </span>
 					</div><br>
-					<div>
+					<%-- <div>
 						<input type="image" id="like_btn" name="like_btn" src="<%=renderRequest.getContextPath()%>/images/like.png" alt="Submit" value="${Idea.likes_count}"/>${Idea.likes_count}&nbsp;&nbsp; 
-						<input type="image" src="<%=renderRequest.getContextPath()%>/images/dislike.png"
+						<input type="image" id="dislike_btn" name="dislike_btn" src="<%=renderRequest.getContextPath()%>/images/dislike.png"
 							alt="Submit" />${Idea.dislikes_count}&nbsp;&nbsp;
 						<input type="button" value="Comments">
-					</div>
+					</div> --%>
 				</div>
 				<br>
 			</c:forEach>

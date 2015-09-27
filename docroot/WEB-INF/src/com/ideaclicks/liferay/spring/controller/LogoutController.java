@@ -37,9 +37,11 @@ public class LogoutController {
 			LOG.info("LogoutController Session Info"+sessInfo);
 			if(sessInfo!=null){
 				ownsessionobject.logoutUser(renderRequest,sessInfo);
+				return "logout";
 			}
 			else{
 				LOG.info("Session is already null");
+				return "logout_withoutLogin";	
 			}
 		}catch (Exception e) {
 			LOG.error("Exception " + e.getMessage());
