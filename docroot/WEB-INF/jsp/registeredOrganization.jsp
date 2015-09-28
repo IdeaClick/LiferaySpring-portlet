@@ -1,8 +1,6 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <body>
-	
-	<hr>
 	<div id="main" class="box"
 		style="margin-left: auto; margin-right: auto;">
 		<div id="site_content">

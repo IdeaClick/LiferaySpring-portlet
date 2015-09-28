@@ -7,10 +7,10 @@
 <liferay-ui:error key="error" message="please contact again" />
 
 <body>
-	<div class="box">
+	<%-- <div class="box">
 		<b><fmt:message key="heading.contactus" /></b>
-	</div>
-	<hr>
+	</div> --%>
+	
 	<div id="main">
 		<c:set var="portletnamespace"
 			value="<%=renderResponse.getNamespace()%>" />

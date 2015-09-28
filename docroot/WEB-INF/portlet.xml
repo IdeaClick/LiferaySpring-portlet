@@ -57,9 +57,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>Home</title>
-			<short-title>Home</short-title>
-			<keywords>Home</keywords>
+			<title>Register Organization</title>
+			<short-title>Register Organization</short-title>
+			<keywords>Register Organization</keywords>
 		</portlet-info>
 
 		<security-role-ref>
@@ -74,8 +74,45 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-
 	</portlet>
+	<portlet>
+		<portlet-name>Create_User_Account</portlet-name>
+		<display-name>Create_User_Account</display-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>/WEB-INF/IdeaClickXmls/CreateUserAccount.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>content/Language</resource-bundle>
+		<portlet-info>
+			<title>User Registration</title>
+			<short-title>User Registration</short-title>
+			<keywords>User Registration</keywords>
+		</portlet-info>
+
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
 		<display-name>Registered Organizations</display-name>
@@ -204,9 +241,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>Submit_Idea</title>
-			<short-title>Submit_Idea</short-title>
-			<keywords>Submit_Idea</keywords>
+			<title>Submit Idea</title>
+			<short-title>Submit Idea</short-title>
+			<keywords>Submit Idea</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -243,9 +280,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>ViewIdeas</title>
-			<short-title>ViewIdeas</short-title>
-			<keywords>ViewIdeas</keywords>
+			<title>View Ideas</title>
+			<short-title>View Ideas</short-title>
+			<keywords>View Ideas</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -313,9 +350,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>ResetPassword</title>
-			<short-title>ResetPassword</short-title>
-			<keywords>ResetPassword</keywords>
+			<title>Reset Password</title>
+			<short-title>Reset Password</short-title>
+			<keywords>Reset Password</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -350,7 +387,7 @@
 		<portlet-info>
 			<title>Contact Us</title>
 			<short-title>Contact Us</short-title>
-			<keywords>ContactUs</keywords>
+			<keywords>Contact Us</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

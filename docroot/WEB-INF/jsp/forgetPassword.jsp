@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div class="box" style="margin-left: auto; margin-right: auto;">
-		<fmt:message key="heading.forgetpassword" />
+		<b><fmt:message key="heading.forgetpassword" /></b>
 	</div>
 	<br>
 	<form:form modelAttribute="forgetpassword" commandName="forgetpassword"
@@ -30,8 +30,8 @@
 		<div class="box" style="margin-left: auto; margin-right: auto;">
 			<fmt:message key="label.email" />
 			<br>
-			<form:input name="<portlet:namespace />email" path="email"
-				placeholder="Enter Your Email-Id" style="height: 30px;width: 250px" />
+			<input type="email" name="<portlet:namespace />email" 
+							placeholder="Enter Your Email-Id" style="height: 30px;width: 250px" required/>
 			<br>
 			<form:button type="submit">Submit</form:button>
 		</div>

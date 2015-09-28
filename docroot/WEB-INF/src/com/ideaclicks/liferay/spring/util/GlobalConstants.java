@@ -61,7 +61,7 @@ public class GlobalConstants {
 	 * Locked Status Code.
 	 */
 	public static final String LOCKED_STATUS_CODE = "LOCKED";
-	public static final String LOGIN_URL = "http://ideaclicks.in/web/guest/login";
+	public static final String LOGIN_URL = "http://ideaclicks.in/web/guest/home";
 	public static final String SUBMIT_IDEA_URL = "http://ideaclicks.in/web/guest/submit-idea";
 	public static final String VIEW_IDEA_URL = "http://ideaclicks.in/web/guest/view-idea";
 	/*
@@ -101,4 +101,6 @@ public class GlobalConstants {
 	public static final String URL = "https://www.google.com/recaptcha/api/siteverify";
 	public static final String SECRET = "6Lc8JA0TAAAAAOL1RrDK9aaKclAAOkGtdbjPrwO5";
 	public final static String USER_AGENT = "Mozilla/5.0";
+	public final static String captcha_data_sitekey = "6Lc8JA0TAAAAAKLPLx4GBmwLUaTlDynwUzhuX__M";
+
 }

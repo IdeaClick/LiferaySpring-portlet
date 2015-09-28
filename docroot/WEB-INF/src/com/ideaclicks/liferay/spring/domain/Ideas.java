@@ -39,6 +39,7 @@ public class Ideas implements Serializable {
 	@Column(name="SUBMITTED_BY",length = 50)
 	private String submittedBy;
 
+	
 	@Column(name="IDEA_STATUS",length = 20)
 	private String ideaStatus;
 	

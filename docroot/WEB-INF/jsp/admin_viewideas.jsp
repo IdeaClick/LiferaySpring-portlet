@@ -35,9 +35,11 @@
 	font-size: 18px;
 	color: #1182FA;
 	margin-top: 10px;
-	height: 60px;
+	height: 70px;
 	overflow: hidden;
-	max-width: 700px;
+	word-break: break-word;
+	background-color: #FFFFFF;
+	border: none;
 }
 
 .idea-container .idea-details-container .category {
@@ -117,19 +119,18 @@
 </style>
 </head>
 <body>
-admin
+	<%--
 	<div class="box">
 		<fmt:message key="heading.ideas" />
-	</div>
-	<div>
+	</div> --%>
+	<div class="box" style="margin-left: auto; margin-right: auto;">
 		<form:form id="viewIdea" name="viewIdea" modelAttribute="viewIdea"
-			method="post" action="">
+			method="post">
 			<div class="view-idea-container">
 				<!-- <div class="search-container">
 	    	Keywords : <input type="text" name="searchIdeas" class="search-idea"/> 
 	    	<button class="btn btn-info">Search</button>
     		</div>-->
-				<hr>
 				<c:forEach items="${IdeasList}" var="Idea">
 					<div class="idea-container">
 						<a class="idea-tile"
@@ -157,12 +158,13 @@ admin
 			</div>
 			<div class="categories-container">
 				<c:forEach items="${categoryList}" var="IdeasCategory">
-				<a class="category"
-							href="<portlet:renderURL>
+					<a class="category"
+						href="<portlet:renderURL>
 								<portlet:param name="action" value="FilterIdea"/>
 								<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
 							</portlet:renderURL>">${IdeasCategory.category}
-						</a> <br>
+					</a>
+					<br>
 					<%-- <div class="category">
 						<a> ${IdeasCategory.category} </a>
 					</div> --%>

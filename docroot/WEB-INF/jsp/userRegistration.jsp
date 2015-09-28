@@ -11,10 +11,10 @@
 <liferay-ui:error key="captcha" message="Captcha not verified" />
 
 <body onload="document.login.orgCode.focus();">
-<div class="box">
+<%-- <div class="box">
 <b><fmt:message key="heading.userregistration" /></b>
 </div>
-<hr>
+<hr> --%>
 <form:form name="user_reg" modelAttribute="user_reg" method="post"  action="<%=userRegURL%>" >
 			
 			<div class="form-error-message"><form:errors path="orgCode"></form:errors></div>

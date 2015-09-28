@@ -10,10 +10,10 @@
 	message="New Password and Confirm password not same" />
 
 <body>
-	<div class="box">
+<%-- 	<div class="box">
 		<b><fmt:message key="heading.resetpassword" /></b>
-	</div>
-	<hr>
+	</div> --%>
+	
 	<form:form id="reset_password_form" name="resetPassword"
 		modelAttribute="reset_password" method="post"
 		action="${resetPasswordURL}">

@@ -56,32 +56,14 @@
 	<div id="box" align="center">
 		<a class="myButton"
 			href="<portlet:renderURL>
-					<portlet:param name="action" value="viewOrgReg"/>
-					</portlet:renderURL>">Register
-			Organization</a>
+					<portlet:param name="action" value="viewUserReg"/>
+					</portlet:renderURL>">Create An Account
+			</a>
 	</div>
 	<div class="box" id="box">
 		<p>Welcome to Ideaclicks.</p>
-		<p>Innovation is a BUZZ and every organization is striving hard to
-			stay ahead in the competition.</p>
-		<p>Most of the organizations have homegrown "Idea Management
-			Portal" using which they invite ideas and review them with handful of
-			experts. These portals have very basic functionality and they are not
-			so engaging. Many a times, idea submitter do not have clues on "How
-			to take their ideas forward". Moreover the reports they carry are not
-			so intuitive for the decision makers. Hence many a times bright ideas
-			do not see the light of the day.</p>
-		<p>Here at IdeaClicks, we want to provide you the best "Idea
-			Management Software", so that you can concentrate on your core
-			business areas and stay ahead in the competition.</p>
-		<p>A separate workspace would be created for every organization
-			that registers with us and within this workspace would lie your DB
-			instance to ensure exclusivity and data security. This workspace
-			would be hosted on cloud in future to offer you the best Sitespeed
-			and Scalability. All you need to do is, "Register Organization". And
-			we would do the rest . . .</p>
+		<p>Create an account and start sharing your ideas</p>
 		<p>Go Ahead ! and experience our game changing platform.</p>
 	</div>
-
 </body>
 </html>

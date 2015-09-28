@@ -3,8 +3,9 @@
 
 <display>
 	<category name="category.sample">
-	     <portlet id="carousel" />
+		<portlet id="carousel" />
 		<portlet id="Home" />
+		<portlet id="Create_User_Account"/>
 		<portlet id="Registered Organizations" />
 		<portlet id="Login" />
 		<portlet id="Submit_Idea" />

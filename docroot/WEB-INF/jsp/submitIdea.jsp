@@ -8,10 +8,10 @@
 <liferay-ui:error key="error" message="Sorry,Idea not submitted" />
 
 <body>
-	<div class="box">
+<%-- 	<div class="box">
 		<fmt:message key="heading.submitidea" />
-	</div>
-	<hr>
+	</div> --%>
+	
 	<div id="main">
 		<form:form name="submit_idea" commandName="submit_idea"  modelAttribute="submit_idea" method="post" action="${submitIdeaURL}">
 

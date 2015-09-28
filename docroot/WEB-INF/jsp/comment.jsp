@@ -1,16 +1,11 @@
 <%@page import="javax.portlet.RenderRequest"%>
 <%@page import="javax.portlet.PortletSession"%>
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@page import="com.sun.xml.internal.ws.wsdl.writer.document.ParamType"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+
 <portlet:resourceURL id="like_dislike_counter" var="like_dislike_counter"></portlet:resourceURL>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
-<title>Comment</title>
+
 <style type="text/css">
 .view-idea-container {
 	width: 70%;
@@ -33,7 +28,7 @@
 
 .idea-container a.idea-tile {
 	font-size: 24px;
-	color: #1182FA;
+	color: #005777;
 	font-weight: bold;
 	cursor: pointer;
 	text-decoration: none;
@@ -43,8 +38,11 @@
 	font-size: 18px;
 	color: #1182FA;
 	margin-top: 10px;
+	height: 70px;
 	overflow: hidden;
-	max-width: 700px;
+	word-break: break-word;
+	background-color: #FFFFFF;
+	border: none;
 }
 
 .idea-container .idea-details-container .category {
@@ -144,9 +142,10 @@ function likeCount(){
 }
 </script>
 <body onload="loadMyInfo();">
-	<div class="box">
+<%-- 	<div class="box">
 		<fmt:message key="heading.ideas" />
-	</div><hr>
+	</div><hr> --%>
+	<div class="box" style="margin-left: auto; margin-right: auto;">
 	<form:form id="like_dislike_comment_form" name="like_dislike_comment"
 		modelAttribute="like_dislike_comment" method="post">
 		<div class="view-idea-container">
@@ -171,5 +170,6 @@ function likeCount(){
 			</c:forEach>
 		</div>
 	</form:form>
+	</div><!-- end of main -->
 </body>
 </html>

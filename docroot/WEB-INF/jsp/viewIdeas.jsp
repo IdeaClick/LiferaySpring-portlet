@@ -35,9 +35,11 @@
 	font-size: 18px;
 	color: #1182FA;
 	margin-top: 10px;
-	height: 60px;
+	height: 70px;
 	overflow: hidden;
-	max-width: 700px;
+	word-break: break-word;
+	background-color: #FFFFFF;
+	border: none;
 }
 
 .idea-container .idea-details-container .category {
@@ -117,11 +119,11 @@
 </style>
 </head>
 <body>
-user
+	<%-- 
 	<div class="box">
 		<fmt:message key="heading.ideas" />
-	</div>
-	<div>
+	</div> --%>
+	<div class="box" style="margin-left: auto; margin-right: auto;">
 		<form:form id="viewIdea" name="viewIdea" modelAttribute="viewIdea"
 			method="post" action="">
 			<div class="view-idea-container">
@@ -138,7 +140,7 @@ user
 								<portlet:param name="Ideas_id" value="${Idea.id}"/>
 							</portlet:renderURL>">${Idea.title}
 						</a> <br>
-						<div class="idea-description">${Idea.desc}</div>
+						<pre class="idea-description">${Idea.desc}</pre>
 
 						<br>
 						<div class="idea-details-container">
@@ -157,12 +159,13 @@ user
 			</div>
 			<div class="categories-container">
 				<c:forEach items="${categoryList}" var="IdeasCategory">
-				<a class="category"
-							href="<portlet:renderURL>
+					<a class="category"
+						href="<portlet:renderURL>
 								<portlet:param name="action" value="FilterIdea"/>
 								<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
 							</portlet:renderURL>">${IdeasCategory.category}
-						</a> <br>
+					</a>
+					<br>
 					<%-- <div class="category">
 						<a> ${IdeasCategory.category} </a>
 					</div> --%>
