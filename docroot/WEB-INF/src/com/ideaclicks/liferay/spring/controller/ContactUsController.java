@@ -57,10 +57,10 @@ public class ContactUsController {
 	}
 
 	@RenderMapping(params = "action=ContactUs")
-	public ModelAndView handlePostRequest(RenderRequest actionRequest, RenderResponse actionResponse, Model model,@Valid @ModelAttribute("contactusform") Contact contact,
+	public ModelAndView handlePostRequest(RenderRequest renderRequest, RenderResponse renderResponse, Model model,@Valid @ModelAttribute("contactusform") Contact contact,
 			BindingResult result)throws IOException,PortletException {
 
-		LOG.info("Email ID:"+ParamUtil.getString(actionRequest,"email"));
+		LOG.info("Email ID:"+ParamUtil.getString(renderRequest,"email"));
 		System.out.println("Name="+contact.getYourName());
 
 		try {
@@ -73,15 +73,15 @@ public class ContactUsController {
 				boolean value = ideamgmtService.contactUs(contact);
 				if(value){
 					System.out.println("result"+value);
-					SessionMessages.add(actionRequest, "success");
+					SessionMessages.add(renderRequest, "success");
 					snd.sendEmailContactUs(contact.getYourName(),contact.getEmail(),contact.getMessage());
 				}
 				else{
 					// Hide default error message
-					SessionErrors.add(actionRequest, "error-key");
-					SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					SessionErrors.add(renderRequest, "error-key");
+					SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 					//display error message
-					SessionErrors.add(actionRequest, "error");
+					SessionErrors.add(renderRequest, "error");
 				}
 			}
 		}catch (Exception e) {

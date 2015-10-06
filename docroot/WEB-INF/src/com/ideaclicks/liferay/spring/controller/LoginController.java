@@ -59,7 +59,7 @@ public class LoginController extends MVCPortlet  {
 			LOG.info("Submit Idea Controller Session Info"+sessInfo);
 			if(sessInfo!=null){
 				model.addAttribute("submit_idea", new Ideas());
-				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
+				map.put("categoryList",ideamgmtService.getDefaultIdeasCategoryList());
 				return "login_successful";
 			}
 			else{
@@ -99,8 +99,9 @@ public class LoginController extends MVCPortlet  {
 					LOG.info("Successfully Login");
 					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 					LOG.info("Home URL"+td.getURLHome());
-					System.out.println("User Type Login Controller:"+ideamgmtService.getUserType(emailId));
-					reg.setUsertype(ideamgmtService.getUserType(emailId));
+					String loginUserType = ideamgmtService.getUserType(emailId);
+					System.out.println("User Type Login Controller:"+loginUserType);
+					reg.setUsertype(loginUserType);
 					SessionManager ownsessionobject = SessionManager.getInstance();
 					ownsessionobject.createSession(actionRequest,reg);
 					
@@ -111,9 +112,14 @@ public class LoginController extends MVCPortlet  {
 					super.processAction(actionRequest, actionResponse);
 					
 					LOG.info("before retrun submit idea");
-								        
-					actionResponse.sendRedirect("http://localhost:8081/group/private/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet&p_p_lifecycle=0");
-					
+					if(loginUserType.equalsIgnoreCase("User")){		
+						//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+						actionResponse.sendRedirect("http://localhost:8080/web/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					}
+					else{
+						//actionResponse.sendRedirect(td.getURLHome()+"/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
+						actionResponse.sendRedirect("http://localhost:8080/web/liferay/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
+					}
 					//actionResponse.sendRedirect(td.getURLHome()+"/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet");
 				}
 				else{

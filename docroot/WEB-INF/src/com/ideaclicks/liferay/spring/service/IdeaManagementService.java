@@ -2,6 +2,7 @@ package com.ideaclicks.liferay.spring.service;
 
 import java.util.List;
 
+import com.ideaclicks.liferay.spring.domain.CommentPojo;
 import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
@@ -104,7 +105,8 @@ public interface IdeaManagementService {
     * @return List of Ideas Category
     *  @throws AdminException
     */
-   public List<IdeasCategory> getIdeasCategoryList()throws AdminException;
+   public List<IdeasCategory> getDefaultIdeasCategoryList()throws AdminException;
+   public List<IdeasCategory> getOrganizationIdeasCategoryList(String OrgCode)throws AdminException;
    
    /***
     * @return boolean value
@@ -117,5 +119,13 @@ public interface IdeaManagementService {
    public List<Ideas> getSingleIdea(String ideasId)throws AdminException;
    
    public String getUserType(String email)throws AdminException;
+   
+   public boolean addCategory(IdeasCategory category)throws AdminException;
+   
+   public boolean deleteCategory(Integer categoryId)throws AdminException;
+   
+   public List<CommentPojo> getComment(String ideasId) throws AdminException;
+   
+   public void saveComment(CommentPojo c)throws AdminException;
    
 }

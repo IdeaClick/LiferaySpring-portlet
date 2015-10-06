@@ -17,42 +17,12 @@
 	<bean id="parameterMappingInterceptor"
 		class="org.springframework.web.portlet.handler.ParameterMappingInterceptor" />
 
-	<bean id="portletModeParameterHandlerMapping"
-		class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
-		<property name="interceptors">
-			<list>
-				<ref bean="parameterMappingInterceptor" />
-			</list>
-		</property>
-		<property name="portletModeParameterMap">
-			<map>
-				<entry key="view">
-					<map>
-						<entry key="viewSubmitedIdeaPage">
-							<ref bean="submitIdeaController" />
-						</entry>
-						<entry key="commentsOnIdea">
-							<ref bean="commentController" />
-						</entry>
-						<entry key="saveComment">
-							<ref bean="commentController" />
-						</entry>
-						<entry key="FilterIdea">
-							<ref bean="viewideaController" />
-						</entry>
-										
-					</map>
-				</entry>
-			</map>
-		</property>
-	</bean>
-
 	<bean id="portletModeHandlerMapping"
 		class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
 		<property name="portletModeMap">
 			<map>
 				<entry key="view">
-					<ref bean="viewideaController" />
+					<ref bean="currentLoggedinUser" />
 				</entry>
 			</map>
 		</property>

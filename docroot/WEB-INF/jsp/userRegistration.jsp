@@ -20,7 +20,7 @@
 			<div class="form-error-message"><form:errors path="orgCode"></form:errors></div>
 			<div class="box" style="margin-left: auto; margin-right: auto;"><fmt:message key="lable.organizationcode.userRegPage" /> <b style="color: red;">*</b>:<br> 
 				<form:input name="<portlet:namespace />orgCode" path="orgCode" cssErrorClass="form-error-field" style="height: 30px; width: 300px" />
-				<span style="height:10px;width:10px;font-weight:bold;" title="Please refer to your email for organization code or contact administrator.">?</span>
+				<span style="height:10px;width:10px;font-weight:bold;" title="A unique org code set by your admin during organizaton registration. Please refer invitation email or contact organizaton administrator.">?</span>
 			</div><!-- end of box -->
 		
 			<div class="form-error-message"><form:errors path="userName"></form:errors></div>

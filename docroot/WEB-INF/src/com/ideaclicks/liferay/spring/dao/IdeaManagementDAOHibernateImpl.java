@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ideaclicks.liferay.spring.base.DataAccessException;
+import com.ideaclicks.liferay.spring.domain.CommentPojo;
 import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
@@ -38,7 +39,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 				.setParameter(1, IClicksEncriptionDecription.encryptPassword(password))
 				.setParameter(2, orgcode)
 				.list();
-
+System.out.println(".........User Found........"+list);
 		if(list.size() != 0){
 			LOG.debug("User Found");
 			return true;			
@@ -52,6 +53,7 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 					.list();
 			if(list.size() != 0){
 				LOG.debug("User Found");
+				System.out.println("...........User Found......"+list);
 				return true;
 			}
 			else{
@@ -161,17 +163,24 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IdeasCategory> getIdeasCategoryList() throws DataAccessException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IdeasCategory.class);		
-		ProjectionList projList = Projections.projectionList();
-		projList.add(Projections.property("category"), "category");
-		criteria.setProjection(Projections.distinct(projList));
-		criteria.setResultTransformer(Transformers.aliasToBean(IdeasCategory.class));
-		List<IdeasCategory> IdeaCategoryList = criteria.list();
-		System.out.println("List"+IdeaCategoryList);
-		return IdeaCategoryList ;
+	public List<IdeasCategory> getDefaultIdeasCategoryList() throws DataAccessException {
+		String sql = "from IdeasCategory c where c.OrgCode = :default";
+		List<IdeasCategory> list=sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("default", "DefaultCategory").list();
+		LOG.info("Default Category List"+list);
+		return list ;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<IdeasCategory> getOrganizationIdeasCategoryList(String OrgCode) throws DataAccessException {
+		String sql = "from IdeasCategory c where c.OrgCode = :orgcode ORDER BY id DESC";
+		List<IdeasCategory> list=sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("orgcode",OrgCode).list();
+		LOG.info("Organization Category List"+list);
+		return list ;
+	}
+
+	
 	@SuppressWarnings("unchecked")	
 	public List<UserRegistration> getUserEmailList() throws DataAccessException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UserRegistration.class);		
@@ -306,5 +315,50 @@ public class IdeaManagementDAOHibernateImpl implements IdeaManagementDAO{
 				return null;
 			}
 		}
+	}
+
+	@Override
+	public boolean addCategory(IdeasCategory category) throws DataAccessException {
+		return sessionFactory.getCurrentSession().save(category) != null;
+	}
+
+	@Override
+	public boolean deleteCategory(Integer categoryId) throws DataAccessException {
+		String sql = "delete from IdeasCategory i " + "where i.id = :categoryId";
+	int flag = sessionFactory.getCurrentSession().createQuery(sql)
+			.setParameter("categoryId", categoryId)
+			.executeUpdate();
+	System.out.println("Flag"+flag);
+	if(flag==1)
+		return true;
+	else
+		return false;
+	}
+	
+	@Override
+	public List<CommentPojo> getComment(String ideasId) throws DataAccessException {
+		String sql = "from CommentPojo c " + "where c.parentIdeaId = ?";
+		List list = sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter(0, ideasId)
+				.list();
+		System.out.println("first level Comment"+list);
+		return list;
+	}
+	
+
+	@Override
+	public List<CommentPojo> getChildComment(String commentId) throws DataAccessException {
+		String sql = "from CommentPojo c " + "where c.parentCommentsId = ?";
+		List list = sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter(0, commentId)
+				.list();
+		System.out.println("child Comment"+list);
+		return list;
+	}
+	
+	@Override
+	public void saveComment(CommentPojo c) throws DataAccessException {		
+		boolean b = sessionFactory.getCurrentSession().save(c)!=null;
+		System.out.println("comment saved = "+b);
 	}
 }

@@ -8,20 +8,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+
 @Entity
-@Table(name="IDEACATEGORY")
+@Table(name="X_IDEACATEGORY")
 public class IdeasCategory implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID")
+	@Column(name="CATEGORY_ID")
 	@GeneratedValue
 	private Integer id;
 
-	@Column(name="CATEGORY")
+	@Column(name="OrganizationCode")
+	private String OrgCode;
+	
+	@Column(name="CATEGORY",length=25,columnDefinition="varchar(17) default 'DefaultCategory'")
+	@NotBlank
 	private String category;
-
+	
 	/**
 	 * @return the id
 	 */
@@ -34,6 +40,20 @@ public class IdeasCategory implements Serializable{
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the orgCode
+	 */
+	public String getOrgCode() {
+		return OrgCode;
+	}
+
+	/**
+	 * @param orgCode the orgCode to set
+	 */
+	public void setOrgCode(String orgCode) {
+		OrgCode = orgCode;
 	}
 
 	/**
@@ -50,12 +70,10 @@ public class IdeasCategory implements Serializable{
 		this.category = category;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "IdeasCategory [id=" + id + ", category=" + category + "]";
+		return "IdeasCategory [id=" + id + ", OrgCode=" + OrgCode
+				+ ", category=" + category + "]";
 	}
 
 }

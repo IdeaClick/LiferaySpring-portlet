@@ -66,6 +66,7 @@ public class ResetPasswordController extends MVCPortlet{
 			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 			LOG.info("Reset Password Controller Session Info"+sessInfo);
 			if(sessInfo!=null){
+				renderResponse.setTitle("Submit Idea "+" Logged In : "+sessInfo.getEmail());
 				return "resetpassword";
 			}
 			else{
@@ -74,7 +75,7 @@ public class ResetPasswordController extends MVCPortlet{
 		}catch (Exception e){
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
-		return "resetpassword";
+		return "gotoLoginResetPassword";
 	}
 
 

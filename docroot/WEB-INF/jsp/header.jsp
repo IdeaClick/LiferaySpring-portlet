@@ -12,6 +12,7 @@
 	type="text/css"></link> 
 <link href="${pageContext.request.contextPath}/css/main.css"
 	rel="stylesheet" type="text/css"></link>
-
+<link href="${pageContext.request.contextPath}/css/category.css"
+	rel="stylesheet" type="text/css"></link>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>

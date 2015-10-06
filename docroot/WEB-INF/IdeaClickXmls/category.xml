@@ -28,19 +28,12 @@
 			<map>
 				<entry key="view">
 					<map>
-						<entry key="viewSubmitedIdeaPage">
-							<ref bean="submitIdeaController" />
+						<entry key="addCategory">
+							<ref bean="categoryController" />
 						</entry>
-						<entry key="commentsOnIdea">
-							<ref bean="commentController" />
-						</entry>
-						<entry key="saveComment">
-							<ref bean="commentController" />
-						</entry>
-						<entry key="FilterIdea">
-							<ref bean="viewideaController" />
-						</entry>
-										
+						<entry key="deleteCategory">
+							<ref bean="categoryController" />
+						</entry>	
 					</map>
 				</entry>
 			</map>
@@ -52,7 +45,7 @@
 		<property name="portletModeMap">
 			<map>
 				<entry key="view">
-					<ref bean="viewideaController" />
+					<ref bean="categoryController" />
 				</entry>
 			</map>
 		</property>

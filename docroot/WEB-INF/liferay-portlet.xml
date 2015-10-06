@@ -8,18 +8,21 @@
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	
 	<portlet>
 		<portlet-name>Create_User_Account</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	
 	<portlet>
 		<portlet-name>carousel</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
 		<friendly-url-routes>/friendly_url.xml</friendly-url-routes>
@@ -27,25 +30,27 @@
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	
 	<portlet>
 		<portlet-name>Login</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	
 	<portlet>
 		<portlet-name>Submit_Idea</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	
 	<portlet>
 		<portlet-name>ViewIdeas</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-portlet-javascript>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js</header-portlet-javascript>
-
 	</portlet>
 
 	<portlet>
@@ -60,25 +65,37 @@
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-
 	</portlet>
+	
 	<portlet>
 		<portlet-name>Logout</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-
 	</portlet>
+	
 	<portlet>
 		<portlet-name>InviteUsers</portlet-name>
 		<action-url-redirect>true</action-url-redirect>
 		<private-session-attributes>false</private-session-attributes>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-
+	</portlet>
+	
+	<portlet>
+		<portlet-name>AddCategory</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
+	
+	<portlet>
+		<portlet-name>CurrentLoggedinUser</portlet-name>
+		<action-url-redirect>true</action-url-redirect>
+		<private-session-attributes>false</private-session-attributes>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	
 	<role-mapper>
-
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
 	</role-mapper>

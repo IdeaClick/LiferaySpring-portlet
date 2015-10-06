@@ -12,6 +12,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
@@ -71,7 +70,9 @@ public class SubmitIdeaController{
 			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 			LOG.info("Submit Idea Controller Session Info"+sessInfo);
 			if(sessInfo!=null){
-				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
+				renderResponse.setTitle("Submit Idea "+" Logged In : "+sessInfo.getEmail());
+				//ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessInfo.getOrgCode()));
+				map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessInfo.getOrgCode())));
 				return "submitIdea";
 			}
 			else{
@@ -82,14 +83,13 @@ public class SubmitIdeaController{
 		}catch (Exception e){
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
-		//map.put("categoryList",ideamgmtService.getIdeasCategoryList());
-		return "submitIdea";
+		return "gotoLoginSubmitIdeas";
 	}
 
 	@RenderMapping(params = "action=viewSubmitedIdeaPage")
 	public ModelAndView renderOneMethod(RenderRequest renderRequest,RenderResponse renderResponse,Map<String, Object> map) throws IOException,
 	PortletException,MinervaException {
-		return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
+		return new ModelAndView("submitIdea","categoryList",ideamgmtService.getDefaultIdeasCategoryList());
 	}
 
 	@ActionMapping(params = "action=submitIdea")
@@ -112,13 +112,16 @@ public class SubmitIdeaController{
 				idea.setOrgCode(loginUserOrgCode);
 				System.out.println("Organization code"+loginUserOrgCode);
 				idea.setSubmittedBy(loginuseremail);
+				if(idea.getIdeaStatus()==null){
+					idea.setIdeaStatus("public");
+				}
 				value=ideamgmtService.SubmitIdea(idea);
 
 				if(value){
 					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 					LOG.info("Home URL"+td.getURLHome());
 					SessionMessages.add(actionRequest, "success");
-					actionResponse.sendRedirect("http://localhost:8081/group/private/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+					actionResponse.sendRedirect("http://localhost:8080/web/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
 					
 					//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
 					

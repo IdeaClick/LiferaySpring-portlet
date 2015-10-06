@@ -14,5 +14,7 @@
 		<portlet id="ContactUs" />
 		<portlet id="ResetPassword" />
 		<portlet id="InviteUsers" />
+		<portlet id="AddCategory" />
+		<portlet id="CurrentLoggedinUser" />
 	</category>
 </display>

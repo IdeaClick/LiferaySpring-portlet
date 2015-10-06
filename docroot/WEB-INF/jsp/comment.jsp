@@ -1,14 +1,31 @@
 <%@page import="javax.portlet.RenderRequest"%>
 <%@page import="javax.portlet.PortletSession"%>
-<%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
+<%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
+
 <%@page import="com.sun.xml.internal.ws.wsdl.writer.document.ParamType"%>
-
-<portlet:resourceURL id="like_dislike_counter" var="like_dislike_counter"></portlet:resourceURL>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%-- <portlet:resourceURL id="like_dislike_counter" var="like_dislike_counter">
+	<portlet:param name="action" value="like_dislike_counter" />
+</portlet:resourceURL> --%>
+<%-- <portlet:renderURL var="userRegURL">
+	<portlet:param name="action" value="userReg" />
+</portlet:renderURL> --%> 
+<%-- 
+<portlet:renderURL var="commentURL">
+	<portlet:param name="action" value="saveComment"/>						
+</portlet:renderURL> --%>
+<portlet:resourceURL id="saveComment" var="saveComment" ></portlet:resourceURL>						
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<title>Comment</title>
 <style type="text/css">
 .view-idea-container {
-	width: 70%;
+	width: 90%;
 	float: left;
 	display: inline-block;
 	clear: both;
@@ -26,7 +43,7 @@
 	padding: 10px;
 }
 
-.idea-container a.idea-tile {
+.idea-container .idea-tile {
 	font-size: 24px;
 	color: #005777;
 	font-weight: bold;
@@ -38,11 +55,8 @@
 	font-size: 18px;
 	color: #1182FA;
 	margin-top: 10px;
-	height: 70px;
 	overflow: hidden;
-	word-break: break-word;
-	background-color: #FFFFFF;
-	border: none;
+	
 }
 
 .idea-container .idea-details-container .category {
@@ -122,34 +136,40 @@
 </style>
 </head>
 <script type="text/javascript">
-
-function likeCount(){
-    var myInfoUrl = "<%=like_dislike_counter%>";
-    $.ajax({
-        url: myInfoUrl ,
-        type: 'GET',
-        datatype:'html',
-        data: { 
-        	like_count: $("#like_btn").val() 
-     	 },
-        success: function(result){
-        	$('#info',this).html(result);
-          },
-        error: function(e){
-        	 alert('Error: ' + e);
-        }
-    });
-}
+   $(document).ready(function(){
+  	 $('.i-comment').click(function(){
+  		 var p1 = $(this).parent().get(0);
+  		 $(p1).parent().find('.comment-container').eq(0).show();
+  		 $(this).hide();
+  	 });
+   	$( ".submitComment" ).click(function() 
+  			{ 
+  				var data = {commentText: $(this).prev().val()},
+  					commentId=$(this).prev().prev().val();
+  				data.commentId=-1;
+  				if(commentId!="idea"){
+  					data.commentId = commentId;
+  				}
+  				 $.ajax({ 
+  					url: "${saveComment}" , 
+  					type: 'POST', 
+  					datatype:'json', 
+  					data: data, 
+  					success: function(data){ 
+		  				console.log('success:save comment');	
+ 					} 
+  				}); 
+  	}); 
+  });
 </script>
-<body onload="loadMyInfo();">
-<%-- 	<div class="box">
+<body>
+	<div class="box">
 		<fmt:message key="heading.ideas" />
-	</div><hr> --%>
-	<div class="box" style="margin-left: auto; margin-right: auto;">
+	</div><hr>
 	<form:form id="like_dislike_comment_form" name="like_dislike_comment"
 		modelAttribute="like_dislike_comment" method="post">
 		<div class="view-idea-container">
-			<c:forEach items="${IdeasList}" var="Idea">
+ 			<c:forEach items="${IdeasList}" var="Idea">
 				<div class="idea-container">
 					<div class="idea-tile">${Idea.title}</div><br>
 					<div class="idea-description">${Idea.desc}</div><br>
@@ -159,17 +179,27 @@ function likeCount(){
 						<fmt:message key="label.submittedby" />
 						<span class="submit-by"> ${Idea.submittedBy} </span>
 					</div><br>
-					<%-- <div>
-						<input type="image" id="like_btn" name="like_btn" src="<%=renderRequest.getContextPath()%>/images/like.png" alt="Submit" value="${Idea.likes_count}"/>${Idea.likes_count}&nbsp;&nbsp; 
+<%-- 					<input type="image" id="like_btn" name="like_btn" src="<%=renderRequest.getContextPath()%>/images/like.png" alt="Submit" value="${Idea.likes_count}"/>${Idea.likes_count}&nbsp;&nbsp; 
 						<input type="image" id="dislike_btn" name="dislike_btn" src="<%=renderRequest.getContextPath()%>/images/dislike.png"
 							alt="Submit" />${Idea.dislikes_count}&nbsp;&nbsp;
-						<input type="button" value="Comments">
-					</div> --%>
+ --%>					
+ 					<input type="button" class="i-comment" value="Comment">
+					<div class="box comment-container" style="margin-left: auto; margin-right: auto;display:none">
+						<input type="hidden" value="idea"/>
+						<textarea class="comment-box" name="<portlet:namespace />commentsText"
+						title="Submit Your comment"
+						style="width: 95%; height: 50px;"></textarea>
+					
+						<button name="submit" value="submit" style="width:100px" class="submitComment">Submit</button>	
+					</div>
 				</div>
-				<br>
+
+ 				<c:forEach items="${comments}" var="comment">
+	            	<template:nodeTree node="${comment}"/>
+	            </c:forEach> 
+	            				
 			</c:forEach>
 		</div>
 	</form:form>
-	</div><!-- end of main -->
 </body>
 </html>

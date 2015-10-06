@@ -112,7 +112,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
-	
+
 	<portlet>
 		<portlet-name>Registered Organizations</portlet-name>
 		<display-name>Registered Organizations</display-name>
@@ -170,9 +170,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>Login</title>
-			<short-title>Login</short-title>
-			<keywords>Login</keywords>
+			<title>Login And User Registration</title>
+			<short-title>Login And User Registration</short-title>
+			<keywords>Login And User Registration</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -187,9 +187,9 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
-	
+
 	<portlet>
-	<portlet-name>InviteUsers</portlet-name>
+		<portlet-name>InviteUsers</portlet-name>
 		<display-name>InviteUsers</display-name>
 		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
 		<init-param>
@@ -402,6 +402,79 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	<portlet>
+		<portlet-name>AddCategory</portlet-name>
+		<display-name>AddCategory</display-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>/WEB-INF/IdeaClickXmls/category.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>content/Language</resource-bundle>
+		<portlet-info>
+			<title>Add Category</title>
+			<short-title>Add Category</short-title>
+			<keywords>Add Category</keywords>
+		</portlet-info>
+
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>CurrentLoggedinUser</portlet-name>
+		<display-name>CurrentLoggedinUser</display-name>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>/WEB-INF/IdeaClickXmls/current_loggedin_user.xml</value>
+		</init-param>
+		<init-param>
+			<name>add-process-action-success-action</name>
+			<value>false</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>content/Language</resource-bundle>
+		<portlet-info>
+			<title>CurrentLoggedinUser</title>
+			<short-title>CurrentLoggedinUser</short-title>
+			<keywords>CurrentLoggedinUser</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
 
 	<filter>
 		<filter-name>myFilter</filter-name>
@@ -418,6 +491,8 @@
 		<portlet-name>ViewIdeas</portlet-name>
 		<portlet-name>Logout</portlet-name>
 		<portlet-name>ContactUs</portlet-name>
+		<portlet-name>InviteUsers</portlet-name>
+		<portlet-name>AddCategory</portlet-name>
 	</filter-mapping>
 	<container-runtime-option>
 		<name>javax.portlet.actionScopedRequestAttributes</name>

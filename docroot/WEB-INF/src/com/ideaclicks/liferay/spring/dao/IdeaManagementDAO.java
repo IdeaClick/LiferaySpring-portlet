@@ -3,12 +3,12 @@ package com.ideaclicks.liferay.spring.dao;
 import java.util.List;
 
 import com.ideaclicks.liferay.spring.base.DataAccessException;
+import com.ideaclicks.liferay.spring.domain.CommentPojo;
 import com.ideaclicks.liferay.spring.domain.Contact;
 import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.IdeasCategory;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.domain.UserRegistration;
-import com.ideaclicks.liferay.spring.exception.AdminException;
 public interface IdeaManagementDAO {
 	/*
 	 * This method check login credentials
@@ -68,7 +68,8 @@ public interface IdeaManagementDAO {
 	 * @return List Of Ideas Category
 	 * @throws DataAccessException
 	 */
-	public List<IdeasCategory> getIdeasCategoryList()throws DataAccessException;
+	public List<IdeasCategory> getDefaultIdeasCategoryList()throws DataAccessException;
+	public List<IdeasCategory> getOrganizationIdeasCategoryList(String OrgCode) throws DataAccessException;
 	/**
 	 * This method returns the list of user
 	 * @return List Of user
@@ -109,4 +110,15 @@ public interface IdeaManagementDAO {
 	 public List<Ideas> getSingleIdea(String ideasId)throws DataAccessException;
 	 
 	 public String getUserType(String email)throws DataAccessException;
+	 
+	 public boolean addCategory(IdeasCategory category) throws DataAccessException;
+	 
+	 public boolean deleteCategory(Integer categoryId)throws DataAccessException;
+	 
+	 public List<CommentPojo> getComment(String ideasId) throws DataAccessException;
+	 
+	 public	void saveComment(CommentPojo c) throws DataAccessException;
+
+		List<CommentPojo> getChildComment(String commentId)
+				throws DataAccessException;
 }

@@ -41,12 +41,12 @@ public class LogoutController {
 			}
 			else{
 				LOG.info("Session is already null");
-				return "logout_withoutLogin";	
+				return "blankpage";	
 			}
 		}catch (Exception e) {
 			LOG.error("Exception " + e.getMessage());
 			LOG.info("Exception" + e.getStackTrace().toString());
 		}
-		return "logout";
+		return "blankpage";
 	}
 }

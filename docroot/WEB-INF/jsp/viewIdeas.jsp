@@ -165,10 +165,6 @@
 								<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
 							</portlet:renderURL>">${IdeasCategory.category}
 					</a>
-					<br>
-					<%-- <div class="category">
-						<a> ${IdeasCategory.category} </a>
-					</div> --%>
 				</c:forEach>
 			</div>
 		</form:form>

@@ -45,7 +45,7 @@
 				<form:input name="<portlet:namespace />orgCode" path="orgCode"
 					title="Enter Organization Code" cssErrorClass="form-error-field"
 					style="height: 30px; width: 300px" />
-				<span style="height:10px;width:10px;font-weight:bold;" title="Define Org Code. e.g:- <your org name><your city>">?</span>						
+				<span style="height:10px;width:10px;font-weight:bold;" title="Setup a code for our organization so that it can be recognized with a unique string. eg:- BSNL-Pune">?</span>						
 			</div><!-- end of box -->
 			
 			<div class="form-error-message">
@@ -60,6 +60,7 @@
 					<form:option value="">Select Type</form:option>
 					<form:option value="Institute">Institution</form:option>
 					<form:option value="Corporate">Corporate</form:option>
+					<form:option value="Corporate">Smart City</form:option>
 				</form:select>
 			</div><!-- end of box -->
 			

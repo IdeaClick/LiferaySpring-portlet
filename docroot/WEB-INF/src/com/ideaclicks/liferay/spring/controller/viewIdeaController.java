@@ -6,7 +6,10 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
+import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
@@ -36,23 +42,25 @@ public class viewIdeaController {
 	private IdeaManagementService ideamgmtService;
 
 	@RenderMapping 
-	public String login(RenderRequest request, RenderResponse response, Model model,Map<String, Object> map) throws IOException,
+	public String viewIdeas(RenderRequest renderRequest, RenderResponse renderResponse, Model model,Map<String, Object> map) throws IOException,
 	PortletException {
 		try{
-			PortletSession newSession = request.getPortletSession();
+			PortletSession newSession = renderRequest.getPortletSession();
 			SessionInfo sessionInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 			LOG.info("View Idea Controller Session Info"+sessionInfo);
 			
 			if(sessionInfo!=null){
 				System.out.println("User Type:"+sessionInfo.getUsertype()+"Orgcode:"+sessionInfo.getOrgCode());
-				if(sessionInfo.getUsertype().equalsIgnoreCase("User")){
+				renderResponse.setTitle("View Ideas "+" Logged In : "+sessionInfo.getEmail());
+				if(sessionInfo.getUsertype().equalsIgnoreCase("User")){					
 					map.put("IdeasList", ideamgmtService.getIdeaList(sessionInfo.getOrgCode(),sessionInfo.getEmail()));
-					map.put("categoryList",ideamgmtService.getIdeasCategoryList());
+					map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessionInfo.getOrgCode())));
 					return "viewIdeas";
 				}
-				else{
+				else if(sessionInfo.getUsertype().equalsIgnoreCase("Admin")){
+					System.out.println("In Admin");
 					map.put("IdeasList", ideamgmtService.getIdeaListForAdmin(sessionInfo.getOrgCode()));
-					map.put("categoryList",ideamgmtService.getIdeasCategoryList());
+					map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessionInfo.getOrgCode())));
 					return "admin_viewideas";
 				}
 			}
@@ -63,7 +71,7 @@ public class viewIdeaController {
 			LOG.error("Exception " + e.getMessage());
 			LOG.info("Exception" + e.getStackTrace().toString());
 		}
-		return "viewIdeas";
+		return "gotoLoginViewIdeas";
 	}
 	
 	@RenderMapping(params = "action=FilterIdea")
@@ -74,10 +82,12 @@ public class viewIdeaController {
 			System.out.println("Fiter Idea Category"+filterCategory);
 			PortletSession newSession = request.getPortletSession();
 			SessionInfo sessionInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
-			LOG.info("View Idea Controller Session Info"+sessionInfo);
+			
+			System.out.println("View Idea Controller Session Info"+sessionInfo);
 			if(sessionInfo!=null){
+			
 				map.put("IdeasList", ideamgmtService.getIdeaFilterList(sessionInfo.getOrgCode(),sessionInfo.getEmail(),filterCategory));
-				map.put("categoryList",ideamgmtService.getIdeasCategoryList());
+				map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessionInfo.getOrgCode())));
 				return "viewIdeas";
 			}
 			else{
@@ -89,4 +99,26 @@ public class viewIdeaController {
 		}
 		return "viewIdeas";
 	}
+
+	/*@ResourceMapping(value ="like_dislike_counter")
+	public @ResponseBody void saveDomment(ResourceRequest request,ResourceResponse response,Model model,@ModelAttribute("like_dislike_comment") Ideas comment,BindingResult result)throws IOException,PortletException{
+	System.out.println("Hii Neha");	
+			int like_count = ParamUtil.getInteger(request, "like_count");
+			System.out.println("Hiiiiiiiiiiii"+like_count);
+			like_count = like_count + 1 ;
+		 
+          try{
+        	  int likeCount = ParamUtil.getInteger(request, "like_count");
+  			System.out.println("Hii Amol!!"+likeCount);	
+  			likeCount = likeCount+1;
+  			response.getWriter().println(likeCount);
+  			
+        	 response.setCharacterEncoding("UTF-8"); 
+        	  System.out.println("Like Count"+like_count);
+      		response.getWriter().write(like_count); 
+         
+          }catch (Exception e) {
+        	  e.printStackTrace();
+          }	           
+	}*/
 }

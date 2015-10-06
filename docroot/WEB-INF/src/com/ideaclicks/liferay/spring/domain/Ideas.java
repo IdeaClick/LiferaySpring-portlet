@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
@@ -43,10 +44,11 @@ public class Ideas implements Serializable {
 	@Column(name="IDEA_STATUS",length = 20)
 	private String ideaStatus;
 	
-	
-
 	@Column(name="LIKE_COUNT")
 	private String likes_count;
+	
+	@Column(name="COMMENT")
+	private String comment;
 
 	/**
 	 * @return the likes_count
@@ -165,5 +167,13 @@ public class Ideas implements Serializable {
 				+ ", submittedBy=" + submittedBy + ", ideaStatus=" + ideaStatus
 				+ ", likes_count=" + likes_count + ", dislikes_count="
 				+ dislikes_count + "]";
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}	
 }
