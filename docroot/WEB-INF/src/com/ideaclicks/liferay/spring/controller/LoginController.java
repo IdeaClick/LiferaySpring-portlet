@@ -113,11 +113,11 @@ public class LoginController extends MVCPortlet  {
 		
 					if(loginUserType.equalsIgnoreCase("User")){		
 						//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
-				         actionResponse.sendRedirect("http://localhost:8080/web/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+				        actionResponse.sendRedirect("http://localhost:8080/web/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
 					}
 					else{
 						//actionResponse.sendRedirect(td.getURLHome()+"/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
-						  actionResponse.sendRedirect("http://localhost:8080/web/liferay/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
+						actionResponse.sendRedirect("http://localhost:8080/web/liferay/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
 					}
 				
 				}

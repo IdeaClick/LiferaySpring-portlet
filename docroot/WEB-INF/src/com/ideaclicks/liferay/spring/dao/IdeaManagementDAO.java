@@ -119,6 +119,7 @@ public interface IdeaManagementDAO {
 	 
 	 public	void saveComment(CommentPojo c) throws DataAccessException;
 
-		List<CommentPojo> getChildComment(String commentId)
-				throws DataAccessException;
+	public List<CommentPojo> getChildComment(String commentId) throws DataAccessException;
+		
+	public boolean deleteIdea(String ideaId) throws DataAccessException;
 }

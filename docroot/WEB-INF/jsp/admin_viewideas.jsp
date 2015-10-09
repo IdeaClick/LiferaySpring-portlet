@@ -3,6 +3,10 @@
 <%@page import="javax.portlet.PortletSession"%>
 <liferay-ui:success key="success" message="Idea Submitted" />
 
+<portlet:actionURL var="deleteIdeaURL">
+	<portlet:param name="action" value="deleteIdea" />
+</portlet:actionURL>
+
 <style type="text/css">
 .view-idea-container {
 	width: 70%;
@@ -137,14 +141,16 @@
 							</portlet:renderURL>">${Idea.title}
 						</a> <br>
 						<div class="idea-description">${Idea.desc}</div>
-
 						<br>
 						<div class="idea-details-container">
 							<fmt:message key="label.category" />
 							<span class="category"> ${Idea.category} </span> <br>
 							<fmt:message key="label.submittedby" />
 							<span class="submit-by"> ${Idea.submittedBy} </span>
-
+						</div>
+						<div>
+							<a onclick="return confirm('Are you sure you want to delete this Idea?');"
+								href="${deleteIdeaURL}&ideasId=${Idea.id}" class="btn btn-primary">Delete</a>
 						</div>
 					</div>
 					<br>

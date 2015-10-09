@@ -40,7 +40,9 @@
 						<entry key="FilterIdea">
 							<ref bean="viewideaController" />
 						</entry>
-										
+						<entry key="deleteIdea">
+							<ref bean="viewideaController" />
+						</entry>				
 					</map>
 				</entry>
 			</map>

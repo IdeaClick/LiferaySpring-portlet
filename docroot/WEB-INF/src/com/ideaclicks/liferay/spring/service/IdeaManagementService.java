@@ -128,4 +128,6 @@ public interface IdeaManagementService {
    
    public void saveComment(CommentPojo c)throws AdminException;
    
+   public boolean deleteIdea(String ideaId)throws AdminException;
+   
 }

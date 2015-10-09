@@ -354,4 +354,17 @@ System.out.println(".........User Found........"+list);
 		boolean b = sessionFactory.getCurrentSession().save(c)!=null;
 		System.out.println("comment saved = "+b);
 	}
+
+	@Override
+	public boolean deleteIdea(String ideaId) throws DataAccessException {
+		String sql = "delete from Ideas i " + "where i.id = :ideaId";
+		int flag = sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("ideaId", ideaId)
+				.executeUpdate();
+		System.out.println("Flag"+flag);
+		if(flag==1)
+			return true;
+		else
+			return false;
+		}
 }

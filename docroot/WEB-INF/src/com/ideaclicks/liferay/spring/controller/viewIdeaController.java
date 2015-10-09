@@ -2,6 +2,8 @@ package com.ideaclicks.liferay.spring.controller;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
@@ -14,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
+import com.ideaclicks.liferay.spring.exception.AdminException;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.SessionInfo;
@@ -88,5 +93,18 @@ public class viewIdeaController {
 			LOG.info("Exception" + e.getStackTrace().toString());
 		}
 		return "viewIdeas";
+	}
+	
+	@ActionMapping(params = "action=deleteIdea")
+	public void deleteIdeaRequest(@RequestParam("ideasId") String ideasId,ActionRequest actionRequest,ActionResponse actionResponse, Model model)throws IOException,PortletException {
+		LOG.info("In DeleteIdea ViewIdeaController");
+		System.out.println("In Delete Idea");
+		System.out.println("Ideas Id:"+ideasId);
+		try {
+			ideamgmtService.deleteIdea(ideasId);
+		} catch (AdminException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

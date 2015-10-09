@@ -1,7 +1,6 @@
 package  com.ideaclicks.liferay.spring.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -443,7 +442,13 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 		}
 		
 		return list;		
+	}
+
+	@Transactional
+	public boolean deleteIdea(String ideaId) throws AdminException {
+	return ideamanagementDAO.deleteIdea(ideaId);
 	} 
+	
 }
 
 
