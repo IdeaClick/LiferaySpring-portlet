@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +44,7 @@ public class UserRegistration implements Serializable{
 	@Column(name="PASSWORD")
 	private String pswd;
 	
+	@Transient
 	private String cpswd;
 
 	@Column(name="USER_CONTACT")

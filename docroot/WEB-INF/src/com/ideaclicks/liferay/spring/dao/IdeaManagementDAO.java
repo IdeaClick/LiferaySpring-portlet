@@ -75,13 +75,13 @@ public interface IdeaManagementDAO {
 	 * @return List Of user
 	 * @throws DataAccessException
 	 */
-	public List<UserRegistration> getUserEmailList()throws DataAccessException;
+	public List<UserRegistration> getUserEmailList(String orgcode)throws DataAccessException;
 	/**
 	 * This method returns the list Of registered organization email List for forget password  
 	 * @return List Of registered organization email List 
 	 * @throws DataAccessException
 	 */
-	public List<OrganizationRegistration> getOrganizationEmailList() throws DataAccessException;
+	public List<OrganizationRegistration> getOrganizationEmailList(String OrgCode) throws DataAccessException;
 	/**
 	 * Forget password.
 	 * @param String email

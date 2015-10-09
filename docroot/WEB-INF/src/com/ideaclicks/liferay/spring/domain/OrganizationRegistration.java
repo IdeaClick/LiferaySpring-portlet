@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
@@ -45,6 +46,7 @@ public class OrganizationRegistration implements Serializable{
 	@NotBlank
 	private String pswd;
 	
+	@Transient
 	private String cpswd;
 	
 	@Column(name="ORGANIZATION_CONTACT")

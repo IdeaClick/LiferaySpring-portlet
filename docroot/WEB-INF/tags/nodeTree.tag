@@ -16,7 +16,7 @@
 		<br>
 		<input type="button" class="i-comment" value="Reply">
 		<div class="box comment-container" style="margin-left: auto; margin-right: auto;display:none">
-			<input type="hidden" value="${node.commentsId}"/>
+			<input type="hidden" value="${node.commentsId}"  class="comment-id"/>
 			<textarea class="comment-box" name="<portlet:namespace />commentsText" 
 							title="Submit Your comment"
 							style="width: 95%; height: 50px;"></textarea> 

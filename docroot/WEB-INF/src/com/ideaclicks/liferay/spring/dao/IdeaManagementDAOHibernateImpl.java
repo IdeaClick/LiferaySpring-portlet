@@ -1,5 +1,6 @@
 package com.ideaclicks.liferay.spring.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -83,9 +84,7 @@ System.out.println(".........User Found........"+list);
 	}
 
 	public void newUserRegistration(UserRegistration uRegistration) {
-		
 		sessionFactory.getCurrentSession().save(uRegistration);
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -113,15 +112,22 @@ System.out.println(".........User Found........"+list);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<OrganizationRegistration> getOrganizationEmailList() throws DataAccessException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OrganizationRegistration.class);		
-		ProjectionList projList = Projections.projectionList();
-		projList.add(Projections.property("email"), "email");
-		criteria.setProjection(Projections.distinct(projList));
-		criteria.setResultTransformer(Transformers.aliasToBean(OrganizationRegistration.class));
-		List<OrganizationRegistration> emailList = criteria.list();
-		System.out.println("List"+emailList);
-		return emailList ;
+	public List<OrganizationRegistration> getOrganizationEmailList(String OrgCode) throws DataAccessException {
+		System.out.println("Heooooooooooo========================");
+		String sql = "from OrganizationRegistration r where r.orgCode = :orgcode";
+		List<OrganizationRegistration> registeredOrgEmailList=sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("orgcode",OrgCode).list();
+		System.out.println("\n\n\n\n\nOrganization Email List\n\n\n"+registeredOrgEmailList);
+		return registeredOrgEmailList;
+	}
+	
+	@SuppressWarnings("unchecked")	
+	public List<UserRegistration> getUserEmailList(String OrgCode) throws DataAccessException {
+		String sql = "from UserRegistration u where u.orgCode = :orgcode";
+		List<UserRegistration> registeredUserEmailList=sessionFactory.getCurrentSession().createQuery(sql)
+				.setParameter("orgcode",OrgCode).list();
+		System.out.println("User Email List"+registeredUserEmailList);
+		return registeredUserEmailList ;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,9 +170,9 @@ System.out.println(".........User Found........"+list);
 
 	@SuppressWarnings("unchecked")
 	public List<IdeasCategory> getDefaultIdeasCategoryList() throws DataAccessException {
-		String sql = "from IdeasCategory c where c.OrgCode = :default";
+		String sql = "from IdeasCategory c where c.OrgCode = :defaultcategory";
 		List<IdeasCategory> list=sessionFactory.getCurrentSession().createQuery(sql)
-				.setParameter("default", "DefaultCategory").list();
+				.setParameter("defaultcategory", "DefaultCategory").list();
 		LOG.info("Default Category List"+list);
 		return list ;
 	}
@@ -179,20 +185,7 @@ System.out.println(".........User Found........"+list);
 		LOG.info("Organization Category List"+list);
 		return list ;
 	}
-
 	
-	@SuppressWarnings("unchecked")	
-	public List<UserRegistration> getUserEmailList() throws DataAccessException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UserRegistration.class);		
-		ProjectionList projList = Projections.projectionList();
-		projList.add(Projections.property("email"), "email");
-		criteria.setProjection(Projections.distinct(projList));
-		criteria.setResultTransformer(Transformers.aliasToBean(UserRegistration.class));
-		List<UserRegistration> userList = criteria.list();
-		System.out.println("User List"+userList);
-		return userList ;
-	}
-
 	@Override
 	public String forgetPassword(String email) throws DataAccessException {
 		String sql = "from OrganizationRegistration r " + "where r.email = :emailid";

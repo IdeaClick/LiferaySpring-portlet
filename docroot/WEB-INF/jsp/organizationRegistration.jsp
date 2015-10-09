@@ -7,7 +7,7 @@
 <liferay-ui:success key="success"
 	message="Registration Sucessful check your email" />
 <liferay-ui:error key="error"
-	message="Sorry,Organization already registered with entered Organization Code" />
+	message="Sorry, Organization already registered with entered Organization Code" />
 <liferay-ui:error key="error1"
 	message="Sorry,Organization already registered with entered Email Id" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
@@ -15,10 +15,10 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
 <body onload="document.login.orgName.focus();">
-	<div class="box" style="margin-left: auto; margin-right: auto;">
+	<%-- <div class="box" style="margin-left: auto; margin-right: auto;">
 		<b><fmt:message key="heading.orgregistration" /></b>
 	</div>
-	<hr>
+	<hr> --%>
 	<div id="main">
 		<c:set var="portletnamespace"
 			value="<%=renderResponse.getNamespace()%>" />

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
@@ -22,10 +20,8 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
-import com.ideaclicks.liferay.spring.domain.Ideas;
 import com.ideaclicks.liferay.spring.domain.ResetPassword;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
@@ -33,20 +29,16 @@ import com.ideaclicks.liferay.spring.util.SessionInfo;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 @Controller("resetPasswordController")
 @RequestMapping("VIEW")
 public class ResetPasswordController extends MVCPortlet{
-
 	/**
 	 * This field holds the logger for this class.
 	 */
 	private static final Log LOG = LogFactory.getLog(ResetPasswordController.class);
-	
 	
 	private Validator validator;
 
@@ -66,18 +58,20 @@ public class ResetPasswordController extends MVCPortlet{
 			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 			LOG.info("Reset Password Controller Session Info"+sessInfo);
 			if(sessInfo!=null){
+				System.out.println("1");
 				renderResponse.setTitle("Submit Idea "+" Logged In : "+sessInfo.getEmail());
 				return "resetpassword";
 			}
 			else{
+				System.out.println("2");
 				return "gotoLoginResetPassword";
 			}
 		}catch (Exception e){
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
+		System.out.println("3");
 		return "gotoLoginResetPassword";
 	}
-
 
 	@RenderMapping(params = "action=resetPassword" )
 	public ModelAndView handlePostRequest(RenderRequest renderRequest,RenderResponse renderResponse, Model model,@Valid @ModelAttribute("reset_password")ResetPassword resetPassword,
@@ -105,39 +99,30 @@ public class ResetPasswordController extends MVCPortlet{
 					value=ideamgmtService.ResetPassword(loginuseremail,oldPasswrod,confirmPasswrod);
 
 					if(value){
-						
 						SessionMessages.add(renderRequest, "success");
 						return new ModelAndView("resetpassword");
 					}
 					else{
 						hideDefaultErrorMessage(renderRequest, renderResponse);
-						//display error message
 						SessionErrors.add(renderRequest, "wrong_old_pswd");
 						return new ModelAndView("resetpassword");
 					}
 				}
 				else{
 					hideDefaultErrorMessage(renderRequest, renderResponse);
-					//display error message
 					SessionErrors.add(renderRequest, "pswd_not_matched");
 				}
 			}
 		}catch (MinervaException me) {
 			LOG.error("Reset Password Errors"+me.getStackTrace());
-			LOG.debug("check for the exception here" + me.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			LOG.error("Reset Password Errors"+e.getStackTrace());
-			LOG.debug("check for the exception here" + e.getMessage());
 		}
 		return new ModelAndView("resetpassword");
 	}
 
 	public void  hideDefaultErrorMessage(RenderRequest renderRequest,RenderResponse  renderResponse){
-		// Hide default error message
 		SessionErrors.add(renderRequest, "error-key");
 		SessionMessages.add(renderRequest, PortalUtil.getPortletId(renderRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 	}
-
-
 }

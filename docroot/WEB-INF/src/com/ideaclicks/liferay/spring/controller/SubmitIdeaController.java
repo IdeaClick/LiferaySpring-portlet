@@ -49,11 +49,6 @@ public class SubmitIdeaController{
 	@Qualifier("submitIdeaValidator")
 	private Validator validator;
 
-	/*@InitBinder
-	private void initBinder(WebDataBinder binder) {
-		binder.setValidator(validator);
-	}*/
-	
 	@Resource(name = "validator")
 	public void setValidator(Validator validator) {
 		this.validator = validator;
@@ -63,31 +58,32 @@ public class SubmitIdeaController{
 	private IdeaManagementService ideamgmtService;
 
 	@RenderMapping
-	public String submitIdea(RenderRequest renderRequest, RenderResponse renderResponse, Model model,@ModelAttribute("submit_idea") Ideas idea,Map<String, Object> map) throws IOException,
+	public ModelAndView submitIdea(RenderRequest renderRequest, RenderResponse renderResponse, Model model,@ModelAttribute("submit_idea") Ideas idea,Map<String, Object> map) throws IOException,
 	PortletException, MinervaException {
 		try{
 			PortletSession newSession = renderRequest.getPortletSession();
-			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
-			LOG.info("Submit Idea Controller Session Info"+sessInfo);
+			SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);	
 			if(sessInfo!=null){
+				System.out.println("1");
+				LOG.info("Submit Idea Controller Session Info"+sessInfo);
 				renderResponse.setTitle("Submit Idea "+" Logged In : "+sessInfo.getEmail());
-				//ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessInfo.getOrgCode()));
-				map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessInfo.getOrgCode())));
-				return "submitIdea";
+				return new ModelAndView("submitIdea","categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessInfo.getOrgCode())));
 			}
 			else{
-				return "gotoLoginSubmitIdeas";
+				System.out.println("2");
+				return new ModelAndView("gotoLoginSubmitIdeas");
 			}
-		}catch(MinervaException e){
-			LOG.debug(e.getMessage());
+		}catch(MinervaException ee){
+			LOG.debug(ee.getMessage());
 		}catch (Exception e){
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
-		return "gotoLoginSubmitIdeas";
+		System.out.println("3");
+		return new ModelAndView("gotoLoginSubmitIdeas");
 	}
 
 	@RenderMapping(params = "action=viewSubmitedIdeaPage")
-	public ModelAndView renderOneMethod(RenderRequest renderRequest,RenderResponse renderResponse,Map<String, Object> map) throws IOException,
+	public ModelAndView renderOneMethod(RenderRequest renderRequest,RenderResponse renderResponse,Model model,@ModelAttribute("submit_idea") Ideas idea,Map<String, Object> map) throws IOException,
 	PortletException,MinervaException {
 		return new ModelAndView("submitIdea","categoryList",ideamgmtService.getDefaultIdeasCategoryList());
 	}
@@ -95,16 +91,14 @@ public class SubmitIdeaController{
 	@ActionMapping(params = "action=submitIdea")
 	public void handlePostRequest(ActionRequest actionRequest,ActionResponse actionResponse,@Valid @ModelAttribute("submit_idea") Ideas idea,
 			BindingResult result)throws IOException,PortletException,MinervaException {
-		
+
 		boolean value = false;
 		try{
 			validator.validate(idea,result);
 			if (result.hasErrors()) {
 				LOG.info("validation  failed");
-				System.out.println("Validation Failed");
 			}
 			else{
-
 				PortletSession newSession = actionRequest.getPortletSession();
 				SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 				String loginUserOrgCode = sessInfo.getOrgCode();
@@ -122,17 +116,12 @@ public class SubmitIdeaController{
 					LOG.info("Home URL"+td.getURLHome());
 					SessionMessages.add(actionRequest, "success");
 					actionResponse.sendRedirect("http://localhost:8080/web/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
-					
 					//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
-					
 				}												
 				else{
-					// Hide default error message
 					SessionErrors.add(actionRequest, "error-key");
 					SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-					//display error message
 					SessionErrors.add(actionRequest, "error");
-					//return new ModelAndView("submitIdea","categoryList",ideamgmtService.getIdeasCategoryList());
 				}
 			}
 		}catch (MinervaException me) {
@@ -143,6 +132,5 @@ public class SubmitIdeaController{
 			LOG.error("Submit Idea Errors"+e.getStackTrace());
 			LOG.debug("check for the exception here" + e.getMessage());
 		}
-		//return new ModelAndView("submitIdea");
 	}
 }

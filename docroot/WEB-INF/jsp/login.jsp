@@ -7,7 +7,7 @@
 <portlet:param name="action" value="login"></portlet:param>
 </portlet:actionURL>
 
-<liferay-ui:success key="success" message="Login successful. You can now submit ideas, review ideas and comment on existing ideas." />
+<%-- <liferay-ui:success key="success" message="Login successful. You can now submit ideas, review ideas and comment on existing ideas." /> --%>
 <liferay-ui:error key="error" message="Invalid User Name or Password" />
 <liferay-ui:error key="captcha" message="Captcha not verified" />
 

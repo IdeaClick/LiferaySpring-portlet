@@ -44,12 +44,13 @@ public class CommentController{
 	String ideasId= ""; 
 
 	@RenderMapping(params = "action=commentsOnIdea")
-	public String renderOneMetho(RenderRequest request, RenderResponse response,Map<String, Object> map, Model model, @ModelAttribute("idea_comment_form") Ideas idea, BindingResult result) throws IOException,
+	public String renderOneMetho(RenderRequest renderRequest, RenderResponse renderResponse,Map<String, Object> map, Model model, @ModelAttribute("idea_comment_form") Ideas idea, BindingResult result) throws IOException,
 	PortletException,MinervaException {
-		ideasId = ParamUtil.getString(request, "Ideas_id");
+		ideasId = ParamUtil.getString(renderRequest, "Ideas_id");
 		LOG.info("Title Vvalue"+ideasId);
 		LOG.info("IdeasList"+ideamgmtService.getSingleIdea(ideasId));
 		try {
+			renderResponse.setTitle("Like Diske and Comments ");
 			model.addAttribute("like_dislike_comment", new CommentPojo());
 			map.put("comments", ideamgmtService.getComment(ideasId));
 			map.put("IdeasList", ideamgmtService.getSingleIdea(ideasId));

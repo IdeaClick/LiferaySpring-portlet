@@ -2,7 +2,6 @@ package com.ideaclicks.liferay.spring.controller;
 
 import java.io.IOException;
 import java.util.Map;
-import javax.annotation.Resource;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,8 +56,9 @@ public class CategoryController {
 			if(sessionInfo!=null){
 				renderResponse.setTitle("Add Categories "+" Logged In : "+sessionInfo.getEmail());
 				if(sessionInfo.getUsertype().equalsIgnoreCase("Admin")){
+					LOG.info("Category Controller Session Info"+sessionInfo);
 					map.put("defaultCategoryList",ideamgmtService.getDefaultIdeasCategoryList());
-					map.put("organizationCategoryList", ideamgmtService.getOrganizationIdeasCategoryList("Bmc23"));
+					map.put("organizationCategoryList", ideamgmtService.getOrganizationIdeasCategoryList(sessionInfo.getOrgCode()));
 					return "category";
 				}
 				else{
@@ -89,8 +88,8 @@ public class CategoryController {
 		LOG.info("..........In AddCategory Validation Success.......");
 		PortletSession newSession = actionRequest.getPortletSession();
 		SessionInfo sessInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
-		//categoryObj.setOrgCode(sessInfo.getOrgCode());
-		categoryObj.setOrgCode("Bmc23");		
+		categoryObj.setOrgCode(sessInfo.getOrgCode());
+		System.out.println("sessInfo.getOrgCode()"+sessInfo.getOrgCode());	
 		try {
 			if(ideamgmtService.addCategory(categoryObj)){
 				SessionMessages.add(actionRequest, "success");	

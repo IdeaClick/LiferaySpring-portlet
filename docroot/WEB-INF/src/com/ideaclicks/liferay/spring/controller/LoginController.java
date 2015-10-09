@@ -85,7 +85,7 @@ public class LoginController extends MVCPortlet  {
 
 			// get reCAPTCHA request param
 			String gRecaptchaResponse = actionRequest.getParameter("g-recaptcha-response");
-			System.out.println(gRecaptchaResponse);
+			LOG.info(gRecaptchaResponse);
 			boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 			if(verify){
 				String emailId = ParamUtil.getString(actionRequest,"email");
@@ -100,41 +100,36 @@ public class LoginController extends MVCPortlet  {
 					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 					LOG.info("Home URL"+td.getURLHome());
 					String loginUserType = ideamgmtService.getUserType(emailId);
-					System.out.println("User Type Login Controller:"+loginUserType);
+					LOG.info("User Type Login Controller:"+loginUserType);
 					reg.setUsertype(loginUserType);
 					SessionManager ownsessionobject = SessionManager.getInstance();
 					ownsessionobject.createSession(actionRequest,reg);
 					
-					PortletSession session = actionRequest.getPortletSession();
+					/*PortletSession session = actionRequest.getPortletSession();
 					session.setAttribute("email",emailId, PortletSession.APPLICATION_SCOPE);
 					
 					SessionMessages.add(actionRequest, "loginsuccess");
-					super.processAction(actionRequest, actionResponse);
-					
-					LOG.info("before retrun submit idea");
+					super.processAction(actionRequest, actionResponse);*/
+		
 					if(loginUserType.equalsIgnoreCase("User")){		
 						//actionResponse.sendRedirect(td.getURLHome()+"/view-ideas?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
-						actionResponse.sendRedirect("http://localhost:8080/web/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
+				         actionResponse.sendRedirect("http://localhost:8080/web/liferay/view-idea?p_p_id=ViewIdeas_WAR_IdeaClicksMVPportlet");
 					}
 					else{
 						//actionResponse.sendRedirect(td.getURLHome()+"/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
-						actionResponse.sendRedirect("http://localhost:8080/web/liferay/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
+						  actionResponse.sendRedirect("http://localhost:8080/web/liferay/admin?p_p_id=AddCategory_WAR_IdeaClicksMVPportlet");
 					}
-					//actionResponse.sendRedirect(td.getURLHome()+"/submit-idea?p_p_id=Submit_Idea_WAR_IdeaClicksMVPportlet");
+				
 				}
 				else{
-					// Hide default error message
 					SessionErrors.add(actionRequest, "error-key");
 					SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-					//display error message
 					SessionErrors.add(actionRequest, "error");
 				}
 			}else{
 				LOG.info("Captcha Resopnse"+verify);
-				// Hide default error message
 				SessionErrors.add(actionRequest, "error-key");
 				SessionMessages.add(actionRequest, PortalUtil.getPortletId(actionRequest) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
-				//display error message
 				SessionErrors.add(actionRequest, "captcha");
 			}
 		}catch(SecurityException se) {

@@ -7,8 +7,8 @@
     <div class="box" style="margin-left: auto; margin-right: auto;"> <fmt:message key="registration_success.message" />
     <% 
        out.print(session.getAttribute("email"));
-    
     %>
+    ..Login <a href="<fmt:message key="login.url"/>">here</a>
     </div>
 </body>
 </body>

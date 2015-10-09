@@ -67,14 +67,16 @@ public class UserRegistrationController {
 	}
 
 	@RenderMapping
-	public String UserRegistrationn(Map<String, Object> map) {
+	public String UserRegistrationn(RenderRequest renderRequest, RenderResponse renderResponse,Map<String, Object> map) {
+		renderResponse.setTitle("User Registration");
 		map.put("userRegistration", new UserRegistration());
 		return "userRegistration";
 	}
 
 	@RenderMapping(params = "action=viewUserReg")
-	public ModelAndView renderOneMethod(RenderRequest request, RenderResponse response, Model model, @ModelAttribute("user_reg") UserRegistration uRegistration, BindingResult result) throws IOException,
+	public ModelAndView renderOneMethod(RenderRequest renderRequest, RenderResponse renderResponse, Model model, @ModelAttribute("user_reg") UserRegistration uRegistration, BindingResult result) throws IOException,
 	PortletException,MinervaException {
+		renderResponse.setTitle("User Registration");
 		return new ModelAndView("userRegistration");
 	}
 

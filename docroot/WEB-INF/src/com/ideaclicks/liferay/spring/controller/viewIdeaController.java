@@ -6,8 +6,6 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
@@ -15,16 +13,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
-import com.ideaclicks.liferay.spring.domain.Ideas;
-import com.ideaclicks.liferay.spring.domain.OrganizationRegistration;
 import com.ideaclicks.liferay.spring.exception.MinervaException;
 import com.ideaclicks.liferay.spring.service.IdeaManagementService;
 import com.ideaclicks.liferay.spring.util.SessionInfo;
@@ -47,30 +38,32 @@ public class viewIdeaController {
 		try{
 			PortletSession newSession = renderRequest.getPortletSession();
 			SessionInfo sessionInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
-			LOG.info("View Idea Controller Session Info"+sessionInfo);
-			
+						
 			if(sessionInfo!=null){
-				System.out.println("User Type:"+sessionInfo.getUsertype()+"Orgcode:"+sessionInfo.getOrgCode());
+				LOG.info("View Idea Controller Session Info"+sessionInfo);
 				renderResponse.setTitle("View Ideas "+" Logged In : "+sessionInfo.getEmail());
-				if(sessionInfo.getUsertype().equalsIgnoreCase("User")){					
+				if(sessionInfo.getUsertype().equalsIgnoreCase("User")){	
+					System.out.println("1");
 					map.put("IdeasList", ideamgmtService.getIdeaList(sessionInfo.getOrgCode(),sessionInfo.getEmail()));
 					map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessionInfo.getOrgCode())));
 					return "viewIdeas";
 				}
 				else if(sessionInfo.getUsertype().equalsIgnoreCase("Admin")){
-					System.out.println("In Admin");
+					System.out.println("2");
 					map.put("IdeasList", ideamgmtService.getIdeaListForAdmin(sessionInfo.getOrgCode()));
 					map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessionInfo.getOrgCode())));
 					return "admin_viewideas";
 				}
 			}
 			else{
+				System.out.println("3");
+				LOG.info("Session Info Null");
 				return "gotoLoginViewIdeas";
 			}
 		}catch(Exception e){
-			LOG.error("Exception " + e.getMessage());
 			LOG.info("Exception" + e.getStackTrace().toString());
 		}
+		System.out.println("4");
 		return "gotoLoginViewIdeas";
 	}
 	
@@ -79,13 +72,10 @@ public class viewIdeaController {
 	PortletException,MinervaException {
 		try{
 			String filterCategory = ParamUtil.getString(request,"filterIdeaCategory");
-			System.out.println("Fiter Idea Category"+filterCategory);
 			PortletSession newSession = request.getPortletSession();
 			SessionInfo sessionInfo = (SessionInfo)newSession.getAttribute("sessionInfo",PortletSession.APPLICATION_SCOPE);
 			
-			System.out.println("View Idea Controller Session Info"+sessionInfo);
 			if(sessionInfo!=null){
-			
 				map.put("IdeasList", ideamgmtService.getIdeaFilterList(sessionInfo.getOrgCode(),sessionInfo.getEmail(),filterCategory));
 				map.put("categoryList",ListUtils.union(ideamgmtService.getDefaultIdeasCategoryList(), ideamgmtService.getOrganizationIdeasCategoryList(sessionInfo.getOrgCode())));
 				return "viewIdeas";
@@ -99,26 +89,4 @@ public class viewIdeaController {
 		}
 		return "viewIdeas";
 	}
-
-	/*@ResourceMapping(value ="like_dislike_counter")
-	public @ResponseBody void saveDomment(ResourceRequest request,ResourceResponse response,Model model,@ModelAttribute("like_dislike_comment") Ideas comment,BindingResult result)throws IOException,PortletException{
-	System.out.println("Hii Neha");	
-			int like_count = ParamUtil.getInteger(request, "like_count");
-			System.out.println("Hiiiiiiiiiiii"+like_count);
-			like_count = like_count + 1 ;
-		 
-          try{
-        	  int likeCount = ParamUtil.getInteger(request, "like_count");
-  			System.out.println("Hii Amol!!"+likeCount);	
-  			likeCount = likeCount+1;
-  			response.getWriter().println(likeCount);
-  			
-        	 response.setCharacterEncoding("UTF-8"); 
-        	  System.out.println("Like Count"+like_count);
-      		response.getWriter().write(like_count); 
-         
-          }catch (Exception e) {
-        	  e.printStackTrace();
-          }	           
-	}*/
 }

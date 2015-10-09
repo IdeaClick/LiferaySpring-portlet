@@ -119,10 +119,6 @@
 </style>
 </head>
 <body>
-	<%-- 
-	<div class="box">
-		<fmt:message key="heading.ideas" />
-	</div> --%>
 	<div class="box" style="margin-left: auto; margin-right: auto;">
 		<form:form id="viewIdea" name="viewIdea" modelAttribute="viewIdea"
 			method="post" action="">
@@ -131,7 +127,7 @@
 	    	Keywords : <input type="text" name="searchIdeas" class="search-idea"/> 
 	    	<button class="btn btn-info">Search</button>
     		</div>-->
-				<hr>
+			
 				<c:forEach items="${IdeasList}" var="Idea">
 					<div class="idea-container">
 						<a class="idea-tile"
@@ -165,6 +161,7 @@
 								<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
 							</portlet:renderURL>">${IdeasCategory.category}
 					</a>
+					<br>
 				</c:forEach>
 			</div>
 		</form:form>

@@ -119,10 +119,7 @@
 </style>
 </head>
 <body>
-	<%--
-	<div class="box">
-		<fmt:message key="heading.ideas" />
-	</div> --%>
+	
 	<div class="box" style="margin-left: auto; margin-right: auto;">
 		<form:form id="viewIdea" name="viewIdea" modelAttribute="viewIdea"
 			method="post">

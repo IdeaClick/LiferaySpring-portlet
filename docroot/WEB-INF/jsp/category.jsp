@@ -9,9 +9,8 @@
 	<portlet:param name="action" value="deleteCategory" />
 </portlet:actionURL>
 
-<liferay-ui:success key="success" message="Organization Category Saved" />
-<liferay-ui:error key="error"
-	message="This Category has already been added" />
+<liferay-ui:success key="success" message="Organization Category Added" />
+<liferay-ui:error key="error" message="This Category has already been added" />
 
 <body>
 	<div id="main">

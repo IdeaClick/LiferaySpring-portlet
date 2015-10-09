@@ -6,9 +6,9 @@
 		<div id="site_content">
 			<div class="sidebar_container">
 				<div class="sidebar">
-					<div class="sidebar_item" style="height: 100%; overflow-y: scroll;">
+					<div class="sidebar_item" style="height: 100%; overflow-y: hidden;">
 						<p>
-							<marquee direction="up" behavior="scroll" scrollamount="4">
+							<marquee direction="up"  behavior="scroll" scrollamount="4">
 								<c:forEach items="${OrganizationList}" var="Registration">
 									<ul>
 										<li>${Registration.orgName}</li>

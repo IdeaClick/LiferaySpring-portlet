@@ -61,7 +61,7 @@ public class GlobalConstants {
 	 * Locked Status Code.
 	 */
 	public static final String LOCKED_STATUS_CODE = "LOCKED";
-	public static final String LOGIN_URL = "http://ideaclicks.in/web/guest/home";
+	public static final String LOGIN_URL = "http://ideaclicks.in/web/guest/login";
 	public static final String SUBMIT_IDEA_URL = "http://ideaclicks.in/web/guest/submit-idea";
 	public static final String VIEW_IDEA_URL = "http://ideaclicks.in/web/guest/view-idea";
 	/*

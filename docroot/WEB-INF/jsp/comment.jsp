@@ -144,6 +144,25 @@
   	 });
    	$( ".submitComment" ).click(function() 
   			{ 
+  				var data = {commentText: $(this).closest('.comment-container').find('.comment-box').eq(0).val()},
+  					commentId=$(this).closest('.comment-container').find('.comment-id').eq(0).val();
+  				data.commentId=-1;
+  				if(commentId!="idea"){
+  					data.commentId = commentId;
+  				}
+  				console.log(data);
+  				 $.ajax({ 
+  					url: "${saveComment}" , 
+  					type: 'POST', 
+  					datatype:'json', 
+  					data: data, 
+  					success: function(data){ 
+		  				console.log('success:save comment');	
+ 					} 
+  				}); 
+  	}); 
+/*    	$( ".submitComment" ).click(function() 
+  			{ 
   				var data = {commentText: $(this).prev().val()},
   					commentId=$(this).prev().prev().val();
   				data.commentId=-1;
@@ -160,12 +179,11 @@
  					} 
   				}); 
   	}); 
-  });
+ */
+   
+   });
 </script>
 <body>
-	<div class="box">
-		<fmt:message key="heading.ideas" />
-	</div><hr>
 	<form:form id="like_dislike_comment_form" name="like_dislike_comment"
 		modelAttribute="like_dislike_comment" method="post">
 		<div class="view-idea-container">
@@ -185,7 +203,7 @@
  --%>					
  					<input type="button" class="i-comment" value="Comment">
 					<div class="box comment-container" style="margin-left: auto; margin-right: auto;display:none">
-						<input type="hidden" value="idea"/>
+						<input type="hidden" value="idea" class="comment-id"/>
 						<textarea class="comment-box" name="<portlet:namespace />commentsText"
 						title="Submit Your comment"
 						style="width: 95%; height: 50px;"></textarea>

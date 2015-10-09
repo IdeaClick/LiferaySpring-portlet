@@ -170,9 +170,9 @@
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
-			<title>Login And User Registration</title>
-			<short-title>Login And User Registration</short-title>
-			<keywords>Login And User Registration</keywords>
+			<title>Login</title>
+			<short-title>Login</short-title>
+			<keywords>Login</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

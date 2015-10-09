@@ -64,15 +64,17 @@ public class OrganizationRegistrationController    {
 	private IdeaManagementService ideamgmtService;
 
 	@RenderMapping
-	public String orgRegistration(Map<String, Object> map){
+	public String orgRegistration(RenderRequest renderRequest, RenderResponse renderResponse,Map<String, Object> map){
+		renderResponse.setTitle("Organization Registration");
 		map.put("organizationRegistration", new OrganizationRegistration());
 		return "organizationRegistration";
 	}
 
 
 	@RenderMapping(params = "action=viewOrgReg")
-	public ModelAndView renderOneMethod(RenderRequest request, RenderResponse response, Model model, @ModelAttribute("reg") OrganizationRegistration registration, BindingResult result) throws IOException,
+	public ModelAndView renderOneMethod(RenderRequest renderRequest, RenderResponse renderResponse, Model model, @ModelAttribute("reg") OrganizationRegistration registration, BindingResult result) throws IOException,
 	PortletException,MinervaException {
+		renderResponse.setTitle("Organization Registration");
 		return new ModelAndView("organizationRegistration");
 	}
 
