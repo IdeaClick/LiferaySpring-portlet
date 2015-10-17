@@ -1,6 +1,7 @@
 <%@page import="javax.portlet.RenderRequest"%>
 <%@page import="javax.portlet.PortletSession"%>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
 
 <%@page import="com.sun.xml.internal.ws.wsdl.writer.document.ParamType"%>
@@ -151,6 +152,7 @@
   					data.commentId = commentId;
   				}
   				console.log(data);
+  				//$(this).disable();
   				 $.ajax({ 
   					url: "${saveComment}" , 
   					type: 'POST', 
@@ -201,7 +203,7 @@
 						<input type="image" id="dislike_btn" name="dislike_btn" src="<%=renderRequest.getContextPath()%>/images/dislike.png"
 							alt="Submit" />${Idea.dislikes_count}&nbsp;&nbsp;
  --%>					
- 					<input type="button" class="i-comment" value="Comment">
+ 					<button type="button" class="i-comment" value="Comment">Comment</button>
 					<div class="box comment-container" style="margin-left: auto; margin-right: auto;display:none">
 						<input type="hidden" value="idea" class="comment-id"/>
 						<textarea class="comment-box" name="<portlet:namespace />commentsText"

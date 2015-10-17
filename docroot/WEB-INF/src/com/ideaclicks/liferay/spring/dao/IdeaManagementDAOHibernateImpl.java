@@ -279,10 +279,11 @@ System.out.println(".........User Found........"+list);
 	}
 
 	@Override
-	public String getUserType(String email) throws DataAccessException {
-		String sql = "from OrganizationRegistration r " + "where r.email = :emailid";
+	public String getUserType(String email,String orgcode) throws DataAccessException {
+		String sql = "from OrganizationRegistration r " + "where r.email = :emailid and r.orgCode = :orgcode";
 		List Elist=sessionFactory.getCurrentSession().createQuery(sql)
 				.setParameter("emailid", email)
+				.setParameter("orgcode", orgcode)
 				.list();
 		OrganizationRegistration reg=null;
 		if(Elist.size() != 0|| Elist.size()==1) {
@@ -292,9 +293,10 @@ System.out.println(".........User Found........"+list);
 			return userType;	
 		}
 		else{
-			String sql1 = "from UserRegistration r " + "where r.email = :emailid";
+			String sql1 = "from UserRegistration r " + "where r.email = :emailid and r.orgCode = :orgcode";
 			List emailList=sessionFactory.getCurrentSession().createQuery(sql1)
 					.setParameter("emailid", email)
+					.setParameter("orgcode", orgcode)
 					.list();
 			System.out.println(email+"List"+emailList);
 			UserRegistration userReg=null;

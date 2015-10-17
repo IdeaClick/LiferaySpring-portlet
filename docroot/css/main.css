@@ -1,3 +1,9 @@
+
+.edit-btn{
+	color: #025776;	
+}
+
+
 .box {
 	font-size: 15px;
 	font-family: 'Titillium Web', sans-serif;
@@ -41,4 +47,10 @@ button{
 	font-weight: bold;
 	background-color: #5C82FF;
 	color: white;
+}
+.aui a {
+	color: #025776;
+}
+.aui a:hover, .aui a:focus {
+	color: #0094BC;
 }

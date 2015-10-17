@@ -109,7 +109,7 @@ public interface IdeaManagementDAO {
 	
 	 public List<Ideas> getSingleIdea(String ideasId)throws DataAccessException;
 	 
-	 public String getUserType(String email)throws DataAccessException;
+	 public String getUserType(String email,String orgcode)throws DataAccessException;
 	 
 	 public boolean addCategory(IdeasCategory category) throws DataAccessException;
 	 

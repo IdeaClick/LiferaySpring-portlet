@@ -32,7 +32,7 @@
 	color: #005777;
 	font-weight: bold;
 	cursor: pointer;
-	text-decoration: none;
+	/*text-decoration: none;*/
 }
 
 .idea-container .idea-description {
@@ -58,9 +58,9 @@
 
 .categories-container {
 	display: inline-block;
-	margin-left: 30px;
+	/*margin-left: 30px;*/
 	width: 200px;
-	margin-top: 60px;
+	/*margin-top: 60px;*/
 	height: auto;
 	background-color: #e6e6e6;
 	padding-left: 30px;
@@ -120,6 +120,9 @@
 	color: #005777;
 	font-weight: bold;
 }
+.right-container{
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -156,22 +159,24 @@
 					<br>
 				</c:forEach>
 			</div>
-			<div class="box">
-				<b>Categories</b>
-			</div>
-			<div class="categories-container">
-				<c:forEach items="${categoryList}" var="IdeasCategory">
-					<a class="category"
-						href="<portlet:renderURL>
-								<portlet:param name="action" value="FilterIdea"/>
-								<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
-							</portlet:renderURL>">${IdeasCategory.category}
-					</a>
-					<br>
-					<%-- <div class="category">
-						<a> ${IdeasCategory.category} </a>
-					</div> --%>
-				</c:forEach>
+			<div class="right-container">
+				<div class="box">
+					<b>Categories</b>
+				</div>
+				<div class="categories-container">
+					<c:forEach items="${categoryList}" var="IdeasCategory">
+						<a class="category"
+							href="<portlet:renderURL>
+									<portlet:param name="action" value="FilterIdea"/>
+									<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
+								</portlet:renderURL>">${IdeasCategory.category}
+						</a>
+						<br>
+						<%-- <div class="category">
+							<a> ${IdeasCategory.category} </a>
+						</div> --%>
+					</c:forEach>
+				</div>
 			</div>
 		</form:form>
 	</div>

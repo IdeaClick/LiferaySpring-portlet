@@ -118,7 +118,7 @@ public interface IdeaManagementService {
    
    public List<Ideas> getSingleIdea(String ideasId)throws AdminException;
    
-   public String getUserType(String email)throws AdminException;
+   public String getUserType(String email,String orgcode)throws AdminException;
    
    public boolean addCategory(IdeasCategory category)throws AdminException;
    

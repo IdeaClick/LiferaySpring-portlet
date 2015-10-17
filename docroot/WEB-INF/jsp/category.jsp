@@ -13,7 +13,7 @@
 <liferay-ui:error key="error" message="This Category has already been added" />
 
 <body>
-	<div id="main">
+	<div id="main" class="box">
 		<div class="leftCategoryContianer">
 			<form:form id="myform" name="add_category" commandName="add_category"
 				modelAttribute="add_category" method="post"
@@ -23,7 +23,7 @@
 					<form:errors path="category"></form:errors>
 				</div>
 				<div class="box" style="margin-left: auto; margin-right: auto;">
-					<fmt:message key="label.addcategory" />
+					<b><fmt:message key="label.addcategory" /></b>
 					<b style="color: red;">*</b>:<br>
 					<form:input path="category" style="height: 100%; width: 70%;" />
 				</div>
@@ -66,20 +66,7 @@
 		</div>
 	</div>
 	<!-- end of main -->
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br>
 </body>
 </html>

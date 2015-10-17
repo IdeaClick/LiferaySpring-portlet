@@ -1,7 +1,16 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@page import="javax.portlet.PortletSession"%>
-<liferay-ui:success key="success" message="Idea Submitted" />
+<%@ page import="javax.portlet.PortletSession,com.ideaclicks.liferay.spring.util.SessionInfo" %>
+<%
+	PortletSession newSession = renderRequest.getPortletSession();
+	SessionInfo sessInfo = (SessionInfo) newSession.getAttribute("sessionInfo", PortletSession.APPLICATION_SCOPE);
+	if(sessInfo!=null){
+	String loginuseremail = sessInfo.getEmail();
+	//out.println("loggedin user"+loginuseremail);
+	}
+%>
+<%-- <liferay-ui:success key="success" message="Idea Submitted" /> --%>
 
 <style type="text/css">
 .view-idea-container {
@@ -28,7 +37,7 @@
 	color: #005777;
 	font-weight: bold;
 	cursor: pointer;
-	text-decoration: none;
+	/*text-decoration: none;*/
 }
 
 .idea-container .idea-description {
@@ -54,9 +63,9 @@
 
 .categories-container {
 	display: inline-block;
-	margin-left: 30px;
+	/*margin-left: 30px;*/
 	width: 200px;
-	margin-top: 60px;
+	/*margin-top: 60px;*/
 	height: auto;
 	background-color: #e6e6e6;
 	padding-left: 30px;
@@ -116,6 +125,9 @@
 	color: #005777;
 	font-weight: bold;
 }
+.right-container{
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -127,7 +139,7 @@
 	    	Keywords : <input type="text" name="searchIdeas" class="search-idea"/> 
 	    	<button class="btn btn-info">Search</button>
     		</div>-->
-			
+
 				<c:forEach items="${IdeasList}" var="Idea">
 					<div class="idea-container">
 						<a class="idea-tile"
@@ -137,32 +149,36 @@
 							</portlet:renderURL>">${Idea.title}
 						</a> <br>
 						<pre class="idea-description">${Idea.desc}</pre>
-
 						<br>
 						<div class="idea-details-container">
 							<fmt:message key="label.category" />
 							<span class="category"> ${Idea.category} </span> <br>
 							<fmt:message key="label.submittedby" />
 							<span class="submit-by"> ${Idea.submittedBy} </span>
-
 						</div>
+						<%-- <c:if test="${Idea.submittedBy=='amolshirude001@gmail.com'}">
+								<a class="edit-btn" href="#" >Edit</a>
+						</c:if> --%>
 					</div>
 					<br>
 				</c:forEach>
 			</div>
-			<div class="box">
-				<b>Categories</b>
-			</div>
-			<div class="categories-container">
-				<c:forEach items="${categoryList}" var="IdeasCategory">
-					<a class="category"
-						href="<portlet:renderURL>
-								<portlet:param name="action" value="FilterIdea"/>
-								<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
-							</portlet:renderURL>">${IdeasCategory.category}
-					</a>
-					<br>
-				</c:forEach>
+			<div class="right-container">
+			
+				<div class="box">
+					<b>Categories</b>
+				</div>
+				<div class="categories-container">
+					<c:forEach items="${categoryList}" var="IdeasCategory">
+						<a class="category"
+							href="<portlet:renderURL>
+									<portlet:param name="action" value="FilterIdea"/>
+									<portlet:param name="filterIdeaCategory" value="${IdeasCategory.category}"/>
+								</portlet:renderURL>">${IdeasCategory.category}
+						</a>
+						<br>
+					</c:forEach>
+				</div>
 			</div>
 		</form:form>
 	</div>

@@ -14,7 +14,7 @@
 			<span style="color: #0094BC"> ${node.submittedBy} </span>
 		</div>
 		<br>
-		<input type="button" class="i-comment" value="Reply">
+		<button type="button" class="i-comment" value="Reply">Reply</button>
 		<div class="box comment-container" style="margin-left: auto; margin-right: auto;display:none">
 			<input type="hidden" value="${node.commentsId}"  class="comment-id"/>
 			<textarea class="comment-box" name="<portlet:namespace />commentsText" 

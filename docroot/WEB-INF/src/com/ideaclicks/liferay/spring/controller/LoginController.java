@@ -99,7 +99,7 @@ public class LoginController extends MVCPortlet  {
 					LOG.info("Successfully Login");
 					ThemeDisplay td  = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 					LOG.info("Home URL"+td.getURLHome());
-					String loginUserType = ideamgmtService.getUserType(emailId);
+					String loginUserType = ideamgmtService.getUserType(emailId,orgcode);
 					LOG.info("User Type Login Controller:"+loginUserType);
 					reg.setUsertype(loginUserType);
 					SessionManager ownsessionobject = SessionManager.getInstance();

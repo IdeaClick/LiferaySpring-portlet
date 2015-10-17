@@ -68,20 +68,19 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 
 		boolean flag1 = true;
 		boolean flag2 = true;
-		boolean flag3 = true;
+		
 		boolean value = false;
 
 		try{
 			System.out.println("we r in org ");
 			LOG.debug("ideamanagementDao============" + ideamanagementDAO);
-
 			List<OrganizationRegistration> orgCodelist = ideamanagementDAO.getOrganizationCodeList();
 			List<OrganizationRegistration> orgEmaillist = ideamanagementDAO.getOrganizationEmailList(registration.getOrgCode());
-			//List<UserRegistration> userEmaillist = ideamanagementDAO.getUserEmailList();
-			LOG.debug("got Organization Code list============" + orgCodelist);
-			LOG.debug("got Organization Email list============" + orgEmaillist);
+			//List<UserRegistration> userEmaillist = ideamanagementDAO.getUserEmailList(registration.getOrgCode());
+			LOG.debug("Organization Code list============" + orgCodelist);
+			LOG.debug("Organization Email list============" + orgEmaillist);
 			if (orgCodelist.isEmpty()) {
-				LOG.debug("User Organization Email and code list empty============");
+				LOG.debug("User Organization code list empty============");
 				System.out.println("1");
 			}
 			else{
@@ -111,10 +110,9 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 						return servicestatus;
 					}
 				}
-				
 			}	
-			System.out.println("flag1 value"+flag1+"flag2 value"+flag2+"flag3 value"+flag3);
-			if(flag1 && flag2 && flag3){
+			System.out.println("flag1 value"+flag1+"flag2 value"+flag2);
+			if(flag1 && flag2){
 				System.out.println("Service ------------");
 				ideamanagementDAO.organizationRegistration(registration);
 				value = true;
@@ -127,7 +125,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 			LOG.debug(" inside organization Registration service========>>"
 					+ cve.getClass().getName());
 			LOG.error(cve.getMessage());
-		
+
 		}
 		return servicestatus;
 	}
@@ -144,7 +142,7 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 
 			List<OrganizationRegistration> orgCodelist = ideamanagementDAO.getOrganizationCodeList();
 			List<UserRegistration> userEmaillist = ideamanagementDAO.getUserEmailList(uRegistration.getOrgCode());
-			//List<OrganizationRegistration> orgEmailList = ideamanagementDAO.getOrganizationEmailList();
+			List<OrganizationRegistration> orgEmailList = ideamanagementDAO.getOrganizationEmailList(uRegistration.getOrgCode());
 			LOG.debug("Organization Code list============" + orgCodelist);
 			LOG.debug("user Email list============" + userEmaillist);
 
@@ -157,15 +155,28 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 						codefound="codefound";	
 					}
 				}
-				if(!codefound.isEmpty())
-				{
-					if(!userEmaillist.isEmpty()){
+				if(!codefound.isEmpty()){
+					if(!orgEmailList.isEmpty()){
+						Iterator<OrganizationRegistration> iterator2 = orgEmailList.iterator();
+						while(iterator2.hasNext()) {
+							OrganizationRegistration orgReg = iterator2.next();
+							if(orgReg.getEmail().equalsIgnoreCase(uRegistration.getEmail())){
+								LOG.debug("user already registered in organization as a admin============");	
+								msg = "user already registered";
+								System.out.println("4");
+								flag = false;
+								break;
+							}
+						}
+					}
+
+					else if(!userEmaillist.isEmpty() && flag==true){
 						System.out.println("3");
 						Iterator<UserRegistration> iterator = userEmaillist.iterator();
 						while(iterator.hasNext()) {
 							UserRegistration uReg = iterator.next();
 							if(uReg.getEmail().equalsIgnoreCase(uRegistration.getEmail())){
-								LOG.debug("Repeated user email============");	
+								LOG.debug("Repeated user email under same organization ============");	
 								msg = "user already registered";
 								System.out.println("4");
 								flag = false;
@@ -300,18 +311,14 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 	@Transactional
 	public List<IdeasCategory> getOrganizationIdeasCategoryList(String OrgCode)throws AdminException{
 		List<IdeasCategory> list ;
-		List<IdeasCategory> newList = null;
 		try{
 			LOG.debug("ideamanagementDao============" + ideamanagementDAO);
 			list = ideamanagementDAO.getOrganizationIdeasCategoryList(OrgCode);
-			if (!list.isEmpty()) { 
-				newList = new ArrayList<IdeasCategory>(list);
-			}
 		}catch(Exception e) {
 			LOG.error(e.getMessage());
 			throw new AdminException(e.getMessage());
 		}
-		return newList;
+		return list;
 	}
 
 	@Transactional
@@ -375,8 +382,8 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 	}
 
 	@Transactional
-	public String getUserType(String email) throws AdminException {
-		String userType = ideamanagementDAO.getUserType(email);
+	public String getUserType(String email,String orgcode) throws AdminException {
+		String userType = ideamanagementDAO.getUserType(email,orgcode);
 		return userType;
 	}
 
@@ -440,15 +447,15 @@ public class IdeaManagementServiceImpl implements IdeaManagementService {
 			getChildComment(cp, level);
 			--level;
 		}
-		
+
 		return list;		
 	}
 
 	@Transactional
 	public boolean deleteIdea(String ideaId) throws AdminException {
-	return ideamanagementDAO.deleteIdea(ideaId);
+		return ideamanagementDAO.deleteIdea(ideaId);
 	} 
-	
+
 }
 
 
